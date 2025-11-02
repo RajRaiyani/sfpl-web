@@ -23,32 +23,34 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full bg-white border-t border-gray-100 py-12">
-      <div className="container mx-auto px-6">
+    <footer className="w-full bg-white border-t border-gray-100 py-8 sm:py-12">
+      <div className="container mx-auto px-4 sm:px-6">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
           {/* Company Info */}
-          <div className="space-y-4 col-span-2">
+          <div className="space-y-3 sm:space-y-4 sm:col-span-2 lg:col-span-2">
             <div className="flex items-center space-x-2">
               <Image
                 src="/logo-full-black.svg"
                 alt="SFPL"
-                width={100}
-                height={100}
+                width={80}
+                height={80}
+                className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24"
               />
             </div>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Specific Fire Protection Limited - Your trusted partner <br /> for
-              fire safety solutions.
+            <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+              Specific Fire Protection Limited - Your trusted partner{" "}
+              <br className="hidden sm:block" />
+              for fire safety solutions.
             </p>
-            <div className="flex space-x-3">
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               <Link
                 href="https://www.linkedin.com/in/specific-fire/"
                 target="_blank"
                 aria-label="LinkedIn"
                 className="p-2 bg-gray-100 hover:bg-primary hover:text-white text-gray-600 rounded-lg transition-all duration-200"
               >
-                <Linkedin className="w-4 h-4" />
+                <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
               </Link>
               <Link
                 href="https://www.instagram.com/specificfire"
@@ -56,7 +58,7 @@ export default function Footer() {
                 aria-label="Instagram"
                 className="p-2 bg-gray-100 hover:bg-primary hover:text-white text-gray-600 rounded-lg transition-all duration-200"
               >
-                <Instagram className="w-4 h-4" />
+                <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
               </Link>
               <Link
                 href="https://www.facebook.com/specific.fire"
@@ -64,7 +66,7 @@ export default function Footer() {
                 aria-label="Facebook"
                 className="p-2 bg-gray-100 hover:bg-primary hover:text-white text-gray-600 rounded-lg transition-all duration-200"
               >
-                <Facebook className="w-4 h-4" />
+                <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
               </Link>
               <Link
                 href="https://www.youtube.com/@SPECIFIC_FIRE"
@@ -72,124 +74,94 @@ export default function Footer() {
                 aria-label="YouTube"
                 className="p-2 bg-gray-100 hover:bg-primary hover:text-white text-gray-600 rounded-lg transition-all duration-200"
               >
-                <Youtube className="w-4 h-4" />
+                <Youtube className="w-4 h-4 sm:w-5 sm:h-5" />
               </Link>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-gray-900">Quick links</h3>
+          <div className="space-y-3 sm:space-y-4">
+            <h3 className="font-semibold text-sm sm:text-base text-gray-900">
+              Quick links
+            </h3>
             <div className="space-y-2">
               <Link
-                href="/#"
-                className={`block text-sm transition-colors ${
-                  isActive("/pricing")
+                href="/"
+                className={`block text-xs sm:text-sm transition-colors ${
+                  isActive("/")
                     ? "text-primary font-semibold"
                     : "text-gray-600 hover:text-red-600"
                 }`}
               >
-                Pricing
+                Home
               </Link>
               <Link
-                href="/#"
-                className={`block text-sm transition-colors ${
-                  isActive("/downloads")
+                href="/services"
+                className={`block text-xs sm:text-sm transition-colors ${
+                  isActive("/services")
                     ? "text-primary font-semibold"
                     : "text-gray-600 hover:text-red-600"
                 }`}
               >
-                Downloads
+                Services
               </Link>
               <Link
-                href="/#"
-                className={`block text-sm transition-colors ${
-                  isActive("/brochure")
+                href="/about"
+                className={`block text-xs sm:text-sm transition-colors ${
+                  isActive("/about")
                     ? "text-primary font-semibold"
                     : "text-gray-600 hover:text-red-600"
                 }`}
               >
-                Brochures
+                About Us
               </Link>
               <Link
-                href="/careers"
-                className={`block text-sm transition-colors ${
-                  isActive("/careers")
+                href="/contact"
+                className={`block text-xs sm:text-sm transition-colors ${
+                  isActive("/contact")
                     ? "text-primary font-semibold"
                     : "text-gray-600 hover:text-red-600"
                 }`}
               >
-                Careers
-              </Link>
-            </div>
-          </div>
-          <div className="space-y-4">
-            <h3 className="font-semibold text-gray-900">Policies</h3>
-            <div className="space-y-2">
-              <Link
-                href="/terms-conditions"
-                className={`block text-sm transition-colors ${
-                  isActive("/terms-conditions")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                Terms & Conditions
-              </Link>
-              <Link
-                href="/privacy"
-                className={`block text-sm transition-colors ${
-                  isActive("/privacy")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/return-refund"
-                className={`block text-sm transition-colors ${
-                  isActive("/return-refund")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                Return & Refund
-              </Link>
-              <Link
-                href="/order-shipping"
-                className={`block text-sm transition-colors ${
-                  isActive("/order-shipping")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                Order & Shipping
+                Contact Us
               </Link>
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {/* Contact Information */}
-            <div className="space-y-4">
-              <h3 className="font-semibold text-gray-900">Contact Us</h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <Phone className="h-4 w-4 text-red-600" />
+            <div className="space-y-3 sm:space-y-4">
+              <h3 className="font-semibold text-sm sm:text-base text-gray-900">
+                Contact Us
+              </h3>
+              <div className="space-y-2 sm:space-y-3">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 flex-shrink-0" />
                   <a
                     href="tel:+919512570090"
-                    className="text-sm text-gray-600 hover:text-red-600 transition-colors"
+                    className="text-xs sm:text-sm text-gray-600 hover:text-red-600 transition-colors break-words"
                   >
                     +91 9512570090
                   </a>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <Mail className="h-4 w-4 text-red-600" />
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 flex-shrink-0" />
                   <a
                     href="mailto:contact@specificfire.com"
-                    className="text-sm text-gray-600 hover:text-red-600 transition-colors"
+                    className="text-xs sm:text-sm text-gray-600 hover:text-red-600 transition-colors break-all"
                   >
                     contact@specificfire.com
+                  </a>
+                </div>
+                <div className="flex items-start space-x-2 sm:space-x-3">
+                  <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 mt-0.5 flex-shrink-0" />
+                  <a
+                    href="https://maps.app.goo.gl/2RYxPfe4o69tCfy69"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs sm:text-sm text-gray-600 hover:text-red-600 transition-colors break-words"
+                  >
+                    105, IIT Gandhinagar Research park, Gandhinagar, Gujarat
                   </a>
                 </div>
               </div>
@@ -200,33 +172,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-gray-100">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-sm text-gray-500">
+        <div className="pt-4 sm:pt-6 border-t border-gray-100">
+          <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center space-y-2 sm:space-y-0">
+            <p className="text-xs sm:text-sm text-gray-500 text-center sm:text-left">
               © 2023 Specific Fire Protection Limited. All rights reserved.
             </p>
-            <div className="flex space-x-6 text-sm text-gray-500">
-              <Link
-                href="/privacy"
-                className={`transition-colors ${
-                  isActive("/privacy")
-                    ? "text-primary font-semibold"
-                    : "hover:text-red-600"
-                }`}
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms-conditions"
-                className={`transition-colors ${
-                  isActive("/terms-conditions")
-                    ? "text-primary font-semibold"
-                    : "hover:text-red-600"
-                }`}
-              >
-                Terms of Service
-              </Link>
-            </div>
           </div>
         </div>
       </div>

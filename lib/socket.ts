@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client';
-import { serverDetails } from '@/config';
+import { serverDetails } from '@/config/vars';
 
 let socket: Socket | null = null;
 

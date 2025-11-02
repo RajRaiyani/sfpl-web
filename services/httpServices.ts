@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { serverDetails } from '../config';
+import { serverDetails } from '../config/vars';
 import { toast } from 'react-hot-toast';
 
 const axiosInstance = axios.create({

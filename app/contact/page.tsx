@@ -1,21 +1,63 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useContact } from "@/hooks/useContact";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import { Linkedin, Instagram, Facebook, Youtube } from "lucide-react";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import z from "zod";
+
+const contactFormSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Name is required")
+    .max(100, "Name must be less than 100 characters"),
+  email: z.string().min(1, "Email is required").email("Invalid email address"),
+  phone_number: z
+    .string()
+    .max(10, "Phone number must be at most 10 digits")
+    .regex(/^[0-9]*$/, "Phone number must contain only digits")
+    .min(10, "Phone number must be at least 10 digits"),
+  message: z
+    .string()
+    .min(1, "Message is required")
+    .max(1000, "Message must be less than 1000 characters"),
+});
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone_number: "",
-    message: "",
-  });
   const [isFormDisabled, setIsFormDisabled] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState("");
+  const [error, setError] = useState("");
 
-  const { sendContactMutation, isLoading, error } = useContact();
+  const form = useForm<z.infer<typeof contactFormSchema>>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone_number: "",
+      message: "",
+    },
+  });
+
+  const isLoading = form.formState.isSubmitting;
+
+  const updateTimeRemaining = (milliseconds: number) => {
+    const hours = Math.floor(milliseconds / (1000 * 60 * 60));
+    const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
+    setTimeRemaining(`${hours}h ${minutes}m ${seconds}s`);
+  };
 
   // Check localStorage on component mount
   useEffect(() => {
@@ -24,15 +66,15 @@ export default function Contact() {
       const lastTime = parseInt(lastSubmission);
       const now = Date.now();
       const timeDiff = now - lastTime;
-      const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+      const oneHour = 60 * 60 * 1000; // 1 hour in milliseconds
 
-      if (timeDiff < oneDay) {
+      if (timeDiff < oneHour) {
         setIsFormDisabled(true);
-        const remainingTime = oneDay - timeDiff;
+        const remainingTime = oneHour - timeDiff;
         updateTimeRemaining(remainingTime);
 
         const timer = setInterval(() => {
-          const currentRemaining = oneDay - (Date.now() - lastTime);
+          const currentRemaining = oneHour - (Date.now() - lastTime);
           if (currentRemaining <= 0) {
             setIsFormDisabled(false);
             setTimeRemaining("");
@@ -47,72 +89,58 @@ export default function Contact() {
     }
   }, []);
 
-  const updateTimeRemaining = (milliseconds: number) => {
-    const hours = Math.floor(milliseconds / (1000 * 60 * 60));
-    const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
-    setTimeRemaining(`${hours}h ${minutes}m ${seconds}s`);
-  };
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const onSubmit = async (data: z.infer<typeof contactFormSchema>) => {
     if (isFormDisabled) return;
 
-    sendContactMutation(
-      {
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-        phone_number: formData.phone_number,
-      },
-      {
-        onSuccess: () => {
-          localStorage.setItem(
-            "contactFormLastSubmission",
-            Date.now().toString()
-          );
-          setIsFormDisabled(true);
-          toast.success("Message sent successfully!");
+    setError("");
 
-          // Reset form
-          setFormData({
-            name: "",
-            email: "",
-            phone_number: "",
-            message: "",
-          });
-
-          // Start countdown timer
-          const oneDay = 24 * 60 * 60 * 1000;
-          const timer = setInterval(() => {
-            const lastSubmission = localStorage.getItem(
-              "contactFormLastSubmission"
-            );
-            if (lastSubmission) {
-              const lastTime = parseInt(lastSubmission);
-              const currentRemaining = oneDay - (Date.now() - lastTime);
-              if (currentRemaining <= 0) {
-                setIsFormDisabled(false);
-                setTimeRemaining("");
-                clearInterval(timer);
-              } else {
-                updateTimeRemaining(currentRemaining);
-              }
-            }
-          }, 1000);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify(data),
+      });
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        throw new Error(responseData.error || "Failed to send message");
       }
-    );
+
+      // Store submission time in localStorage
+      const submissionTime = Date.now();
+      localStorage.setItem(
+        "contactFormLastSubmission",
+        submissionTime.toString()
+      );
+
+      // Reset form
+      form.reset();
+
+      // Disable form and start timer
+      setIsFormDisabled(true);
+      const oneHour = 60 * 60 * 1000; // 1 hour in milliseconds
+      updateTimeRemaining(oneHour);
+
+      const timer = setInterval(() => {
+        const currentRemaining = oneHour - (Date.now() - submissionTime);
+        if (currentRemaining <= 0) {
+          setIsFormDisabled(false);
+          setTimeRemaining("");
+          localStorage.removeItem("contactFormLastSubmission");
+          clearInterval(timer);
+        } else {
+          updateTimeRemaining(currentRemaining);
+        }
+      }, 1000);
+
+      toast.success("Message sent successfully! We'll get back to you soon.");
+    } catch (err: any) {
+      setError(err.message || "Failed to send message. Please try again.");
+      toast.error(err.message || "Failed to send message. Please try again.");
+    }
   };
 
   return (
@@ -131,102 +159,128 @@ export default function Contact() {
         {/* Main Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
           {/* Contact Form */}
-          <form
-            onSubmit={handleSubmit}
-            className="bg-white rounded-2xl shadow-lg p-8 space-y-6"
-          >
-            <div>
-              <label className="block text-gray-700 font-semibold mb-2">
-                Name
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                placeholder="Your Name"
-                className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                required
-                disabled={isFormDisabled}
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700 font-semibold mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="you@email.com"
-                className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                required
-                disabled={isFormDisabled}
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700 font-semibold mb-2">
-                phone_number
-              </label>
-              <input
-                type="tel"
-                name="phone_number"
-                value={formData.phone_number}
-                onChange={handleInputChange}
-                maxLength={10}
-                placeholder="phone_number Number"
-                className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                disabled={isFormDisabled}
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700 font-semibold mb-2">
-                Message
-              </label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                placeholder="How can we help you?"
-                rows={4}
-                className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                required
-                disabled={isFormDisabled}
-              />
-            </div>
-
-            {isFormDisabled && timeRemaining && (
-              <div className="text-center text-sm text-gray-600 bg-gray-100 p-3 rounded-lg">
-                You can submit another message in:{" "}
-                <span className="font-semibold text-primary">
-                  {timeRemaining}
-                </span>
-              </div>
-            )}
-
-            {error && (
-              <div className="text-red-600 text-sm text-center bg-red-50 p-3 rounded-lg border border-red-200">
-                Failed to send message. Please try again.
-              </div>
-            )}
-
-            <button
-              type="submit"
-              disabled={isFormDisabled || isLoading}
-              className={`w-full font-bold py-3 rounded-lg shadow transition-colors text-lg ${
-                isFormDisabled
-                  ? "bg-gray-400 text-gray-600 cursor-not-allowed"
-                  : "bg-primary text-white hover:bg-primary/90"
-              }`}
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="bg-white rounded-2xl shadow-lg p-8 space-y-6"
             >
-              {isLoading
-                ? "Sending..."
-                : isFormDisabled
-                ? "Form Locked"
-                : "Send Message"}
-            </button>
-          </form>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-700 font-semibold">
+                      Name
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Your Name"
+                        className="h-12 p-4"
+                        disabled={isFormDisabled}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-700 font-semibold">
+                      Email
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        className="h-12 p-4"
+                        placeholder="you@email.com"
+                        disabled={isFormDisabled}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="phone_number"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-700 font-semibold">
+                      Phone Number
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        className="h-12 p-4"
+                        placeholder="Phone Number"
+                        maxLength={10}
+                        disabled={isFormDisabled}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="message"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-700 font-semibold">
+                      Message
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="How can we help you?"
+                        className="p-4 min-h-32"
+                        rows={4}
+                        disabled={isFormDisabled}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {isFormDisabled && timeRemaining && (
+                <div className="text-center text-sm text-gray-600 bg-gray-100 p-3 rounded-lg">
+                  You can submit another message in:{" "}
+                  <span className="font-semibold text-primary">
+                    {timeRemaining}
+                  </span>
+                </div>
+              )}
+
+              {error && (
+                <div className="text-red-600 text-sm text-center bg-red-50 p-3 rounded-lg border border-red-200">
+                  {error}
+                </div>
+              )}
+
+              <Button
+                type="submit"
+                disabled={isFormDisabled || isLoading}
+                className="w-full font-bold py-3 text-lg h-auto"
+                size="lg"
+              >
+                {isLoading
+                  ? "Sending..."
+                  : isFormDisabled
+                  ? "Form Locked"
+                  : "Send Message"}
+              </Button>
+            </form>
+          </Form>
 
           {/* Contact Info & Map */}
           <div className="space-y-8">
@@ -252,6 +306,17 @@ export default function Contact() {
                   >
                     {" "}
                     contact@specificfire.com
+                  </a>
+                </div>
+                <div>
+                  <span className="font-semibold">Address:</span>{" "}
+                  <a
+                    href="https://maps.app.goo.gl/2RYxPfe4o69tCfy69"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline ml-1"
+                  >
+                    105, IIT Gandhinagar Research park, Gandhinagar, Gujarat
                   </a>
                 </div>
               </div>
@@ -299,6 +364,22 @@ export default function Contact() {
                     <Youtube className="w-6 h-6 md:w-7 md:h-7" />
                   </a>
                 </div>
+              </div>
+            </div>
+
+            {/* Google Map */}
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+              <div className="w-full h-96">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1418.972465831769!2d72.69185555191294!3d23.218446112199185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1762102241210!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full h-full"
+                />
               </div>
             </div>
           </div>
