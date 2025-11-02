@@ -29,7 +29,7 @@ export default function Vision() {
             <li>
               Driven by our tagline:{" "}
               <span className="font-semibold text-red-600">
-                "Let&apos;s make FIRE safety India."
+                "Let&apos;s make FIRE safe India."
               </span>
             </li>
           </ul>
