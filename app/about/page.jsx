@@ -152,7 +152,7 @@ export default function About() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Company 1 */}
             <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 group flex flex-col justify-between">
               <div className="w-40 h-20 mx-auto mb-4 flex items-center justify-center">
@@ -221,29 +221,6 @@ export default function About() {
                 </p>
                 <p className="text-sm text-gray-500 font-medium">
                   February 1, 2024
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 group flex flex-col justify-between">
-              <div className="w-40 h-20 mx-auto mb-4 flex items-center justify-center">
-                <Image
-                  src="/firelynk_tech.jpeg"
-                  alt="Firelynk Tech Limited"
-                  width={280}
-                  height={80}
-                  className="object-contain rounded-lg"
-                />
-              </div>
-              <div className="text-center">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  Firelynk Tech Limited
-                </h3>
-                <p className="text-gray-600 text-sm mb-2">
-                  Manufacturing in advance fire safety solution.
-                </p>
-                <p className="text-sm text-gray-500 font-medium">
-                  August 1, 2025
                 </p>
               </div>
             </div>
