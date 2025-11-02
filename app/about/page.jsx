@@ -166,7 +166,7 @@ export default function About() {
               </div>
               <div className="text-center">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  Anupam <br /> Security
+                  Anupam Security
                 </h3>
                 <p className="text-gray-600 text-sm mb-2">
                   Integrated whole system using AI in one stop solution.
@@ -205,10 +205,10 @@ export default function About() {
             <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 group flex flex-col justify-between">
               <div className="w-40 h-20 mx-auto mb-4 flex items-center justify-center">
                 <Image
-                  src="/firelynk.jpeg"
+                  src="/images/about/firelynk_full_black_logo.png"
                   alt="Firelynk Protech Limited"
-                  width={280}
-                  height={80}
+                  width={380}
+                  height={100}
                   className="object-contain rounded-lg"
                 />
               </div>

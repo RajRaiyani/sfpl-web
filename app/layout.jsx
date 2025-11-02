@@ -22,6 +22,24 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <title>SFPL - Specific Fire Protection Limited</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          name="description"
+          content="SFPL - Specific Fire Protection Limited"
+        />
+        <meta
+          name="keywords"
+          content="SFPL, Specific Fire Protection Limited, Fire Safety, Fire Protection, Fire Extinguishers, Fire Safety Solutions"
+        />
+        <meta name="author" content="SFPL" />
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="google" content="notranslate" />
+        <meta name="google" content="notranslate" />
+        <link rel="icon" href="/fave.svg" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
