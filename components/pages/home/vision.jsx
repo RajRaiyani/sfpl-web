@@ -2,10 +2,10 @@ import Image from "next/image";
 
 export default function Vision() {
   return (
-    <section className="w-full bg-white my-10">
+    <section className="w-full bg-white my-20">
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
         {/* Left: Text */}
-        <div className="flex-1 max-w-xl">
+        <div className="flex-1 max-w-xl py-7">
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 relative inline-block">
             <span className="text-red-600">Vision</span>
             <span className="text-gray-800 ml-2">& Mission</span>
@@ -38,14 +38,13 @@ export default function Vision() {
             alongside our customers, partners, and stakeholders.
           </p>
         </div>
-        {/* Right: Image collage */}
-        <div className="flex-1 flex justify-center relative min-w-[320px]">
+        <div className="flex-1 h-full w-full flex justify-center relative min-w-[320px]">
           <Image
-            src="/images/home/vision-image.png"
+            src="/images/pages/home/about-graphic.png"
             alt="Vision"
-            width={320}
-            height={340}
-            className="relative w-2/3"
+            width={500}
+            height={500}
+            className="h-full"
           />
         </div>
       </div>

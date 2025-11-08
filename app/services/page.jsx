@@ -10,12 +10,14 @@ import {
   Shield,
   CheckCircle2,
 } from "lucide-react";
+import Image from "next/image";
 
 export default function Services() {
   const mainServices = [
     {
       icon: FileCheck,
       title: "Statutory Compliance, Auditing & Consultancy",
+      image: "/images/pages/service/fire-audit.png",
       services: [
         "Fire Safety Audit (FSA)",
         "Fire Risk Assessment (FRA)",
@@ -27,6 +29,7 @@ export default function Services() {
     {
       icon: DraftingCompass,
       title: "Design & Engineering",
+      image: "/images/pages/service/fire-planning.png",
       services: [
         "Risk Analysis",
         "Performance-Based Design (PBD)",
@@ -43,6 +46,7 @@ export default function Services() {
     {
       icon: ClipboardCheck,
       title: "Inspection, Testing, and Maintenance (ITM)",
+      image: "/images/pages/service/fire-testing.png",
       services: [
         "BIS, NBC, NFPA, Local State Regulation Standard Compliance",
         "Quarterly/Annual Inspection, Testing, and Maintenance (ITM)",
@@ -55,6 +59,7 @@ export default function Services() {
     {
       icon: Wrench,
       title: "System Installation & Commissioning",
+      image: "/images/pages/service/fire-system-installation.png",
       services: [
         "Commissioning",
         "System Acceptance Testing",
@@ -128,23 +133,32 @@ export default function Services() {
               return (
                 <div
                   key={index}
-                  className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 overflow-hidden"
+                  className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 overflow-hidden group"
                 >
-                  <div className="bg-gradient-to-r from-primary to-primary/90 p-6 text-white">
-                    <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                        <Icon className="w-8 h-8" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <ArrowRight className="w-5 h-5" />
-                          <h3 className="text-xl font-bold">{service.title}</h3>
-                        </div>
-                      </div>
+                  {/* Image Section */}
+                  <div className="relative h-64 bg-gray-50 overflow-hidden">
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    {/* Icon Badge */}
+                    <div className="absolute top-4 right-4 w-14 h-14 bg-white/95 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg z-20 group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="w-8 h-8 text-primary" />
                     </div>
                   </div>
 
+                  {/* Content Section */}
                   <div className="p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <ArrowRight className="w-5 h-5 text-primary" />
+                      <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors duration-300">
+                        {service.title}
+                      </h3>
+                    </div>
+
                     <ul className="space-y-3">
                       {service.services.map((item, itemIndex) => (
                         <li

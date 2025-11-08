@@ -16,7 +16,7 @@ export default function About() {
       {/* Hero Section */}
       <section className="relative w-full min-h-[500px] flex items-center justify-center overflow-hidden">
         <Image
-          src="https://kaarwan.s3.amazonaws.com/public/blog/media/fire_protection_systems_c63098698.jpeg"
+          src="/images/pages/about/about-hero.png"
           alt="About SFPL Fire Safety"
           fill
           className="object-cover object-center z-0"
@@ -79,13 +79,12 @@ export default function About() {
               </div>
             </div>
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-3xl transform rotate-3"></div>
               <Image
-                src="/images/home/vision-image.png"
+                src="/images/pages/home/about-graphic.png"
                 alt="SFPL Fire Safety Solutions"
                 width={500}
                 height={400}
-                className="relative rounded-3xl shadow-2xl"
+                className="relative"
               />
             </div>
           </div>
