@@ -204,7 +204,7 @@ export default function About() {
             <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 group flex flex-col justify-between">
               <div className="w-40 h-20 mx-auto mb-4 flex items-center justify-center">
                 <Image
-                  src="/images/about/firelynk_full_black_logo.png"
+                  src="/images/pages/about/firelynk_full_black_logo.png"
                   alt="Firelynk Protech Limited"
                   width={380}
                   height={100}
