@@ -260,24 +260,22 @@ export default function Services() {
 
               <div className="relative z-10 space-y-6">
                 {/* Contact Information */}
-                <div className="flex gap-4 justify-center">
-                  <div className="text-lg md:text-xl">
-                    <a
-                      href="tel:+919512570090"
-                      className="hover:text-red-500 transition-colors"
-                    >
-                      +91 9512570090
-                    </a>
-                  </div>
-                  <span className="text-lg md:text-xl opacity-70">|</span>
-                  <div className="text-lg md:text-xl">
-                    <a
-                      href="mailto:contact@specificfire.com"
-                      className="hover:text-red-500 transition-colors"
-                    >
-                      contact@specificfire.com
-                    </a>
-                  </div>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center">
+                  <a
+                    href="tel:+919512570090"
+                    className="text-base sm:text-lg md:text-xl hover:text-red-500 transition-colors text-center sm:text-left"
+                  >
+                    +91 9512570090
+                  </a>
+                  <span className="hidden sm:inline text-lg md:text-xl opacity-70">
+                    |
+                  </span>
+                  <a
+                    href="mailto:contact@specificfire.com"
+                    className="text-base sm:text-lg md:text-xl hover:text-red-500 transition-colors text-center sm:text-left break-all"
+                  >
+                    contact@specificfire.com
+                  </a>
                 </div>
 
                 {/* Separator */}
