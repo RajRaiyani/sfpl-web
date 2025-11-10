@@ -33,9 +33,9 @@ export default function Footer() {
               <Image
                 src="/logo-full-black.svg"
                 alt="SFPL"
-                width={80}
-                height={80}
-                className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24"
+                width={200}
+                height={200}
+                className="w-36 sm:w-36 md:w-44 h-auto"
               />
             </div>
             <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">

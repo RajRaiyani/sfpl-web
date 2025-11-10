@@ -27,8 +27,13 @@ export default function Clients() {
   return (
     <section className="w-full bg-white py-16 md:py-24">
       <div className="container mx-auto px-4 space-y-10">
-
-        <h2 className="text-2xl font-bold text-center">Our Clients</h2>
+        <div className="text-center mb-4">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 relative inline-block">
+            <span className="text-gray-800 ml-2">Our</span>&nbsp;
+            <span className="text-red-600">Clients</span>
+            <span className="block h-1 w-16 bg-red-600 mt-2 rounded ms-auto"></span>
+          </h2>
+        </div>
 
         <div className="flex items-center gap-7 overflow-hidden text-muted-foreground">
           <div className="technology-ticker-section-left flex gap-7 flex-nowrap whitespace-nowrap shrink-0 h-fit">
@@ -90,8 +95,6 @@ export default function Clients() {
             ))}
           </div>
         </div>
-
-
       </div>
     </section>
   );
