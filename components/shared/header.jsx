@@ -27,7 +27,9 @@ export default function Header() {
   const navigationItems = [
     { href: "/", label: "Home" },
     { href: "/services", label: "Services" },
+    { href: "/tech", label: "Tech" },
     { href: "/about", label: "About Us" },
+    { href: "/jobs", label: "Careers" },
   ];
 
   return (

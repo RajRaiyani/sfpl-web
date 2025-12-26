@@ -106,6 +106,16 @@ export default function Footer() {
                 Services
               </Link>
               <Link
+                href="/tech"
+                className={`block text-xs sm:text-sm transition-colors ${
+                  isActive("/tech")
+                    ? "text-primary font-semibold"
+                    : "text-gray-600 hover:text-red-600"
+                }`}
+              >
+                Tech
+              </Link>
+              <Link
                 href="/about"
                 className={`block text-xs sm:text-sm transition-colors ${
                   isActive("/about")
@@ -114,6 +124,16 @@ export default function Footer() {
                 }`}
               >
                 About Us
+              </Link>
+              <Link
+                href="/jobs"
+                className={`block text-xs sm:text-sm transition-colors ${
+                  isActive("/jobs")
+                    ? "text-primary font-semibold"
+                    : "text-gray-600 hover:text-red-600"
+                }`}
+              >
+                Careers
               </Link>
               <Link
                 href="/contact"
