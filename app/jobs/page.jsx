@@ -75,7 +75,7 @@ export default function Jobs() {
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
                       {job.title === "Full Stack Software Engineer" && (
-                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                        <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center">
                           <Code className="w-6 h-6 text-white" />
                         </div>
                       )}

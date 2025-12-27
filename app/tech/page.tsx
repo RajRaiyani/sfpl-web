@@ -9,14 +9,12 @@ import {
   Zap,
   Globe,
   BarChart3,
-  Bell,
   CheckCircle2,
   ArrowRight,
   Cpu,
   Radio,
   Eye,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Tech() {
@@ -202,15 +200,18 @@ export default function Tech() {
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
               <Zap className="w-5 h-5" />
-              <span className="text-sm font-medium">Innovation in Fire Safety</span>
+              <span className="text-sm font-medium">
+                Innovation in Fire Safety
+              </span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6">
               Digital & IoT Solutions
               <span className="block mt-2">for Fire Prevention</span>
             </h1>
             <p className="text-lg md:text-xl text-red-50 max-w-3xl mx-auto leading-relaxed">
-              Harnessing the power of IoT sensors, cloud computing, and artificial
-              intelligence to prevent fires and save lives before emergencies occur.
+              Harnessing the power of IoT sensors, cloud computing, and
+              artificial intelligence to prevent fires and save lives before
+              emergencies occur.
             </p>
           </div>
         </div>
@@ -224,8 +225,8 @@ export default function Tech() {
               How We Prevent Fires & Save Lives
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Our technology-driven approach ensures early detection, rapid response,
-              and continuous protection
+              Our technology-driven approach ensures early detection, rapid
+              response, and continuous protection
             </p>
           </div>
 
@@ -298,7 +299,9 @@ export default function Tech() {
                           className="flex items-start gap-3 text-gray-700"
                         >
                           <CheckCircle2 className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm leading-relaxed">{feature}</span>
+                          <span className="text-sm leading-relaxed">
+                            {feature}
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -314,9 +317,9 @@ export default function Tech() {
       <div className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-blue-100 px-4 py-2 rounded-full mb-4">
-              <Cloud className="w-5 h-5 text-blue-600" />
-              <span className="text-sm font-semibold text-blue-600">
+            <div className="inline-flex items-center gap-2 bg-red-100 px-4 py-2 rounded-full mb-4">
+              <Cloud className="w-5 h-5 text-red-600" />
+              <span className="text-sm font-semibold text-red-600">
                 Cloud Platform
               </span>
             </div>
@@ -335,31 +338,45 @@ export default function Tech() {
               return (
                 <div
                   key={index}
-                  className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 overflow-hidden group"
+                  className="relative bg-gradient-to-br from-white to-red-50/30 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-red-100 overflow-hidden group"
                 >
-                  <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-6 text-white">
-                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <Icon className="w-8 h-8" />
+                  {/* Decorative background element */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-500/10 to-transparent rounded-bl-full opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+
+                  {/* Icon Badge */}
+                  <div className="relative p-6 pb-4">
+                    <div className="w-20 h-20 bg-gradient-to-br from-red-600 to-red-700 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 mb-4">
+                      <Icon className="w-10 h-10 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold mb-2">{solution.title}</h3>
-                    <p className="text-blue-50 text-sm leading-relaxed">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-700 transition-colors">
+                      {solution.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">
                       {solution.description}
                     </p>
                   </div>
 
-                  <div className="p-6">
-                    <ul className="space-y-3">
+                  {/* Features List */}
+                  <div className="px-6 pb-6">
+                    <ul className="space-y-2.5">
                       {solution.features.map((feature, featureIndex) => (
                         <li
                           key={featureIndex}
-                          className="flex items-start gap-3 text-gray-700"
+                          className="flex items-start gap-3 text-gray-700 group/item"
                         >
-                          <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm leading-relaxed">{feature}</span>
+                          <div className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover/item:bg-red-600 transition-colors">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-red-600 group-hover/item:text-white transition-colors" />
+                          </div>
+                          <span className="text-sm leading-relaxed">
+                            {feature}
+                          </span>
                         </li>
                       ))}
                     </ul>
                   </div>
+
+                  {/* Bottom accent line */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 via-red-500 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               );
             })}
@@ -393,7 +410,9 @@ export default function Tech() {
                   <h3 className="text-xl font-bold text-gray-900 mb-3 mt-4">
                     {step.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                  <p className="text-gray-600 leading-relaxed">
+                    {step.description}
+                  </p>
                 </div>
               ))}
             </div>
@@ -428,11 +447,11 @@ export default function Tech() {
                   </h2>
                 </div>
                 <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-                  Our IoT and cloud solutions integrate seamlessly with your existing
-                  fire safety infrastructure. Whether you have traditional fire alarm
-                  systems, sprinklers, or suppression systems, our technology enhances
-                  and extends their capabilities with smart monitoring and automated
-                  responses.
+                  Our IoT and cloud solutions integrate seamlessly with your
+                  existing fire safety infrastructure. Whether you have
+                  traditional fire alarm systems, sprinklers, or suppression
+                  systems, our technology enhances and extends their
+                  capabilities with smart monitoring and automated responses.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                   <div className="flex items-center gap-3">
@@ -469,9 +488,9 @@ export default function Tech() {
                   Ready to Transform Your Fire Safety?
                 </h2>
                 <p className="text-md md:text-lg opacity-90 leading-relaxed">
-                  Discover how our IoT and cloud solutions can prevent fires and save
-                  lives. Schedule a consultation to see how we can integrate smart
-                  technology into your fire safety strategy.
+                  Discover how our IoT and cloud solutions can prevent fires and
+                  save lives. Schedule a consultation to see how we can
+                  integrate smart technology into your fire safety strategy.
                 </p>
               </div>
 
@@ -539,4 +558,3 @@ export default function Tech() {
     </section>
   );
 }
-
