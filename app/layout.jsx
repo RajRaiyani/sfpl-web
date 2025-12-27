@@ -3,6 +3,7 @@ import Header from "@/components/shared/header";
 import "./globals.css";
 import Footer from "@/components/shared/footer";
 import { Toaster } from "react-hot-toast";
+import CustomCursor from "@/components/shared/CustomCursor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,8 +42,9 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/fave.svg" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased cursor-none`}
       >
+        <CustomCursor />
         <Header />
         {children}
         <Footer />

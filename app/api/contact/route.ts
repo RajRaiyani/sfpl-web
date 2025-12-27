@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import vars from "@/config/vars";
+import env from "@/config/env";
 
 export async function POST(request: NextRequest) {
   try {
@@ -26,19 +26,19 @@ export async function POST(request: NextRequest) {
 
     // Create transporter
     const transporter = nodemailer.createTransport({
-      host: vars.smtp.host,
-      port: Number(vars.smtp.port),
-      secure: Number(vars.smtp.port) === 465, // true for 465, false for other ports
+      host: env.smtp.host,
+      port: Number(env.smtp.port),
+      secure: Number(env.smtp.port) === 465, // true for 465, false for other ports
       auth: {
-        user: vars.smtp.user,
-        pass: vars.smtp.pass,
+        user: env.smtp.user,
+        pass: env.smtp.pass,
       },
     });
 
     // Email content
     const mailOptions = {
-      from: vars.smtp.user,
-      to: "er.nikhilbhalara@gmail.com",
+      from: env.smtp.user,
+      to: env.env === "dev" ? env.developerEmail : env.primarySalesEmail,
       subject: `New Contact Form Submission from ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

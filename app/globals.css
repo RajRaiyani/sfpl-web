@@ -121,4 +121,19 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Hide default cursor when custom cursor is active */
+  html.cursor-none {
+    cursor: none;
+  }
+
+  /* Ensure custom cursor works on all elements */
+  html.cursor-none * {
+    cursor: none !important;
+  }
+
+  a:hover {
+    cursor: none !important;
+  }
+
 }
