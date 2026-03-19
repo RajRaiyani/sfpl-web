@@ -96,6 +96,16 @@ export default function Footer() {
                 Home
               </Link>
               <Link
+                href="/connect"
+                className={`block text-xs sm:text-sm transition-colors ${
+                  isActive("/connect")
+                    ? "text-primary font-semibold"
+                    : "text-gray-600 hover:text-red-600"
+                }`}
+              >
+                SFPL Connect
+              </Link>
+              <Link
                 href="/services"
                 className={`block text-xs sm:text-sm transition-colors ${
                   isActive("/services")
@@ -115,6 +125,7 @@ export default function Footer() {
               >
                 Tech
               </Link>
+
               <Link
                 href="/about"
                 className={`block text-xs sm:text-sm transition-colors ${
