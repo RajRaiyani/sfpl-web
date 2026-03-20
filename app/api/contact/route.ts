@@ -5,12 +5,21 @@ import env from "@/config/env";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone_number, message } = body;
+    const { name, email, phone_number, message, form_type } = body;
+
+    const isEnquiry = form_type === "enquiry";
 
     // Validate required fields
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: "Name, email, and message are required" },
+        { status: 400 }
+      );
+    }
+
+    if (isEnquiry && !phone_number) {
+      return NextResponse.json(
+        { error: "Phone number is required for enquiries" },
         { status: 400 }
       );
     }
@@ -36,15 +45,32 @@ export async function POST(request: NextRequest) {
     });
 
     // Email content
+    const subject = isEnquiry
+      ? `New Enquiry For SFPL connect`
+      : `New Contact Form Submission from ${name}`;
+
+    const formHeading = isEnquiry
+      ? "New Enquiry Form Submission"
+      : "New Contact Form Submission";
+
+    const formTypeLine = isEnquiry ? "This is enquiry." : "This is contact form.";
+
+    const formFooterLine = isEnquiry
+      ? "This email was sent from the SFPL website enquiry form."
+      : "This email was sent from the SFPL website contact form.";
+
     const mailOptions = {
       from: env.smtp.user,
       to: env.env === "dev" ? env.developerEmail : env.primarySalesEmail,
-      subject: `New Contact Form Submission from ${name}`,
+      subject,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">
-            New Contact Form Submission
+            ${formHeading}
           </h2>
+          <div style="margin-top: 10px;">
+            <p style="color: #666; margin: 0 0 10px 0;"><strong>${formTypeLine}</strong></p>
+          </div>
           <div style="margin-top: 20px;">
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Email:</strong> ${email}</p>
@@ -55,16 +81,18 @@ export async function POST(request: NextRequest) {
             </div>
           </div>
           <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 12px;">
-            <p>This email was sent from the SFPL website contact form.</p>
+            <p>${formFooterLine}</p>
           </div>
         </div>
       `,
       text: `
-        New Contact Form Submission
+        ${formHeading}
         
         Name: ${name}
         Email: ${email}
         ${phone_number ? `Phone Number: ${phone_number}` : ""}
+        
+        ${formTypeLine}
         
         Message:
         ${message}
