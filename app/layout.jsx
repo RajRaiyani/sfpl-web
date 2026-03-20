@@ -19,10 +19,6 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://specificfire.com";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-  },
   title: {
     default: "SFPL",
     template: "%s | SFPL",
@@ -59,6 +55,11 @@ export const metadata = {
     card: "summary_large_image",
     images: ["/logo-full-black.svg"],
   },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }) {
