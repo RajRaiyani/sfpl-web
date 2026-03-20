@@ -12,6 +12,15 @@ import {
   CheckCircle2,
   Briefcase,
 } from "lucide-react";
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata = buildPageMetadata({
+  title: "Careers | Join SFPL | SFPL",
+  description:
+    "We're always looking for passionate people to join us in making the world safer through innovative technology and fire safety solutions.",
+  path: "/jobs",
+  image: "/logo-full-black.svg",
+});
 
 const jobs = [
   {

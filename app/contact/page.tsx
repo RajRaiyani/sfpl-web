@@ -17,6 +17,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import z from "zod";
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata = buildPageMetadata({
+  title: "Contact SFPL | Specific Fire Protection Limited",
+  description:
+    "Have questions or need a fire safety solution? Reach out to SFPL's expert team for help with protecting what matters most.",
+  path: "/contact",
+  image: "/logo-full-black.svg",
+});
 
 const contactFormSchema = z.object({
   name: z

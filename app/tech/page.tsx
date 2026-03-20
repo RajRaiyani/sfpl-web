@@ -16,6 +16,15 @@ import {
   Eye,
 } from "lucide-react";
 import Link from "next/link";
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata = buildPageMetadata({
+  title: "Digital & IoT Solutions for Fire Prevention | SFPL",
+  description:
+    "Harnessing IoT sensors, cloud computing, and AI to prevent fires and save lives before emergencies occur.",
+  path: "/tech",
+  image: "/logo-full-black.svg",
+});
 
 export default function Tech() {
   const iotSolutions = [

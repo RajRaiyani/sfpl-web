@@ -21,12 +21,15 @@ import Link from "next/link";
 import Image from "next/image";
 import HowItWorksSteps from "@/components/connect/HowItWorksSteps";
 import CloudPlatformShowcase from "@/components/connect/CloudPlatformShowcase";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "SFPL Connect | IoT Monitoring & Real-Time Dashboard",
   description:
     "SFPL Connect - IoT devices with multi-pin input, real-time admin portal, live monitoring dashboards, integrated map, custom calibration and alerts. Highly modular and customizable.",
-};
+  path: "/connect",
+  image: "/images/pages/connect/banner1.png",
+});
 
 export default function Product() {
   const cloudFeatures = [

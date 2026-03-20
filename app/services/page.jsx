@@ -12,6 +12,15 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata = buildPageMetadata({
+  title: "Fire Safety Services | SFPL",
+  description:
+    "Comprehensive fire protection solutions designed to keep you safe, from compliance and design to installation and maintenance.",
+  path: "/services",
+  image: "/images/pages/service/fire-audit.png",
+});
 
 export default function Services() {
   const mainServices = [

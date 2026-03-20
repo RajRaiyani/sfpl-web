@@ -9,6 +9,15 @@ import {
   Award,
   Star,
 } from "lucide-react";
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata = buildPageMetadata({
+  title: "About SFPL | Specific Fire Protection Limited",
+  description:
+    "Leading the way in fire safety innovation and protection across India. Specific Fire Protection Limited (SFPL) delivers reliable fire safety solutions that meet international standards.",
+  path: "/about",
+  image: "/images/pages/about/about-hero.png",
+});
 
 export default function About() {
   return (
