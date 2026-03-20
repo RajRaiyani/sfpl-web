@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useCookies } from "react-cookie";
 import {
   Sheet,
   SheetContent,
@@ -16,6 +17,9 @@ import { Menu } from "lucide-react";
 export default function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [cookies] = useCookies(["token", "user"]);
+
+  console.log("cookies", cookies);
 
   const isActive = (path) => {
     if (path === "/") {

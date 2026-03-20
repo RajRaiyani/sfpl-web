@@ -3,7 +3,6 @@ import Services from "@/components/pages/home/services";
 import Clients from "@/components/pages/home/clients";
 import Vision from "@/components/pages/home/vision";
 import "@/components/pages/home/style.css";
-import Contact from "@/components/pages/home/contact";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
