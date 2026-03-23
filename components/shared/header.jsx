@@ -64,10 +64,7 @@ export default function Header() {
 
     return () => {
       window.clearInterval(intervalId);
-      document.removeEventListener(
-        "visibilitychange",
-        handleVisibilityChange
-      );
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("focus", syncFromCookies);
     };
   }, [cookiesApi]);
@@ -84,11 +81,7 @@ export default function Header() {
       .replace(/\/:(\d+)/, ":$1")
       .replace(/\/$/, "");
 
-    const cleanedPath = path
-      ? path.startsWith("/")
-        ? path
-        : `/${path}`
-      : "";
+    const cleanedPath = path ? (path.startsWith("/") ? path : `/${path}`) : "";
 
     return `${base}${cleanedPath}`;
   };
@@ -173,43 +166,47 @@ export default function Header() {
         </nav>
         {/* Desktop Actions */}
         <div className="hidden md:block">
-          {token ? (
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <div
-                  className="h-9 w-9 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold text-sm overflow-hidden"
-                  aria-hidden="true"
+          <div className="flex items-center gap-2">
+            <Link href="/contact">
+              <Button variant="default">Contact</Button>
+            </Link>
+            {token ? (
+              <div className="flex items-center gap-5">
+                <a
+                  href={dashboardHref}
+                  aria-label="Dashboard"
+                  className="hover:text-primary"
                 >
-                  {avatarSrc ? (
-                    // Using <img> to avoid Next Image domain config requirements.
-                    <img
-                      src={avatarSrc}
-                      alt=""
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <span>{avatarFallbackLetter}</span>
-                  )}
+                  <div size="sm">Dashboard</div>
+                </a>
+                <div className="flex items-center gap-2 rounded-full bg-primary/5 px-3 py-1.5 ring-1 ring-primary/20">
+                  <div
+                    className="h-9 w-9 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold text-sm overflow-hidden"
+                    aria-hidden="true"
+                  >
+                    {avatarSrc ? (
+                      // Using <img> to avoid Next Image domain config requirements.
+                      <img
+                        src={avatarSrc}
+                        alt=""
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span>{avatarFallbackLetter}</span>
+                    )}
+                  </div>
+                  <span className="text-sm font-semibold text-gray-900 truncate max-w-[160px]">
+                    {userName}
+                  </span>
                 </div>
-                <span className="text-sm font-semibold text-gray-900">
-                  {userName}
-                </span>
               </div>
-              <a href={dashboardHref} aria-label="Dashboard">
-                <Button>Dashboard</Button>
-              </a>
-            </div>
-          ) : (
-            <div className="flex items-center gap-2">
+            ) : (
               <a href={loginHref}>
-                <Button variant="outline">Login</Button>
+                <Button variant="outline">Login / Register</Button>
               </a>
-              <a href={registerHref}>
-                <Button>Register</Button>
-              </a>
-            </div>
-          )}
+            )}
+          </div>
         </div>
         {/* Mobile Menu */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
