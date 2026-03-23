@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { useCookies } from "react-cookie";
+import { Cookies } from "react-cookie";
 import {
   Sheet,
   SheetContent,
@@ -17,9 +17,113 @@ import { Menu } from "lucide-react";
 export default function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [cookies] = useCookies(["token", "user"]);
+  const cookiesApi = useMemo(() => new Cookies(), []);
+  const [cookieState, setCookieState] = useState({
+    token: undefined,
+    rawUser: undefined,
+  });
 
-  console.log("cookies", cookies);
+  useEffect(() => {
+    const getUserFingerprint = (user) => {
+      if (user === undefined || user === null) return String(user);
+      if (typeof user === "string") return `str:${user}`;
+      try {
+        return `obj:${JSON.stringify(user)}`;
+      } catch {
+        return `obj:${String(user)}`;
+      }
+    };
+
+    const syncFromCookies = () => {
+      const nextToken = cookiesApi.get("token");
+      const nextRawUser = cookiesApi.get("user");
+
+      setCookieState((prev) => {
+        const prevUserFp = getUserFingerprint(prev.rawUser);
+        const nextUserFp = getUserFingerprint(nextRawUser);
+
+        if (prev.token === nextToken && prevUserFp === nextUserFp) {
+          return prev;
+        }
+
+        return { token: nextToken, rawUser: nextRawUser };
+      });
+    };
+
+    syncFromCookies();
+    const intervalId = window.setInterval(syncFromCookies, 1000);
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        syncFromCookies();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("focus", syncFromCookies);
+
+    return () => {
+      window.clearInterval(intervalId);
+      document.removeEventListener(
+        "visibilitychange",
+        handleVisibilityChange
+      );
+      window.removeEventListener("focus", syncFromCookies);
+    };
+  }, [cookiesApi]);
+
+  const token = cookieState.token;
+  const rawUser = cookieState.rawUser;
+
+  const connectBaseUrl = process.env.NEXT_PUBLIC_CONNECT_SITE_URL;
+  const buildConnectUrl = (path = "") => {
+    if (!connectBaseUrl) return "";
+
+    // Helps if someone configured `http://host/:5174` instead of `http://host:5174`
+    const base = String(connectBaseUrl)
+      .replace(/\/:(\d+)/, ":$1")
+      .replace(/\/$/, "");
+
+    const cleanedPath = path
+      ? path.startsWith("/")
+        ? path
+        : `/${path}`
+      : "";
+
+    return `${base}${cleanedPath}`;
+  };
+
+  const dashboardHref = connectBaseUrl ? buildConnectUrl("") : "/connect";
+  const loginHref = connectBaseUrl ? buildConnectUrl("/login") : "/login";
+  const registerHref = connectBaseUrl
+    ? buildConnectUrl("/register")
+    : "/register";
+
+  const userName =
+    typeof rawUser === "string"
+      ? rawUser
+      : rawUser?.name ||
+        rawUser?.full_name ||
+        rawUser?.user_name ||
+        rawUser?.email?.split("@")?.[0] ||
+        "User";
+
+  const avatarSrc =
+    typeof rawUser === "string"
+      ? undefined
+      : rawUser?.avatar_url ||
+        rawUser?.avatar ||
+        rawUser?.profile_picture ||
+        rawUser?.profileImage ||
+        rawUser?.image ||
+        rawUser?.picture ||
+        rawUser?.photo_url ||
+        undefined;
+
+  const avatarFallbackLetter = useMemo(() => {
+    const s = String(userName || "").trim();
+    return s ? s[0].toUpperCase() : "U";
+  }, [userName]);
 
   const isActive = (path) => {
     if (path === "/") {
@@ -69,9 +173,43 @@ export default function Header() {
         </nav>
         {/* Desktop Actions */}
         <div className="hidden md:block">
-          <Link href="/contact">
-            <Button>Contact us</Button>
-          </Link>
+          {token ? (
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <div
+                  className="h-9 w-9 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold text-sm overflow-hidden"
+                  aria-hidden="true"
+                >
+                  {avatarSrc ? (
+                    // Using <img> to avoid Next Image domain config requirements.
+                    <img
+                      src={avatarSrc}
+                      alt=""
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <span>{avatarFallbackLetter}</span>
+                  )}
+                </div>
+                <span className="text-sm font-semibold text-gray-900">
+                  {userName}
+                </span>
+              </div>
+              <a href={dashboardHref} aria-label="Dashboard">
+                <Button>Dashboard</Button>
+              </a>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <a href={loginHref}>
+                <Button variant="outline">Login</Button>
+              </a>
+              <a href={registerHref}>
+                <Button>Register</Button>
+              </a>
+            </div>
+          )}
         </div>
         {/* Mobile Menu */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -118,13 +256,54 @@ export default function Header() {
                 </SheetClose>
               ))}
               {/* Contact Button */}
-              <SheetClose asChild>
-                <Link href="/contact" className="mt-2">
-                  <Button className="w-full" size="lg">
-                    Contact us
-                  </Button>
-                </Link>
-              </SheetClose>
+              {token ? (
+                <div className="mt-2 space-y-2">
+                  <div className="flex items-center gap-2 px-1">
+                    <div
+                      className="h-9 w-9 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold text-sm overflow-hidden"
+                      aria-hidden="true"
+                    >
+                      {avatarSrc ? (
+                        <img
+                          src={avatarSrc}
+                          alt=""
+                          className="h-full w-full object-cover"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <span>{avatarFallbackLetter}</span>
+                      )}
+                    </div>
+                    <div className="text-sm font-semibold text-gray-900">
+                      {userName}
+                    </div>
+                  </div>
+                  <SheetClose asChild>
+                    <a href={dashboardHref}>
+                      <Button className="w-full" size="lg">
+                        Dashboard
+                      </Button>
+                    </a>
+                  </SheetClose>
+                </div>
+              ) : (
+                <div className="mt-2 flex gap-2">
+                  <SheetClose asChild>
+                    <a href={loginHref} className="w-1/2">
+                      <Button className="w-full" variant="outline" size="lg">
+                        Login
+                      </Button>
+                    </a>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <a href={registerHref} className="w-1/2">
+                      <Button className="w-full" size="lg">
+                        Register
+                      </Button>
+                    </a>
+                  </SheetClose>
+                </div>
+              )}
             </nav>
           </SheetContent>
         </Sheet>
