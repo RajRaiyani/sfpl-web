@@ -21,6 +21,7 @@ import Link from "next/link";
 import Image from "next/image";
 import HowItWorksSteps from "@/components/connect/HowItWorksSteps";
 import CloudPlatformShowcase from "@/components/connect/CloudPlatformShowcase";
+import EnquiryForm from "@/components/connect/EnquiryForm";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
@@ -320,7 +321,7 @@ export default function Product() {
                     <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0">
                       <Zap className="w-5 h-5 text-amber-600" />
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1">
                         <p className="font-bold text-gray-900 text-sm">
                           AC Voltage Input
@@ -786,8 +787,8 @@ export default function Product() {
                   }}
                 />
                 <div className="relative px-8 sm:px-10 py-10 sm:py-12">
-                  <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-                    <div>
+                  <div className="flex flex-col lg:flex-row lg:items-start gap-8">
+                    <div className="flex-1">
                       <div className="flex items-center gap-3 mb-5">
                         <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center shadow-lg shadow-red-900/30">
                           <Send className="w-5 h-5 text-white" />
@@ -805,10 +806,9 @@ export default function Product() {
                         recommend the right device configuration and set you up
                         with a live portal walkthrough.
                       </p>
-                    </div>
 
-                    <div className="flex flex-col items-start lg:items-end gap-4">
-                      <div className="flex flex-wrap gap-2">
+                      {/* Response / Setup / Scale blocks */}
+                      <div className="mt-6 flex flex-wrap gap-2">
                         {[
                           { k: "Response", v: "≤ 1 business day" },
                           { k: "Setup", v: "Guided onboarding" },
@@ -827,15 +827,12 @@ export default function Product() {
                           </div>
                         ))}
                       </div>
+                    </div>
 
-                      <Link
-                        href="/contact"
-                        className="relative inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-extrabold py-4 sm:py-5 px-7 sm:px-10 rounded-2xl transition-all duration-200 text-base sm:text-lg w-full  hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-300 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
-                      >
-                        <span className="absolute inset-0 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-200 pointer-events-none bg-[radial-gradient(ellipse_at_top,#ffffff2a,transparent_55%)]" />
-                        Inquiry now
-                        <ArrowRight className="w-5 h-5" />
-                      </Link>
+                    <div className="flex-1 min-w-0 flex flex-col items-start lg:items-stretch gap-4 w-full">
+                      <div className="w-full">
+                        <EnquiryForm />
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/shared/footer";
 import { Toaster } from "react-hot-toast";
 import CustomCursor from "@/components/shared/CustomCursor";
+import ProviderContext from "@/components/context/provider.context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,41 +63,47 @@ export const viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased cursor-none`}
       >
-        <CustomCursor />
-        <Header />
-        {children}
-        <Footer />
+        <ProviderContext>
+          <CustomCursor />
+          <Header />
+          {children}
+          <Footer />
 
-        <Toaster
-          position="top-center"
-          toastOptions={{
-            duration: 4000,
-            style: {
-              background: "#363636",
-              color: "#fff",
-            },
-            success: {
-              duration: 3000,
-              iconTheme: {
-                primary: "#10b981",
-                secondary: "#fff",
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: "#363636",
+                color: "#fff",
               },
-            },
-            error: {
-              duration: 5000,
-              iconTheme: {
-                primary: "#ef4444",
-                secondary: "#fff",
+              success: {
+                duration: 3000,
+                iconTheme: {
+                  primary: "#10b981",
+                  secondary: "#fff",
+                },
               },
-            },
-          }}
-        />
+              error: {
+                duration: 5000,
+                iconTheme: {
+                  primary: "#ef4444",
+                  secondary: "#fff",
+                },
+              },
+            }}
+          />
+        </ProviderContext>
       </body>
     </html>
   );
