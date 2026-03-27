@@ -311,7 +311,19 @@ export default function ContactClient() {
                   </a>
                 </div>
                 <div>
-                  <span className="font-semibold">Address:</span>{" "}
+                  <span className="font-semibold">Address (HQ):</span>{" "}
+                  <a
+                    href="https://maps.app.goo.gl/rFC89FrPRnd9196g9"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline ml-1"
+                  >
+                    Office No. 2, Tower - 4, Shreeji Apartment, Mahatma Gandhi
+                    Road, Kandivali West, Mumbai 400067 (HQ)
+                  </a>
+                </div>
+                <div>
+                  <span className="font-semibold">Address (R&amp;D):</span>{" "}
                   <a
                     href="https://maps.app.goo.gl/2RYxPfe4o69tCfy69"
                     target="_blank"
