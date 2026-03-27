@@ -51,7 +51,7 @@ export default function Hero() {
                   98%+
                 </p>
                 <p className="text-[10px] sm:text-xs text-muted-foreground">
-                  Satisfaction
+                  Retention Rate
                 </p>
               </div>
             </div>

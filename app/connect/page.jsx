@@ -131,7 +131,7 @@ export default function Product() {
             />
             <div className="relative z-10">
               <h2 className="text-2xl md:text-3xl font-extrabold mb-8 text-center">
-                End-to-End Architecture
+                End-to-End Solution
               </h2>
 
               {/* Flow */}

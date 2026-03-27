@@ -39,9 +39,11 @@ export default function Footer() {
               />
             </div>
             <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-              Specific Fire Protection Limited - Your trusted partner{" "}
+              Specific Fire Protection Limited
               <br className="hidden sm:block" />
-              for fire safety solutions.
+              <span className="text-red-600 font-bold">
+                Let's make fire safe India.
+              </span>
             </p>
             <div className="flex flex-wrap gap-2 sm:gap-3">
               <Link
@@ -192,6 +194,18 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     className="text-xs sm:text-sm text-gray-600 hover:text-red-600 transition-colors break-words"
                   >
+                    Office No. 2, Tower - 4, Shreeji Apartment, Mahatma Gandhi
+                    Road, Kandivali West, Mumbai 400067 (HQ)
+                  </a>
+                </div>
+                <div className="flex items-start space-x-2 sm:space-x-3">
+                  <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 mt-0.5 flex-shrink-0" />
+                  <a
+                    href="https://maps.app.goo.gl/2RYxPfe4o69tCfy69"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs sm:text-sm text-gray-600 hover:text-red-600 transition-colors break-words"
+                  >
                     105, IIT Gandhinagar Research park, Gandhinagar, Gujarat
                   </a>
                 </div>
@@ -208,6 +222,14 @@ export default function Footer() {
             <p className="text-xs sm:text-sm text-gray-500 text-center sm:text-left">
               © 2023 Specific Fire Protection Limited. All rights reserved.
             </p>
+            <a
+              href="https://rajraiyani.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs sm:text-sm text-gray-300 hover:text-red-200 transition-colors text-center sm:text-right"
+            >
+              Design &amp; Develop by Raj Raiyani
+            </a>
           </div>
         </div>
       </div>

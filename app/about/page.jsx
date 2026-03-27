@@ -73,7 +73,7 @@ export default function About() {
               <div className="grid grid-cols-2 gap-6 pt-6">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-red-600 mb-2">
-                    1000+
+                    150+
                   </div>
                   <div className="text-sm text-gray-600">
                     Projects Completed
@@ -145,96 +145,6 @@ export default function About() {
       </section>
 
       {/* Our Team Section */}
-
-      {/* Group of Companies Section */}
-      <section className="w-full bg-gradient-to-br from-red-50 to-orange-50 py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Group of <span className="text-red-600">Companies</span>
-            </h2>
-            <div className="w-24 h-1 bg-red-600 mx-auto rounded-full"></div>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto mt-4">
-              SFPL is part of a larger ecosystem of companies dedicated to
-              safety and protection
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* Company 1 */}
-            <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 group flex flex-col justify-between">
-              <div className="w-40 h-20 mx-auto mb-4 flex items-center justify-center">
-                <Image
-                  src="/Anupam_logo.png"
-                  alt="Anupam Security"
-                  width={280}
-                  height={80}
-                  className="object-contain rounded-lg"
-                />
-              </div>
-              <div className="text-center">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  Anupam Security
-                </h3>
-                <p className="text-gray-600 text-sm mb-2">
-                  Integrated whole system using AI in one stop solution.
-                </p>
-                <p className="text-sm text-gray-500 font-medium">
-                  January 26, 2016
-                </p>
-              </div>
-            </div>
-
-            {/* Company 2 */}
-            <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 group flex flex-col justify-between">
-              <div className="w-40 h-20 mx-auto mb-4 flex items-center justify-center">
-                <Image
-                  src="/logo.svg"
-                  alt="Specific Fire Protection Limited"
-                  width={280}
-                  height={80}
-                  className="object-contain rounded-lg"
-                />
-              </div>
-              <div className="text-center">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  Specific Fire Protection Limited
-                </h3>
-                <p className="text-gray-600 text-sm mb-2">
-                  Deal with client in advance fire safety solution.
-                </p>
-                <p className="text-sm text-gray-500 font-medium">
-                  November 29, 2023
-                </p>
-              </div>
-            </div>
-
-            {/* Company 3 */}
-            <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 group flex flex-col justify-between">
-              <div className="w-40 h-20 mx-auto mb-4 flex items-center justify-center">
-                <Image
-                  src="/images/pages/about/firelynk_full_black_logo.png"
-                  alt="Firelynk Protech Limited"
-                  width={380}
-                  height={100}
-                  className="object-contain rounded-lg"
-                />
-              </div>
-              <div className="text-center">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  Firelynk Protech Limited
-                </h3>
-                <p className="text-gray-600 text-sm mb-2">
-                  Innovation in advance fire safety solution.
-                </p>
-                <p className="text-sm text-gray-500 font-medium">
-                  February 1, 2024
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }
