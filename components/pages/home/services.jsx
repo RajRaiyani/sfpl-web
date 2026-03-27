@@ -33,20 +33,20 @@ export default function Services() {
       highlights: ["System Architecture", "Code Compliance", "Fire Modeling"],
     },
     {
-      icon: ClipboardCheck,
-      title: "Inspection, Testing & Maintenance",
-      image: "/images/pages/service/fire-testing.png",
-      description:
-        "Regular ITM services to ensure your fire protection systems remain operational.",
-      highlights: ["Quarterly Inspection", "Flow Testing", "Compliance"],
-    },
-    {
       icon: Wrench,
       title: "Installation & Commissioning",
       image: "/images/pages/service/fire-system-installation.png",
       description:
         "Complete system installation and commissioning with quality assurance.",
       highlights: ["Commissioning", "Acceptance Testing", "BMS Integration"],
+    },
+    {
+      icon: ClipboardCheck,
+      title: "AMC, Testing & Maintenance",
+      image: "/images/pages/service/fire-testing.png",
+      description:
+        "Regular ITM services to ensure your fire protection systems remain operational.",
+      highlights: ["Quarterly Inspection", "Flow Testing", "Compliance"],
     },
   ];
 

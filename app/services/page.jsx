@@ -54,19 +54,6 @@ export default function Services() {
       ],
     },
     {
-      icon: ClipboardCheck,
-      title: "Inspection, Testing, and Maintenance (ITM)",
-      image: "/images/pages/service/fire-testing.png",
-      services: [
-        "BIS, NBC, NFPA, Local State Regulation Standard Compliance",
-        "Quarterly/Annual Inspection, Testing, and Maintenance (ITM)",
-        "Integrity Testing (for gaseous systems)",
-        "Flow Testing",
-        "Backflow Prevention Device Testing",
-        "Deficiency Tagging and Rectification",
-      ],
-    },
-    {
       icon: Wrench,
       title: "System Installation & Commissioning",
       image: "/images/pages/service/fire-system-installation.png",
@@ -77,6 +64,19 @@ export default function Services() {
         "Seamless Integration with existing Building Management Systems (BMS)",
         "Project Lifecycle Management",
         "Adherence to Manufacturer Specifications",
+      ],
+    },
+    {
+      icon: ClipboardCheck,
+      title: "Annual Maintenance Contract (AMC)",
+      image: "/images/pages/service/fire-testing.png",
+      services: [
+        "BIS, NBC, NFPA, Local State Regulation Standard Compliance",
+        "Quarterly/Annual Inspection, Testing, and Maintenance (ITM)",
+        "Integrity Testing (for gaseous systems)",
+        "Flow Testing",
+        "Backflow Prevention Device Testing",
+        "Deficiency Tagging and Rectification",
       ],
     },
   ];
