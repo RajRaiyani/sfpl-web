@@ -189,7 +189,7 @@ export default function Footer() {
                 <div className="flex items-start space-x-2 sm:space-x-3">
                   <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 mt-0.5 flex-shrink-0" />
                   <a
-                    href="https://maps.app.goo.gl/2RYxPfe4o69tCfy69"
+                    href="https://maps.app.goo.gl/rFC89FrPRnd9196g9"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xs sm:text-sm text-gray-600 hover:text-red-600 transition-colors break-words"

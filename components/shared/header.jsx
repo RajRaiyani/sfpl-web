@@ -166,7 +166,7 @@ export default function Header() {
         </nav>
         {/* Desktop Actions */}
         <div className="hidden md:block">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-5">
             <Link href="/contact">
               <Button variant="default">Contact</Button>
             </Link>
