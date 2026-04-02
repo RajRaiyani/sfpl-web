@@ -226,7 +226,7 @@ export default function Footer() {
               href="https://rajraiyani.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs sm:text-sm text-gray-300 hover:text-red-200 transition-colors text-center sm:text-right"
+              className="text-xs sm:text-sm text-gray-400 hover:text-red-200 transition-colors text-center sm:text-right"
             >
               Design &amp; Develop by Raj Raiyani
             </a>

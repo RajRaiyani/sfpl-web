@@ -1,10 +1,18 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Cookies } from "react-cookie";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Sheet,
   SheetContent,
@@ -12,7 +20,56 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { ChevronDown, LayoutDashboard, LogOut, Menu, User } from "lucide-react";
+
+const CUSTOMER_PORTAL_LOGOUT_URL =
+  process.env.NEXT_PUBLIC_CUSTOMER_PORTAL_LOGOUT_URL ??
+  "https://server.specificfire.com/customer-portal/auth/logout";
+
+function AccountDropdownContent({
+  userName,
+  rawUser,
+  profileHref,
+  dashboardHref,
+  isLoggingOut,
+  onLogout,
+}) {
+  return (
+    <>
+      <DropdownMenuLabel className="font-normal">
+        <p className="truncate text-sm font-medium text-foreground">{userName}</p>
+        {typeof rawUser === "object" && rawUser?.email ? (
+          <p className="truncate text-xs text-muted-foreground">{rawUser.email}</p>
+        ) : null}
+      </DropdownMenuLabel>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem asChild>
+        <a href={profileHref}>
+          <User />
+          Profile
+        </a>
+      </DropdownMenuItem>
+      <DropdownMenuItem asChild>
+        <a href={dashboardHref}>
+          <LayoutDashboard />
+          Dashboard
+        </a>
+      </DropdownMenuItem>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem
+        variant="destructive"
+        disabled={isLoggingOut}
+        onSelect={(e) => {
+          e.preventDefault();
+          void onLogout();
+        }}
+      >
+        <LogOut />
+        {isLoggingOut ? "Signing out…" : "Log out"}
+      </DropdownMenuItem>
+    </>
+  );
+}
 
 export default function Header() {
   const pathname = usePathname();
@@ -87,10 +144,41 @@ export default function Header() {
   };
 
   const dashboardHref = connectBaseUrl ? buildConnectUrl("") : "/connect";
+  const profileHref = connectBaseUrl ? buildConnectUrl("/profile") : "/connect";
   const loginHref = connectBaseUrl ? buildConnectUrl("/login") : "/login";
   const registerHref = connectBaseUrl
     ? buildConnectUrl("/register")
     : "/register";
+
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  const clearSessionCookies = useCallback(() => {
+    cookiesApi.remove("token", { path: "/" });
+    cookiesApi.remove("user", { path: "/" });
+    setCookieState({ token: undefined, rawUser: undefined });
+  }, [cookiesApi]);
+
+  const handleLogout = useCallback(async () => {
+    if (isLoggingOut) return;
+    setIsLoggingOut(true);
+    try {
+      const headers = { "Content-Type": "application/json" };
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+      await fetch(CUSTOMER_PORTAL_LOGOUT_URL, {
+        method: "POST",
+        headers,
+        credentials: "include",
+      });
+    } catch {
+      // Still clear local session if the server is unreachable.
+    } finally {
+      clearSessionCookies();
+      setIsLoggingOut(false);
+      window.location.assign("/");
+    }
+  }, [clearSessionCookies, isLoggingOut, token]);
 
   const userName =
     typeof rawUser === "string"
@@ -136,90 +224,20 @@ export default function Header() {
 
   return (
     <header className="w-full border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
-      <div className="container mx-auto flex h-20 items-center justify-between px-4">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <Image
-            src="/logo-full-black.svg"
-            alt="SFPL Logo"
-            width={170}
-            height={42}
-            priority
-            className="w-32 sm:w-40 md:w-[170px]"
-          />
-        </Link>
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-2 lg:gap-4 xl:gap-6">
-          {navigationItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                isActive(item.href)
-                  ? " text-primary font-semibold"
-                  : "text-gray-700 hover:bg-primary/10 hover:text-primary"
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-        {/* Desktop Actions */}
-        <div className="hidden md:block">
-          <div className="flex items-center gap-5">
-            <Link href="/contact">
-              <Button variant="default">Contact</Button>
-            </Link>
-            {token ? (
-              <div className="flex items-center gap-5">
-                <a
-                  href={dashboardHref}
-                  aria-label="Dashboard"
-                  className="hover:text-primary"
-                >
-                  <div size="sm">Dashboard</div>
-                </a>
-                <div className="flex items-center gap-2 rounded-full bg-primary/5 px-3 py-1.5 ring-1 ring-primary/20">
-                  <div
-                    className="h-9 w-9 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold text-sm overflow-hidden"
-                    aria-hidden="true"
-                  >
-                    {avatarSrc ? (
-                      // Using <img> to avoid Next Image domain config requirements.
-                      <img
-                        src={avatarSrc}
-                        alt=""
-                        className="h-full w-full object-cover"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <span>{avatarFallbackLetter}</span>
-                    )}
-                  </div>
-                  <span className="text-sm font-semibold text-gray-900 truncate max-w-[160px]">
-                    {userName}
-                  </span>
-                </div>
-              </div>
-            ) : (
-              <a href={loginHref}>
-                <Button variant="outline">Login / Register</Button>
-              </a>
-            )}
-          </div>
-        </div>
-        {/* Mobile Menu */}
+      <div className="container relative mx-auto flex h-20 items-center justify-between px-4">
+        {/* Mobile: menu (left) */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild className="md:hidden">
             <button
-              className="p-2 rounded-md text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors"
+              type="button"
+              className="relative z-10 p-2 rounded-md text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors"
               aria-label="Toggle menu"
             >
               <Menu className="h-6 w-6" />
             </button>
           </SheetTrigger>
           <SheetContent
-            side="right"
+            side="left"
             className="w-[320px] sm:w-[400px] p-0 flex flex-col"
           >
             {/* Sheet Header with Logo */}
@@ -252,38 +270,7 @@ export default function Header() {
                   </Link>
                 </SheetClose>
               ))}
-              {/* Contact Button */}
-              {token ? (
-                <div className="mt-2 space-y-2">
-                  <div className="flex items-center gap-2 px-1">
-                    <div
-                      className="h-9 w-9 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold text-sm overflow-hidden"
-                      aria-hidden="true"
-                    >
-                      {avatarSrc ? (
-                        <img
-                          src={avatarSrc}
-                          alt=""
-                          className="h-full w-full object-cover"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <span>{avatarFallbackLetter}</span>
-                      )}
-                    </div>
-                    <div className="text-sm font-semibold text-gray-900">
-                      {userName}
-                    </div>
-                  </div>
-                  <SheetClose asChild>
-                    <a href={dashboardHref}>
-                      <Button className="w-full" size="lg">
-                        Dashboard
-                      </Button>
-                    </a>
-                  </SheetClose>
-                </div>
-              ) : (
+              {!token ? (
                 <div className="mt-2 flex gap-2">
                   <SheetClose asChild>
                     <a href={loginHref} className="w-1/2">
@@ -300,10 +287,149 @@ export default function Header() {
                     </a>
                   </SheetClose>
                 </div>
-              )}
+              ) : null}
             </nav>
           </SheetContent>
         </Sheet>
+
+        {/* Logo — centered on mobile, normal position on desktop */}
+        <Link
+          href="/"
+          className="absolute left-1/2 top-1/2 z-0 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 md:static md:left-auto md:top-auto md:z-auto md:translate-x-0 md:translate-y-0"
+        >
+          <Image
+            src="/logo-full-black.svg"
+            alt="SFPL Logo"
+            width={170}
+            height={42}
+            priority
+            className="w-28 sm:w-32 md:w-[170px]"
+          />
+        </Link>
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex gap-2 lg:gap-4 xl:gap-6">
+          {navigationItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive(item.href)
+                  ? " text-primary font-semibold"
+                  : "text-gray-700 hover:bg-primary/10 hover:text-primary"
+              }`}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+        {/* Desktop Actions */}
+        <div className="hidden md:block">
+          <div className="flex items-center gap-3 sm:gap-4">
+            {!token ? (
+              <>
+                <Link href="/contact">
+                  <Button variant="default">Contact</Button>
+                </Link>
+                <a href={loginHref}>
+                  <Button variant="outline">Login / Register</Button>
+                </a>
+              </>
+            ) : (
+              <div className="flex items-center gap-3 sm:gap-4 pl-1">
+                <a
+                  href={dashboardHref}
+                  className="text-sm font-medium text-gray-700 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 rounded-md px-1 py-0.5"
+                >
+                  Dashboard
+                </a>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type="button"
+                      className="group flex items-center gap-2.5 rounded-full border border-gray-200/90 bg-white px-2.5 py-1.5 shadow-sm transition-colors hover:border-gray-300 hover:bg-gray-50/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
+                      aria-label={`Account menu for ${userName}`}
+                    >
+                      <div
+                        className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary text-sm font-semibold text-primary-foreground"
+                        aria-hidden="true"
+                      >
+                        {avatarSrc ? (
+                          // Using <img> to avoid Next Image domain config requirements.
+                          <img
+                            src={avatarSrc}
+                            alt=""
+                            className="h-full w-full object-cover"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <span>{avatarFallbackLetter}</span>
+                        )}
+                      </div>
+                      <span className="max-w-[140px] truncate text-sm font-medium text-gray-900 sm:max-w-[160px]">
+                        {userName}
+                      </span>
+                      <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-52">
+                    <AccountDropdownContent
+                      userName={userName}
+                      rawUser={rawUser}
+                      profileHref={profileHref}
+                      dashboardHref={dashboardHref}
+                      isLoggingOut={isLoggingOut}
+                      onLogout={handleLogout}
+                    />
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            )}
+          </div>
+        </div>
+        {/* Mobile: profile / login (right) — min width matches menu button for balance */}
+        <div className="relative z-10 flex h-10 min-w-10 shrink-0 items-center justify-end md:hidden">
+          {token ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gray-200/90 bg-white shadow-sm transition-colors hover:border-gray-300 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
+                  aria-label={`Account menu for ${userName}`}
+                >
+                  {avatarSrc ? (
+                    <img
+                      src={avatarSrc}
+                      alt=""
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <span className="text-sm font-semibold text-primary-foreground flex h-full w-full items-center justify-center bg-primary">
+                      {avatarFallbackLetter}
+                    </span>
+                  )}
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-52">
+                <AccountDropdownContent
+                  userName={userName}
+                  rawUser={rawUser}
+                  profileHref={profileHref}
+                  dashboardHref={dashboardHref}
+                  isLoggingOut={isLoggingOut}
+                  onLogout={handleLogout}
+                />
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <a
+              href={loginHref}
+              className="whitespace-nowrap pl-1 text-sm font-medium text-primary hover:underline"
+            >
+              Login
+            </a>
+          )}
+        </div>
       </div>
     </header>
   );
