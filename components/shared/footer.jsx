@@ -11,7 +11,6 @@ import {
   Mail,
   Phone,
   MapPin,
-  Shield,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -158,6 +157,16 @@ export default function Footer() {
               >
                 Contact Us
               </Link>
+              <Link
+                href="/privacy-policy"
+                className={`block text-xs sm:text-sm transition-colors ${
+                  isActive("/privacy-policy")
+                    ? "text-primary font-semibold"
+                    : "text-gray-600 hover:text-red-600"
+                }`}
+              >
+                Privacy Policy
+              </Link>
             </div>
           </div>
 
@@ -218,18 +227,30 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-4 sm:pt-6 border-t border-gray-100">
-          <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center space-y-2 sm:space-y-0">
-            <p className="text-xs sm:text-sm text-gray-500 text-center sm:text-left">
+          <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-2 sm:gap-4 space-y-2 sm:space-y-0 flex-wrap">
+            <p className="text-xs sm:text-sm text-gray-500 text-center sm:text-left order-2 sm:order-1">
               © 2023 Specific Fire Protection Limited. All rights reserved.
             </p>
-            <a
-              href="https://rajraiyani.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs sm:text-sm text-gray-400 hover:text-red-200 transition-colors text-center sm:text-right"
-            >
-              Design &amp; Develop by Raj Raiyani
-            </a>
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs sm:text-sm order-1 sm:order-2">
+              <Link
+                href="/privacy-policy"
+                className={`transition-colors ${
+                  isActive("/privacy-policy")
+                    ? "text-primary font-semibold"
+                    : "text-gray-500 hover:text-red-600"
+                }`}
+              >
+                Privacy Policy
+              </Link>
+              <a
+                href="https://rajraiyani.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-red-600 transition-colors text-center sm:text-right"
+              >
+                Design &amp; Develop by Raj Raiyani
+              </a>
+            </div>
           </div>
         </div>
       </div>
