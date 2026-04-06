@@ -32,15 +32,15 @@ const timeline = [
   },
   {
     year: "2025",
-    title: "IIT Gandhinagar Collaboration",
+    title: "IIT Gandhinagar",
     description:
-      "SFPL collaborated with IIT Gandhinagar to build an advanced end-to-end fire safety solution combining intelligent hardware and software, with successful real-world deployment for testing.",
+      "SFPL is excited to announce that it has obtained a space at the IIT Research Park in Gandhinagar, where we will be developing an innovative, end-to-end fire safety solution. This solution will integrate intelligent hardware and software, and we look forward to conducting successful real-world deployments for testing and refinement.",
   },
   {
     year: "2026",
     title: "National Launch Milestone",
     description:
-      "After field validation, SFPL is set to launch its innovative solution on 4th April 2026 for stronger early detection, real-time monitoring, and rapid response.",
+      "After field validation, SFPL is set to launch its innovative solution for stronger early detection, real-time monitoring, and rapid response.",
   },
 ];
 
