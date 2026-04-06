@@ -11,31 +11,24 @@ export default function Vision() {
             <span className="text-gray-800 ml-2">& Mission</span>
             <span className="block h-1 w-16 bg-red-600 mt-2 rounded"></span>
           </h2>
-          <p className="text-lg text-gray-700 mb-4">
-            At Specific Fire Protection Limited, safety isn&apos;t just a
-            goal—it&apos;s a fundamental right. Our mission is to deliver the
-            highest standards of fire safety through innovation, expertise, and
-            dedication.
+          <p className="text-lg text-gray-700 mb-4 leading-relaxed">
+            <span className="font-semibold text-gray-900">Our vision: </span>
+            To become India&apos;s most trusted and innovative fire safety
+            company, ensuring every building is equipped with intelligent and
+            reliable fire protection systems.
           </p>
-          <ul className="list-disc pl-5 text-gray-700 space-y-2 mb-4">
-            <li>
-              Expertly trained team ensuring top-tier system maintenance and
-              real-world fire drills.
-            </li>
-            <li>
-              Commitment to accessible, reliable, and advanced fire safety
-              solutions for all.
-            </li>
-            <li>
-              Driven by our tagline:{" "}
-              <span className="font-semibold text-red-600">
-                "Let&apos;s make FIRE safe India."
-              </span>
-            </li>
-          </ul>
-          <p className="text-gray-700">
-            Together, we are building a safer, more secure future—step by step,
-            alongside our customers, partners, and stakeholders.
+          <p className="text-lg text-gray-700 mb-4 leading-relaxed">
+            <span className="font-semibold text-gray-900">Our mission: </span>
+            To deliver advanced, compliant, and end-to-end fire safety solutions
+            that prevent fire incidents, protect lives, and support our
+            commitment:{" "}
+            <span className="font-semibold text-red-600">
+              &ldquo;Let&apos;s Make Fire Safe India.&rdquo;
+            </span>
+          </p>
+          <p className="text-gray-700 leading-relaxed">
+            At SFPL, we don&apos;t just install systems—we engineer safety with
+            our customers, partners, and stakeholders across India.
           </p>
         </div>
         <div className="flex-1 h-full w-full flex justify-center relative min-w-[320px]">
