@@ -1,7 +1,12 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import { CalendarDays } from "lucide-react";
 
 const containerVariants = {
@@ -51,7 +56,7 @@ function TimelineItem({ item, index, progress }) {
             : "sm:pl-12 sm:text-left sm:order-2"
         }`}
       >
-        <p className="text-5xl md:text-7xl font-bold tracking-tight leading-none text-gray-200/90 select-none">
+        <p className="text-5xl md:text-7xl font-bold tracking-tight leading-none text-gray-300 select-none">
           {item.year}
         </p>
       </div>
