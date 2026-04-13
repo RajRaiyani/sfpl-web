@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FileText, Cpu, Radio, Battery } from "lucide-react";
+import { FileText, Radio, Battery } from "lucide-react";
 import { IotDeviceSpecPdfDownloadButton } from "@/components/iot-device-spec/iot-device-spec-pdf-download";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -127,10 +127,10 @@ export default function IotDeviceSpecPage() {
                       </tr>
                       <tr>
                         <th className="whitespace-nowrap px-4 py-2.5 font-medium text-gray-500">
-                          Footprint (W × D)
+                          Footprint (W × D X H)
                         </th>
                         <td className="px-4 py-2.5 text-gray-900">
-                          165&nbsp;mm × 155&nbsp;mm
+                          165&nbsp;mm × 155&nbsp;mm × 36&nbsp;mm
                         </td>
                       </tr>
                     </tbody>
@@ -318,7 +318,7 @@ export default function IotDeviceSpecPage() {
                 <ul>
                   <li>
                     <strong className="text-gray-800">Rating:</strong> Up to
-                    5&nbsp;V AC at the input (sensor-dependent).
+                    5&nbsp;V AC at the input.
                   </li>
                   <li>
                     <strong className="text-gray-800">Typical usage:</strong>{" "}
@@ -350,9 +350,9 @@ export default function IotDeviceSpecPage() {
                   </li>
                   <li>
                     <strong className="text-gray-800">Typical usage:</strong>{" "}
-                    Pressure, level, temperature (transmitter output), flow, and
-                    other field devices that present a DC voltage proportional
-                    to the measured quantity.
+                    Pressure, level, temperature, flow, and other field devices
+                    that present a DC voltage proportional to the measured
+                    quantity.
                   </li>
                 </ul>
               </section>
@@ -391,22 +391,6 @@ export default function IotDeviceSpecPage() {
                         Two 3.7&nbsp;V cells with 1700&nbsp;mAh pack capacity,
                         to help maintain operation through short supply
                         interruptions.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex gap-3 rounded-lg border border-gray-200 bg-gray-50/50 p-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-700">
-                      <Cpu className="h-5 w-5" aria-hidden />
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-semibold text-gray-900">
-                        Integration note
-                      </h3>
-                      <p className="mt-1 text-xs text-gray-600 sm:text-sm">
-                        Final installation, protection, and compliance with
-                        local electrical codes remain the responsibility of the
-                        system integrator. Contact SFPL for deployment guidance
-                        and supported accessories.
                       </p>
                     </div>
                   </div>

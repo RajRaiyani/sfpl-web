@@ -49,8 +49,7 @@ const sections = [
       <>
         <p>
           SFPL provides a <strong>one (1) year manufacturing warranty</strong>{" "}
-          on the Device from the date of delivery or installation (as
-          applicable).
+          on the Device from the date of billing.
         </p>
         <p className="mt-4">
           This warranty covers manufacturing defects in materials or workmanship
@@ -59,8 +58,7 @@ const sections = [
         <p className="mt-4">
           The warranty does not cover damage resulting from improper
           installation, misuse, unauthorized modifications, accidental damage,
-          environmental extremes, or external electrical faults, unless
-          explicitly agreed in writing.
+          environmental extremes, or external electrical faults.
         </p>
       </>
     ),
