@@ -25,7 +25,7 @@ export default function Footer() {
     <footer className="w-full bg-white border-t border-gray-100 py-8 sm:py-12">
       <div className="container mx-auto px-4 sm:px-6">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 mb-6 sm:mb-8">
           {/* Company Info */}
           <div className="space-y-3 sm:space-y-4 sm:col-span-2 lg:col-span-2">
             <div className="flex items-center space-x-2">
@@ -126,7 +126,6 @@ export default function Footer() {
               >
                 Tech
               </Link>
-
               <Link
                 href="/about"
                 className={`block text-xs sm:text-sm transition-colors ${
@@ -157,6 +156,35 @@ export default function Footer() {
               >
                 Contact Us
               </Link>
+            </div>
+          </div>
+
+          {/* SFPL Connect Links */}
+          <div className="space-y-3 sm:space-y-4">
+            <h3 className="font-semibold text-sm sm:text-base text-gray-900">
+              SFPL Connect
+            </h3>
+            <div className="space-y-2">
+              <Link
+                href="/iot-device-spec"
+                className={`block text-xs sm:text-sm transition-colors ${
+                  isActive("/iot-device-spec")
+                    ? "text-primary font-semibold"
+                    : "text-gray-600 hover:text-red-600"
+                }`}
+              >
+                IoT device docs
+              </Link>
+              <Link
+                href="/iot-faq"
+                className={`block text-xs sm:text-sm transition-colors ${
+                  isActive("/iot-faq")
+                    ? "text-primary font-semibold"
+                    : "text-gray-600 hover:text-red-600"
+                }`}
+              >
+                IoT & portal FAQ
+              </Link>
               <Link
                 href="/privacy-policy"
                 className={`block text-xs sm:text-sm transition-colors ${
@@ -166,6 +194,16 @@ export default function Footer() {
                 }`}
               >
                 Privacy Policy
+              </Link>
+              <Link
+                href="/terms-conditions"
+                className={`block text-xs sm:text-sm transition-colors ${
+                  isActive("/terms-conditions")
+                    ? "text-primary font-semibold"
+                    : "text-gray-600 hover:text-red-600"
+                }`}
+              >
+                Terms &amp; Conditions
               </Link>
             </div>
           </div>
@@ -241,6 +279,16 @@ export default function Footer() {
                 }`}
               >
                 Privacy Policy
+              </Link>
+              <Link
+                href="/terms-conditions"
+                className={`transition-colors ${
+                  isActive("/terms-conditions")
+                    ? "text-primary font-semibold"
+                    : "text-gray-500 hover:text-red-600"
+                }`}
+              >
+                Terms &amp; Conditions
               </Link>
               <a
                 href="https://rajraiyani.com/"

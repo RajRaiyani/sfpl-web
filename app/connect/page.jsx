@@ -16,13 +16,22 @@ import {
   Code2,
   KeyRound,
   Webhook,
+  HelpCircle,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { FaqAccordion } from "@/app/iot-faq/faq-accordion";
 import HowItWorksSteps from "@/components/connect/HowItWorksSteps";
 import CloudPlatformShowcase from "@/components/connect/CloudPlatformShowcase";
 import EnquiryForm from "@/components/connect/EnquiryForm";
+import { deviceFaqs, portalFaqs } from "@/data/iot-faq-items";
 import { buildPageMetadata } from "@/lib/seo";
+
+/** Single list: hardware first, then portal (ids stay unique across both arrays). */
+const connectFaqPreview = [
+  ...deviceFaqs.slice(0, 5),
+  ...portalFaqs.slice(0, 5),
+];
 
 export const metadata = buildPageMetadata({
   title: "SFPL Connect | IoT Monitoring & Real-Time Dashboard",
@@ -311,6 +320,19 @@ export default function Product() {
                 unit. Inside the rugged enclosure sits a custom PCB with
                 screw-terminal I/O blocks, making field wiring fast and
                 reliable.
+              </p>
+              <p className="text-sm text-gray-600">
+                <Link
+                  href="/iot-device-spec"
+                  className="inline-flex items-center gap-1.5 font-semibold text-red-600 hover:text-red-800 underline-offset-2 hover:underline"
+                >
+                  IoT device technical specification
+                  <ArrowRight className="w-4 h-4 shrink-0" aria-hidden />
+                </Link>
+                <span className="text-gray-500">
+                  {" "}
+                  — I/O overview, electrical ratings, and reference diagrams.
+                </span>
               </p>
 
               {/* Pin groups */}
@@ -944,6 +966,77 @@ export default function Product() {
                 height={800}
                 className="w-full h-auto object-cover"
               />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ — matches Cloud / hardware section rhythm */}
+      <section className="relative overflow-hidden border-t border-gray-100 bg-white py-24">
+        <div
+          className="pointer-events-none absolute -bottom-28 -left-28 h-80 w-80 rounded-full bg-red-50/60 blur-3xl"
+          aria-hidden
+        />
+        <div className="container relative mx-auto px-4">
+          <div className="mx-auto grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
+            {/* Left: title block */}
+            <div className="lg:col-span-4 lg:pt-1">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-600 shadow-lg shadow-red-200">
+                  <HelpCircle className="h-5 w-5 text-white" aria-hidden />
+                </div>
+                <span className="text-xs font-bold uppercase tracking-widest text-red-600">
+                  Help
+                </span>
+              </div>
+              <h2 className="text-4xl font-extrabold leading-[1.1] tracking-tight text-gray-900 md:text-5xl">
+                Frequently asked{" "}
+                <span className="relative inline-block">
+                  <span className="relative z-10">questions</span>
+                  <span className="absolute bottom-1 left-0 -z-0 h-3 w-full rounded bg-red-100" />
+                </span>
+              </h2>
+              <p className="mt-5 max-w-xs text-base leading-relaxed text-gray-500 lg:max-w-none">
+                Device I/O, connectivity, and portal basics in one list. See the
+                full FAQ for every topic.
+              </p>
+            </div>
+
+            {/* Right: accordion + actions */}
+            <div className="min-w-0 lg:col-span-8">
+              <FaqAccordion
+                items={connectFaqPreview}
+                className="rounded-2xl border border-gray-100 bg-gray-50/80 shadow-sm sm:px-4"
+              />
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
+                <Link
+                  href="/iot-faq"
+                  className="inline-flex w-fit items-center gap-2 text-sm font-bold text-red-600 transition hover:text-red-700"
+                >
+                  View all FAQs
+                  <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
+                </Link>
+                <span
+                  className="hidden h-4 w-px shrink-0 bg-gray-200 sm:block"
+                  aria-hidden
+                />
+                <Link
+                  href="/contact"
+                  className="w-fit text-sm font-semibold text-gray-600 transition hover:text-primary"
+                >
+                  Contact support
+                </Link>
+                <span
+                  className="hidden h-4 w-px shrink-0 bg-gray-200 sm:block "
+                  aria-hidden
+                />
+                <Link
+                  href="/terms-conditions"
+                  className="w-fit text-sm font-semibold text-gray-600 transition hover:text-primary"
+                >
+                  Terms &amp; Conditions
+                </Link>
+              </div>
             </div>
           </div>
         </div>
