@@ -266,9 +266,16 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-4 sm:pt-6 border-t border-gray-100">
           <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-2 sm:gap-4 space-y-2 sm:space-y-0 flex-wrap">
-            <p className="text-xs sm:text-sm text-gray-500 text-center sm:text-left order-2 sm:order-1">
+            <Link
+              href="/copyright-policy"
+              className={`text-xs sm:text-sm text-center sm:text-left order-2 sm:order-1 transition-colors ${
+                isActive("/copyright-policy")
+                  ? "text-primary font-semibold"
+                  : "text-gray-500 hover:text-red-600"
+              }`}
+            >
               © 2023 Specific Fire Protection Limited. All rights reserved.
-            </p>
+            </Link>
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs sm:text-sm order-1 sm:order-2">
               <Link
                 href="/privacy-policy"
