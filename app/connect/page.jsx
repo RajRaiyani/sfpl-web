@@ -9,9 +9,11 @@ import {
   Bell,
   Zap,
   ArrowRight,
-  Wifi,
   Gauge,
   Plug,
+  Power,
+  Radio,
+  Battery,
   Send,
   Code2,
   KeyRound,
@@ -78,9 +80,9 @@ export default function Product() {
     },
     {
       icon: Building2,
-      title: "Commercial Buildings",
+      title: "Buildings",
       description:
-        "Monitor DG/UPS, HVAC metrics, and critical electrical parameters across sites.",
+        "Residential, Hospital, Educational, Institutional, Commercial, Hotel, Industrial, etc...",
     },
     {
       icon: Droplets,
@@ -335,9 +337,13 @@ export default function Product() {
                 </span>
               </p>
 
-              {/* Pin groups */}
+              {/* Pin groups — aligned with /iot-device-spec */}
               <div className="space-y-3">
-                {/* AC Voltage */}
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  17 input connections
+                </p>
+
+                {/* AC high-voltage */}
                 <div className="rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md">
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0">
@@ -346,15 +352,17 @@ export default function Product() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1">
                         <p className="font-bold text-gray-900 text-sm">
-                          AC Voltage Input
+                          AC high-voltage
                         </p>
                         <span className="text-xs font-semibold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">
                           3 pins
                         </span>
                       </div>
                       <p className="text-gray-500 text-xs leading-relaxed mb-3">
-                        Three-phase monitoring (R · Y · B) for AC voltage
-                        measurement across all phases simultaneously.
+                        Isolated channels for line / phase voltage on
+                        distribution or branch circuits — up to 300&nbsp;V AC
+                        per channel. Typical use: three-phase supplies (for
+                        example R–Y–B).
                       </p>
                       <div className="flex gap-2">
                         {["R", "Y", "B"].map((phase, i) => (
@@ -368,7 +376,7 @@ export default function Product() {
                                   : "bg-blue-500"
                             }`}
                           >
-                            {phase}
+                            {`V${phase}`}
                           </span>
                         ))}
                       </div>
@@ -376,39 +384,34 @@ export default function Product() {
                   </div>
                 </div>
 
-                {/* AC Current */}
+                {/* AC low-voltage (CT) */}
                 <div className="rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md">
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
                       <Gauge className="w-5 h-5 text-blue-600" />
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1">
                         <p className="font-bold text-gray-900 text-sm">
-                          AC Current Input
+                          AC low-voltage (CT)
                         </p>
                         <span className="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
-                          6 pins
+                          3 pins
                         </span>
                       </div>
                       <p className="text-gray-500 text-xs leading-relaxed mb-3">
-                        Six current input pins covering two full three-phase
-                        sets (R · Y · B × 2) for dual-circuit or multi-load
-                        current monitoring.
+                        For low-amplitude AC from external transducers (not
+                        direct mains). Up to 5&nbsp;V AC — ideal for current
+                        transformers (CTs) that output a proportional low
+                        voltage. up to 80 amps current can be measured.
                       </p>
-                      <div className="flex gap-2 flex-wrap">
-                        {["R1", "Y1", "B1", "R2", "Y2", "B2"].map((pin, i) => (
+                      <div className="flex gap-2">
+                        {["R", "Y", "B"].map((n) => (
                           <span
-                            key={pin}
-                            className={`w-9 h-8 rounded-lg flex items-center justify-center text-[10px] font-extrabold text-white ${
-                              i % 3 === 0
-                                ? "bg-red-500"
-                                : i % 3 === 1
-                                  ? "bg-yellow-500"
-                                  : "bg-blue-500"
-                            }`}
+                            key={n}
+                            className="w-9 h-8 rounded-lg flex items-center justify-center text-[10px] font-extrabold text-white bg-blue-600"
                           >
-                            {pin}
+                            {`I${n}`}
                           </span>
                         ))}
                       </div>
@@ -416,33 +419,34 @@ export default function Product() {
                   </div>
                 </div>
 
-                {/* General Purpose */}
+                {/* Analog DC */}
                 <div className="rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md">
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center flex-shrink-0">
                       <Plug className="w-5 h-5 text-green-600" />
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1">
                         <p className="font-bold text-gray-900 text-sm">
-                          General Purpose Pins
+                          Analog DC inputs (general purpose)
                         </p>
                         <span className="text-xs font-semibold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
-                          8 pins
+                          9 pins
                         </span>
                       </div>
                       <p className="text-gray-500 text-xs leading-relaxed mb-3">
-                        Eight configurable input pins for any sensor type —
-                        pressure, level, temperature, flow, and more. Each pin
-                        supports custom calibration in the portal.
+                        General-purpose DC voltage inputs (0–30&nbsp;V span per
+                        channel) for pressure, level, temperature, flow, and
+                        other field devices — calibrate per channel in the
+                        portal.
                       </p>
-                      <div className="grid grid-cols-8 gap-1">
-                        {Array.from({ length: 8 }, (_, i) => (
+                      <div className="grid grid-cols-5 sm:grid-cols-9 gap-1">
+                        {Array.from({ length: 9 }, (_, i) => (
                           <span
                             key={i}
                             className="h-7 rounded-md bg-green-600 flex items-center justify-center text-[9px] font-bold text-white"
                           >
-                            P{i + 1}
+                            A{i + 1}
                           </span>
                         ))}
                       </div>
@@ -450,25 +454,47 @@ export default function Product() {
                   </div>
                 </div>
 
-                {/* Connectivity */}
+                {/* Cellular */}
                 <div className="rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md">
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center flex-shrink-0">
-                      <Wifi className="w-5 h-5 text-red-600" />
+                      <Radio className="w-5 h-5 text-red-600" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">
                         <p className="font-bold text-gray-900 text-sm">
-                          Cellular Connectivity
+                          Cellular
                         </p>
                         <span className="text-xs font-semibold bg-red-100 text-red-600 px-2 py-0.5 rounded-full">
-                          SIM + Antenna
+                          2G · integrated antenna
                         </span>
                       </div>
                       <p className="text-gray-500 text-xs leading-relaxed">
-                        Built-in SIM card slot and external antenna port for
-                        reliable cellular internet — no local Wi-Fi or Ethernet
-                        required. Works anywhere with mobile signal.
+                        GSM module with 2G connectivity and integrated antenna
+                        for uplink in covered deployments.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Battery backup */}
+                <div className="rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center flex-shrink-0">
+                      <Battery className="w-5 h-5 text-red-600" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-1">
+                        <p className="font-bold text-gray-900 text-sm">
+                          Battery backup
+                        </p>
+                        <span className="text-xs font-semibold bg-red-100 text-red-600 px-2 py-0.5 rounded-full">
+                          2 × 3.7&nbsp;V
+                        </span>
+                      </div>
+                      <p className="text-gray-500 text-xs leading-relaxed">
+                        Two 3.7&nbsp;V cells with 1700&nbsp;mAh pack capacity to
+                        help ride through short supply interruptions.
                       </p>
                     </div>
                   </div>
