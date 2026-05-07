@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import type { Metadata, Viewport } from "next";
+import Header from "@/components/shared/header";
+import Footer from "@/components/shared/footer";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import CustomCursor from "@/components/shared/CustomCursor";
@@ -112,9 +114,9 @@ export default function RootLayout({
         />
         <ProviderContext>
           <CustomCursor />
-          {/* <Header /> */}
+          <Header />
           {children}
-          {/* <Footer /> */}
+          <Footer />
 
           <Toaster
             position="top-center"
