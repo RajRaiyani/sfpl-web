@@ -20,7 +20,7 @@ export default function NotFound() {
     tl.fromTo(
       cardRef.current,
       { y: 40, opacity: 0, scale: 0.95 },
-      { y: 0, opacity: 1, scale: 1, duration: 0.9 }
+      { y: 0, opacity: 1, scale: 1, duration: 0.9 },
     );
 
     gsap.to(ringOneRef.current, {

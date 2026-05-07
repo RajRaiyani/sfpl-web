@@ -8,6 +8,7 @@ export default function robots() {
         allow: "/",
       },
     ],
+    host: SITE_URL,
     sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

@@ -278,6 +278,15 @@ export default function Product() {
         </div>
       </section>
 
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       {/* ── Hardware Deep-Dive ── */}
       <section
         className="py-24 bg-white relative"
@@ -815,80 +824,6 @@ export default function Product() {
       </section>
 
       {/* ── Inquiry / Contact ── */}
-      <section
-        className="py-10 relative overflow-hidden bg-white"
-        style={{
-          backgroundSize: "32px 32px",
-        }}
-      >
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="mx-auto">
-            <div className="relative overflow-hidden">
-              {/* unique “cut” header strip */}
-              <div className="relative rounded-3xl bg-gray-900 text-white">
-                <div
-                  className="absolute inset-0 opacity-[0.18]"
-                  style={{
-                    backgroundImage:
-                      "radial-gradient(circle at 18% 28%, #ef4444 1px, transparent 1px), radial-gradient(circle at 78% 42%, #ffffff 1px, transparent 1px)",
-                    backgroundSize: "18px 18px",
-                  }}
-                />
-                <div className="relative px-8 sm:px-10 py-10 sm:py-12">
-                  <div className="flex flex-col lg:flex-row lg:items-start gap-8">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-5">
-                        <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center shadow-lg shadow-red-900/30">
-                          <Send className="w-5 h-5 text-white" />
-                        </div>
-                        <span className="text-xs font-bold tracking-widest uppercase text-red-200">
-                          Get in touch
-                        </span>
-                      </div>
-                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.05] tracking-tight">
-                        Tell us what you want to{" "}
-                        <span className="text-red-200">monitor</span>.
-                      </h2>
-                      <p className="mt-4 text-white/75 text-sm sm:text-base leading-relaxed max-w-2xl">
-                        Share your site details and sensor needs — we’ll
-                        recommend the right device configuration and set you up
-                        with a live portal walkthrough.
-                      </p>
-
-                      {/* Response / Setup / Scale blocks */}
-                      <div className="mt-6 flex flex-wrap gap-2">
-                        {[
-                          { k: "Response", v: "≤ 1 business day" },
-                          { k: "Setup", v: "Guided onboarding" },
-                          { k: "Scale", v: "Single to multi-site" },
-                        ].map((s) => (
-                          <div
-                            key={s.k}
-                            className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur px-4 py-3"
-                          >
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-white/60">
-                              {s.k}
-                            </p>
-                            <p className="text-sm font-extrabold text-white mt-1">
-                              {s.v}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="flex-1 min-w-0 flex flex-col items-start lg:items-stretch gap-4 w-full">
-                      <div className="w-full">
-                        <EnquiryForm />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ── Use Cases / Industries ── */}
       <section className="py-24 bg-white relative overflow-hidden">
@@ -998,75 +933,6 @@ export default function Product() {
       </section>
 
       {/* FAQ — matches Cloud / hardware section rhythm */}
-      <section className="relative overflow-hidden border-t border-gray-100 bg-white py-24">
-        <div
-          className="pointer-events-none absolute -bottom-28 -left-28 h-80 w-80 rounded-full bg-red-50/60 blur-3xl"
-          aria-hidden
-        />
-        <div className="container relative mx-auto px-4">
-          <div className="mx-auto grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
-            {/* Left: title block */}
-            <div className="lg:col-span-4 lg:pt-1">
-              <div className="mb-4 flex items-center gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-600 shadow-lg shadow-red-200">
-                  <HelpCircle className="h-5 w-5 text-white" aria-hidden />
-                </div>
-                <span className="text-xs font-bold uppercase tracking-widest text-red-600">
-                  Help
-                </span>
-              </div>
-              <h2 className="text-4xl font-extrabold leading-[1.1] tracking-tight text-gray-900 md:text-5xl">
-                Frequently asked{" "}
-                <span className="relative inline-block">
-                  <span className="relative z-10">questions</span>
-                  <span className="absolute bottom-1 left-0 -z-0 h-3 w-full rounded bg-red-100" />
-                </span>
-              </h2>
-              <p className="mt-5 max-w-xs text-base leading-relaxed text-gray-500 lg:max-w-none">
-                Device I/O, connectivity, and portal basics in one list. See the
-                full FAQ for every topic.
-              </p>
-            </div>
-
-            {/* Right: accordion + actions */}
-            <div className="min-w-0 lg:col-span-8">
-              <FaqAccordion
-                items={connectFaqPreview}
-                className="rounded-2xl border border-gray-100 bg-gray-50/80 shadow-sm sm:px-4"
-              />
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
-                <Link
-                  href="/iot-faq"
-                  className="inline-flex w-fit items-center gap-2 text-sm font-bold text-red-600 transition hover:text-red-700"
-                >
-                  View all FAQs
-                  <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
-                </Link>
-                <span
-                  className="hidden h-4 w-px shrink-0 bg-gray-200 sm:block"
-                  aria-hidden
-                />
-                <Link
-                  href="/contact"
-                  className="w-fit text-sm font-semibold text-gray-600 transition hover:text-primary"
-                >
-                  Contact support
-                </Link>
-                <span
-                  className="hidden h-4 w-px shrink-0 bg-gray-200 sm:block "
-                  aria-hidden
-                />
-                <Link
-                  href="/terms-conditions"
-                  className="w-fit text-sm font-semibold text-gray-600 transition hover:text-primary"
-                >
-                  Terms &amp; Conditions
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </section>
   );
 }
