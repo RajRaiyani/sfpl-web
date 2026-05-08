@@ -3,9 +3,11 @@ import type { Metadata, Viewport } from "next";
 import Header from "@/components/shared/header";
 import Footer from "@/components/shared/footer";
 import "./globals.css";
+import env from "@/config/env";
 import { Toaster } from "react-hot-toast";
 import CustomCursor from "@/components/shared/CustomCursor";
 import ProviderContext from "@/components/context/provider.context";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -144,6 +146,7 @@ export default function RootLayout({
           />
         </ProviderContext>
       </body>
+      <GoogleAnalytics gaId={env.gaId || ""} />
     </html>
   );
 }
