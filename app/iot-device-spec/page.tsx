@@ -92,11 +92,11 @@ export default function IotDeviceSpecPage() {
               <dl className="mt-6 grid gap-3 border-t border-gray-200 pt-6 font-mono text-xs text-gray-600 sm:grid-cols-3">
                 <div>
                   <dt className="text-gray-400">Product</dt>
-                  <dd className="mt-0.5 text-gray-900">SFPL IoT device</dd>
+                  <dd className="mt-0.5 text-gray-900">Connect</dd>
                 </div>
                 <div>
-                  <dt className="text-gray-400">Revision</dt>
-                  <dd className="mt-0.5 text-gray-900">Web — summary</dd>
+                  <dt className="text-gray-400">Model</dt>
+                  <dd className="mt-0.5 text-gray-900">IO.1</dd>
                 </div>
                 <div>
                   <dt className="text-gray-400">I/O total</dt>
@@ -388,9 +388,9 @@ export default function IotDeviceSpecPage() {
                         Battery backup
                       </h3>
                       <p className="mt-1 text-xs text-gray-600 sm:text-sm">
-                        Two 3.7&nbsp;V cells with 1700&nbsp;mAh pack capacity,
-                        to help maintain operation through short supply
-                        interruptions.
+                        Two cell battery with 7.4&nbsp;V and 2600&nbsp;mAh pack
+                        capacity, to help maintain operation through short
+                        supply interruptions.
                       </p>
                     </div>
                   </div>
