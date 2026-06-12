@@ -138,8 +138,8 @@ const sections = [
         </p>
         <p className="mt-2">
           Phone:{" "}
-          <a href="tel:+919512570090" className="text-red-600 hover:underline">
-            +91 9512570090
+          <a href="tel:+919033050415" className="text-red-600 hover:underline">
+            +91 9033050415
           </a>
         </p>
         <p className="mt-3 text-sm text-gray-600">

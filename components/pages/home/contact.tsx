@@ -38,10 +38,10 @@ export default function Contact() {
             <div className="flex gap-4 justify-center">
               <div className="text-lg md:text-xl">
                 <a
-                  href="tel:+919512570090"
+                  href="tel:+919033050415"
                   className="hover:text-red-500 transition-colors"
                 >
-                  +91 9512570090
+                  +91 9033050415
                 </a>
               </div>
               <span className="text-lg md:text-xl opacity-70">|</span>

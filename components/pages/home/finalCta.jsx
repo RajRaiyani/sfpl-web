@@ -35,10 +35,10 @@ export default function FinalCta() {
               <div className="relative z-10 space-y-6">
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center">
                   <a
-                    href="tel:+919512570090"
+                    href="tel:+919033050415"
                     className="text-base sm:text-lg md:text-xl hover:text-red-500 transition-colors text-center sm:text-left"
                   >
-                    +91 9512570090
+                    +91 9033050415
                   </a>
                   <span className="hidden sm:inline text-lg md:text-xl opacity-70">
                     |

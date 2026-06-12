@@ -192,10 +192,10 @@ export default function Jobs() {
                         Contact us to apply:
                       </p>
                       <a
-                        href="tel:+919925913386"
+                        href="tel:+919033050415"
                         className="text-lg font-semibold text-red-600 hover:text-red-700 transition-colors"
                       >
-                        +91 9925913386
+                        +91 9033050415
                       </a>
                     </div>
                   </div>
@@ -262,10 +262,10 @@ export default function Jobs() {
                 <div className="flex items-center gap-3 text-gray-700">
                   <Phone className="w-5 h-5 text-red-600" />
                   <a
-                    href="tel:+91 9925913386"
+                    href="tel:+919033050415"
                     className="text-sm hover:text-red-600 transition-colors"
                   >
-                    +91 9925913386
+                    +91 9033050415
                   </a>
                 </div>
               </div>

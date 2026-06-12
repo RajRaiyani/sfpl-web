@@ -294,10 +294,10 @@ export default function ContactClient() {
                 <div>
                   <span className="font-semibold">Phone Number:</span>{" "}
                   <a
-                    href="tel:+919512570090"
+                    href="tel:+919033050415"
                     className="text-primary hover:underline ml-1"
                   >
-                    +91 9512570090
+                    +91 9033050415
                   </a>
                 </div>
                 <div>
