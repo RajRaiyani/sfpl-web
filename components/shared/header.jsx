@@ -20,11 +20,13 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
-import { ChevronDown, LayoutDashboard, LogOut, Menu, User } from "lucide-react";
+import { ChevronDown, LayoutDashboard, LogOut, Menu, Package, User } from "lucide-react";
+import StoreCartButton from "@/components/store/StoreCartButton";
+import { buildConnectLoginUrl, buildConnectRegisterUrl, clearAuthSession } from "@/lib/auth-storage";
+import { CUSTOMER_AUTH_COOKIES } from "@/lib/auth-cookies";
+import env from "@/config/env";
 
-const CUSTOMER_PORTAL_LOGOUT_URL =
-  process.env.NEXT_PUBLIC_CUSTOMER_PORTAL_LOGOUT_URL ??
-  "https://server.specificfire.com/customer-portal/auth/logout";
+const CUSTOMER_PORTAL_LOGOUT_URL = `${env.serverProxyUrl}/customer-portal/auth/logout`;
 
 function AccountDropdownContent({
   userName,
@@ -44,15 +46,21 @@ function AccountDropdownContent({
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
       <DropdownMenuItem asChild>
-        <a href={profileHref}>
+        <Link href="/account">
           <User />
           Profile
-        </a>
+        </Link>
+      </DropdownMenuItem>
+      <DropdownMenuItem asChild>
+        <Link href="/orders">
+          <Package />
+          My orders
+        </Link>
       </DropdownMenuItem>
       <DropdownMenuItem asChild>
         <a href={dashboardHref}>
           <LayoutDashboard />
-          Dashboard
+          Connect dashboard
         </a>
       </DropdownMenuItem>
       <DropdownMenuSeparator />
@@ -92,8 +100,8 @@ export default function Header() {
     };
 
     const syncFromCookies = () => {
-      const nextToken = cookiesApi.get("token");
-      const nextRawUser = cookiesApi.get("user");
+      const nextToken = cookiesApi.get(CUSTOMER_AUTH_COOKIES.token);
+      const nextRawUser = cookiesApi.get(CUSTOMER_AUTH_COOKIES.user);
 
       setCookieState((prev) => {
         const prevUserFp = getUserFingerprint(prev.rawUser);
@@ -145,18 +153,16 @@ export default function Header() {
 
   const dashboardHref = connectBaseUrl ? buildConnectUrl("") : "/connect";
   const profileHref = connectBaseUrl ? buildConnectUrl("/profile") : "/connect";
-  const loginHref = connectBaseUrl ? buildConnectUrl("/login") : "/login";
-  const registerHref = connectBaseUrl
-    ? buildConnectUrl("/register")
-    : "/register";
+  const returnPath = pathname || "/";
+  const loginHref = connectBaseUrl ? buildConnectLoginUrl(returnPath) : "/login";
+  const registerHref = connectBaseUrl ? buildConnectRegisterUrl(returnPath) : "/register";
 
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const clearSessionCookies = useCallback(() => {
-    cookiesApi.remove("token", { path: "/" });
-    cookiesApi.remove("user", { path: "/" });
+    clearAuthSession();
     setCookieState({ token: undefined, rawUser: undefined });
-  }, [cookiesApi]);
+  }, []);
 
   const handleLogout = useCallback(async () => {
     if (isLoggingOut) return;
@@ -325,6 +331,7 @@ export default function Header() {
         {/* Desktop Actions */}
         <div className="hidden md:block">
           <div className="flex items-center gap-3 sm:gap-4">
+            <StoreCartButton />
             {!token ? (
               <>
                 <Link href="/contact">
@@ -387,7 +394,8 @@ export default function Header() {
           </div>
         </div>
         {/* Mobile: profile / login (right) — min width matches menu button for balance */}
-        <div className="relative z-10 flex h-10 min-w-10 shrink-0 items-center justify-end md:hidden">
+        <div className="relative z-10 flex h-10 min-w-10 shrink-0 items-center justify-end gap-2 md:hidden">
+          <StoreCartButton />
           {token ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

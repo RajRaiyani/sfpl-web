@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { serverDetails } from '../config/vars';
 import { toast } from 'react-hot-toast';
+import { getAuthToken } from '@/lib/auth-storage';
 
 const axiosInstance = axios.create({
   baseURL: serverDetails.serverProxyURL,
@@ -8,7 +9,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = getAuthToken();
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
