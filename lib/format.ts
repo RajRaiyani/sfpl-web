@@ -84,7 +84,7 @@ export function formatOrderAddress(address?: Record<string, unknown> | string | 
   const lines = [
     parsed.address,
     [parsed.city, parsed.state_name].filter(Boolean).join(", "),
-    parsed.postal_code ? `PIN ${parsed.postal_code}` : null,
+    parsed.postal_code ? `PIN CODE ${parsed.postal_code}` : null,
   ].filter((line) => typeof line === "string" && line.trim());
 
   return lines.length ? lines.join("\n") : "—";
@@ -94,4 +94,17 @@ export function formatFulfillmentStatus(status: string) {
   return status
     .replaceAll("_", " ")
     .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+export function formatOrderDisplaySerial(order: {
+  serial?: string | null;
+  payment_status?: string;
+}) {
+  if (order.serial) return order.serial;
+  return "Payment pending";
+}
+
+export function isOrderInvoiceAvailable(status: string) {
+  const normalized = status.toLowerCase();
+  return normalized === "delivered" || normalized === "complete";
 }

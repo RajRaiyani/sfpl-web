@@ -8,13 +8,17 @@ import { Button } from "@/components/ui/button";
 import OrderStatusTimeline from "@/components/store/OrderStatusTimeline";
 import {
   formatOrderDate,
+  formatOrderDisplaySerial,
   formatPaisa,
   formatPaymentStatus,
+  isOrderInvoiceAvailable,
   parseOrderAddress,
   type OrderAddress,
 } from "@/lib/format";
 import { buildConnectLoginUrl, hasUserSession } from "@/lib/auth-storage";
 import { useOrder } from "@/hooks/use-orders";
+import OrderReceiptDownloadButton from "@/components/store/OrderReceiptDownloadButton";
+import OrderInvoiceDownloadButton from "@/components/store/OrderInvoiceDownloadButton";
 
 type OrderDetailClientProps = {
   orderId: string;
@@ -67,7 +71,7 @@ function OrderAddressDisplay({
       <AddressField label="City & state" value={cityState} />
       <AddressField
         label="PIN code"
-        value={parsed.postal_code ? `PIN ${parsed.postal_code}` : undefined}
+        value={parsed.postal_code ? `PIN CODE ${parsed.postal_code}` : undefined}
       />
     </div>
   );
@@ -134,16 +138,26 @@ export default function OrderDetailClient({ orderId }: OrderDetailClientProps) {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="text-xs font-bold uppercase tracking-widest text-red-600">Order</p>
-          <h1 className="text-3xl font-extrabold text-gray-900">{order.serial}</h1>
+          <h1 className="text-3xl font-extrabold text-gray-900">
+            {formatOrderDisplaySerial(order)}
+          </h1>
           <p className="mt-1 text-sm text-gray-500">{formatOrderDate(order.created_at)}</p>
         </div>
-        <div className="text-right">
-          <p className="text-2xl font-bold text-red-600">
-            {formatPaisa(order.total_amount_in_paisa)}
-          </p>
-          <div className="mt-2">
-            <PaymentBadge status={order.payment_status} />
+        <div className="flex flex-wrap items-start justify-end gap-3">
+          <div className="text-right">
+            <p className="text-2xl font-bold text-red-600">
+              {formatPaisa(order.total_amount_in_paisa)}
+            </p>
+            <div className="mt-2 flex justify-end">
+              <PaymentBadge status={order.payment_status} />
+            </div>
           </div>
+          {order.is_paid && order.serial ? (
+            <OrderReceiptDownloadButton order={order} />
+          ) : null}
+          {isOrderInvoiceAvailable(order.status) && order.serial ? (
+            <OrderInvoiceDownloadButton order={order} />
+          ) : null}
         </div>
       </div>
 

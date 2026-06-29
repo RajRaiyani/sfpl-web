@@ -282,7 +282,7 @@ export default function CheckoutPageClient() {
         amount: payment.amount,
         currency: payment.currency || "INR",
         name: "SFPL Connect",
-        description: order.serial,
+        description: order.serial ?? "SFPL Store order",
         order_id: payment.id,
         prefill: {
           name: form.full_name,
@@ -431,7 +431,7 @@ export default function CheckoutPageClient() {
           <div>
             <h2 className="text-lg font-bold text-gray-900">Billing address</h2>
             <div className="mt-4 space-y-4">
-              <div>
+              <div className="space-y-2">
                 <Label htmlFor="billing_address">Address</Label>
                 <Textarea
                   id="billing_address"
@@ -448,7 +448,7 @@ export default function CheckoutPageClient() {
                 <FieldError message={formErrors.billing_address} />
               </div>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <div>
+                <div className="space-y-2">
                   <Label htmlFor="billing_city">City</Label>
                   <Input
                     id="billing_city"
@@ -462,7 +462,7 @@ export default function CheckoutPageClient() {
                   />
                   <FieldError message={formErrors.billing_city} />
                 </div>
-                <div>
+                <div className="space-y-2">
                   <Label htmlFor="billing_state_id">State</Label>
                   <select
                     id="billing_state_id"
@@ -482,7 +482,7 @@ export default function CheckoutPageClient() {
                   </select>
                   <FieldError message={formErrors.billing_state_id} />
                 </div>
-                <div>
+                <div className="space-y-2">
                   <Label htmlFor="billing_postal_code">Postal code</Label>
                   <Input
                     id="billing_postal_code"
@@ -519,7 +519,7 @@ export default function CheckoutPageClient() {
                 Shipping address
               </h2>
               <div className="mt-4 space-y-4">
-                <div>
+                <div className="space-y-2">
                   <Label htmlFor="shipping_address">Address</Label>
                   <Textarea
                     id="shipping_address"
@@ -536,7 +536,7 @@ export default function CheckoutPageClient() {
                   <FieldError message={formErrors.shipping_address} />
                 </div>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                  <div>
+                  <div className="space-y-2">
                     <Label htmlFor="shipping_city">City</Label>
                     <Input
                       id="shipping_city"
@@ -552,7 +552,7 @@ export default function CheckoutPageClient() {
                     />
                     <FieldError message={formErrors.shipping_city} />
                   </div>
-                  <div>
+                  <div className="space-y-2">
                     <Label htmlFor="shipping_state_id">State</Label>
                     <select
                       id="shipping_state_id"
@@ -572,7 +572,7 @@ export default function CheckoutPageClient() {
                     </select>
                     <FieldError message={formErrors.shipping_state_id} />
                   </div>
-                  <div>
+                  <div className="space-y-2">
                     <Label htmlFor="shipping_postal_code">Postal code</Label>
                     <Input
                       id="shipping_postal_code"

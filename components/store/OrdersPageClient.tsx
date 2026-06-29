@@ -8,6 +8,7 @@ import OrderStatusTimeline from "@/components/store/OrderStatusTimeline";
 import {
   formatFulfillmentStatus,
   formatOrderDate,
+  formatOrderDisplaySerial,
   formatPaisa,
   formatPaymentStatus,
 } from "@/lib/format";
@@ -95,7 +96,9 @@ export default function OrdersPageClient() {
                     <ShoppingBag className="h-5 w-5" />
                   </div>
                   <div className="min-w-0">
-                    <p className="font-bold text-gray-900">{order.serial}</p>
+                    <p className="font-bold text-gray-900">
+                      {formatOrderDisplaySerial(order)}
+                    </p>
                     <p className="mt-0.5 text-sm text-gray-500">
                       {formatOrderDate(order.created_at)}
                     </p>

@@ -78,12 +78,13 @@ export type StoreOrderItem = {
 
 export type StoreOrder = {
   id: string;
-  serial: string;
+  serial: string | null;
   payment_status: "pending" | "paid" | "failed";
   status: string;
   total_amount_in_paisa: number;
   paid_amount_in_paisa: number;
   is_paid: boolean;
+  razorpay_payment_id?: string | null;
   created_at: string;
   total_item_count?: number;
   billing_details?: Record<string, unknown>;
