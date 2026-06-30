@@ -77,6 +77,10 @@ export function getCartItemCount(items: { quantity: number }[] = []) {
   return items.reduce((sum, item) => sum + item.quantity, 0);
 }
 
+export function cartHasOutOfStockItems(items: { in_stock?: boolean }[] = []) {
+  return items.some((item) => !item.in_stock);
+}
+
 export function useCartItemCount() {
   const { data } = useCart();
   return getCartItemCount(data?.items);

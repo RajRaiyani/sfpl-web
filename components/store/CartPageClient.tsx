@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Minus, Plus, Trash2 } from "lucide-react";
+import { toast } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { formatPaisa } from "@/lib/format";
 import { buildConnectLoginUrl, hasUserSession } from "@/lib/auth-storage";
@@ -11,23 +12,32 @@ import {
   useCart,
   useMergeGuestCartOnce,
   useUpdateCartItem,
+  cartHasOutOfStockItems,
 } from "@/hooks/use-cart";
 import DeliveryChargesNotice from "@/components/store/DeliveryChargesNotice";
 
 export default function CartPageClient() {
   const router = useRouter();
-  const { data: cart, isLoading } = useCart();
+  const { data: cart, isLoading, refetch, isFetching } = useCart();
   const updateCart = useUpdateCartItem();
   useMergeGuestCartOnce();
 
   const items = cart?.items ?? [];
   const total = cart?.total_amount_in_paisa ?? 0;
+  const hasOutOfStockItems = cartHasOutOfStockItems(items);
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!hasUserSession()) {
       window.location.href = buildConnectLoginUrl("/checkout");
       return;
     }
+
+    const { data: freshCart } = await refetch();
+    if (cartHasOutOfStockItems(freshCart?.items)) {
+      toast.error("Remove out-of-stock items from your cart before checkout.");
+      return;
+    }
+
     router.push("/checkout");
   };
 
@@ -67,12 +77,19 @@ export default function CartPageClient() {
                   ) : null}
                 </div>
                 <div className="flex flex-1 flex-col">
-                  <Link
-                    href={`/connect/devices/${item.slug}`}
-                    className="font-semibold text-gray-900 hover:text-red-600"
-                  >
-                    {item.device_name}
-                  </Link>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Link
+                      href={`/connect/devices/${item.slug}`}
+                      className="font-semibold text-gray-900 hover:text-red-600"
+                    >
+                      {item.device_name}
+                    </Link>
+                    {!item.in_stock ? (
+                      <span className="rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-red-700">
+                        Out of stock
+                      </span>
+                    ) : null}
+                  </div>
                   <p className="mt-1 text-sm font-bold text-red-600">
                     {formatPaisa(item.price_in_paisa)}
                   </p>
@@ -134,10 +151,16 @@ export default function CartPageClient() {
             <Button
               className="mt-6 w-full bg-red-600 hover:bg-red-700"
               size="lg"
-              onClick={handleCheckout}
+              disabled={isFetching}
+              onClick={() => void handleCheckout()}
             >
-              Proceed to checkout
+              {isFetching ? "Checking cart..." : "Proceed to checkout"}
             </Button>
+            {hasOutOfStockItems ? (
+              <p className="mt-2 text-center text-xs text-red-600">
+                Remove out-of-stock items to continue to checkout.
+              </p>
+            ) : null}
             <DeliveryChargesNotice />
           </div>
         </div>

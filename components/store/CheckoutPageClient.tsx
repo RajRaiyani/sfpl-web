@@ -20,13 +20,14 @@ import {
   type CheckoutFormField,
   type CheckoutFormState,
 } from "@/lib/store-profile";
-import { useCart, useMergeGuestCartOnce } from "@/hooks/use-cart";
+import { useCart, useMergeGuestCartOnce, cartHasOutOfStockItems } from "@/hooks/use-cart";
 import { useCreateOrder, useVerifyOrder } from "@/hooks/use-orders";
 import {
   useStoreAccountDetails,
   useStoreAddresses,
   useStoreStates,
 } from "@/hooks/use-store-profile";
+import CheckoutTermsDialog from "@/components/store/CheckoutTermsDialog";
 
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
@@ -69,11 +70,13 @@ function loadRazorpayScript() {
 
 export default function CheckoutPageClient() {
   const router = useRouter();
-  const { data: cart, isLoading: cartLoading } = useCart();
+  const { data: cart, isLoading: cartLoading, refetch: refetchCart } = useCart();
   const createOrderMutation = useCreateOrder();
   const verifyOrderMutation = useVerifyOrder();
   const [sameAsBilling, setSameAsBilling] = useState(true);
   const [isPaying, setIsPaying] = useState(false);
+  const [termsOpen, setTermsOpen] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [formErrors, setFormErrors] = useState<CheckoutFormErrors>({});
   const [touched, setTouched] = useState<
@@ -157,6 +160,16 @@ export default function CheckoutPageClient() {
   const states = statesResponse?.data ?? [];
   const items = cart?.items ?? [];
   const total = cart?.total_amount_in_paisa ?? 0;
+  const hasOutOfStockItems = cartHasOutOfStockItems(items);
+
+  const blockIfOutOfStock = async () => {
+    const { data: freshCart } = await refetchCart();
+    if (!cartHasOutOfStockItems(freshCart?.items)) return false;
+
+    toast.error("Remove out-of-stock items from your cart before checkout.");
+    router.push("/cart");
+    return true;
+  };
 
   const shippingValues = useMemo(() => {
     if (sameAsBilling) {
@@ -241,16 +254,30 @@ export default function CheckoutPageClient() {
     setFieldError(field, error);
   };
 
-  const handlePay = async () => {
+  const handleProceedToPayment = async () => {
     if (!items.length) {
       toast.error("Your cart is empty");
       return;
     }
 
+    if (await blockIfOutOfStock()) return;
+
     if (!validateForm()) {
       toast.error("Please fix the highlighted fields before paying");
       return;
     }
+
+    setTermsAccepted(false);
+    setTermsOpen(true);
+  };
+
+  const handleTermsDialogOpenChange = (open: boolean) => {
+    setTermsOpen(open);
+    if (!open) setTermsAccepted(false);
+  };
+
+  const startRazorpayPayment = async () => {
+    if (await blockIfOutOfStock()) return;
 
     setIsPaying(true);
     try {
@@ -272,6 +299,7 @@ export default function CheckoutPageClient() {
 
       if (!payment?.id || !key) {
         toast.error("Payment gateway is not configured");
+        setIsPaying(false);
         return;
       }
 
@@ -300,6 +328,8 @@ export default function CheckoutPageClient() {
             router.push(`/orders/${verified.data.id}`);
           } catch {
             toast.error("Payment verification failed");
+          } finally {
+            setIsPaying(false);
           }
         },
         modal: {
@@ -309,10 +339,30 @@ export default function CheckoutPageClient() {
 
       razorpay.open();
     } catch {
-      // handled by mutation
-    } finally {
       setIsPaying(false);
     }
+  };
+
+  const handleAgreeTermsAndPay = async () => {
+    if (!validateForm()) {
+      setTermsOpen(false);
+      return;
+    }
+
+    if (!termsAccepted) {
+      toast.error("Please accept the terms and conditions to continue");
+      return;
+    }
+
+    if (await blockIfOutOfStock()) {
+      setTermsOpen(false);
+      setTermsAccepted(false);
+      return;
+    }
+
+    setTermsOpen(false);
+    setTermsAccepted(false);
+    await startRazorpayPayment();
   };
 
   if (isCheckingAuth || cartLoading || accountLoading || addressesLoading) {
@@ -323,7 +373,26 @@ export default function CheckoutPageClient() {
 
   return (
     <div className="container mx-auto px-4 py-12">
+      <CheckoutTermsDialog
+        open={termsOpen}
+        accepted={termsAccepted}
+        isPaying={isPaying}
+        onOpenChange={handleTermsDialogOpenChange}
+        onAcceptedChange={setTermsAccepted}
+        onAgreeAndProceed={() => void handleAgreeTermsAndPay()}
+      />
+
       <h1 className="text-3xl font-extrabold text-gray-900">Checkout</h1>
+
+      {hasOutOfStockItems ? (
+        <div className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+          Some items in your cart are out of stock.{" "}
+          <Link href="/cart" className="font-semibold underline">
+            Return to cart
+          </Link>{" "}
+          to remove them before paying.
+        </div>
+      ) : null}
 
       <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
         <div className="space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
@@ -606,6 +675,11 @@ export default function CheckoutPageClient() {
               <div key={item.device_id} className="flex justify-between gap-3">
                 <span className="text-gray-600">
                   {item.device_name} × {item.quantity}
+                  {!item.in_stock ? (
+                    <span className="ml-1 text-xs font-semibold text-red-600">
+                      (Out of stock)
+                    </span>
+                  ) : null}
                 </span>
                 <span>{formatPaisa(item.price_in_paisa * item.quantity)}</span>
               </div>
@@ -619,9 +693,9 @@ export default function CheckoutPageClient() {
             className="mt-6 w-full bg-red-600 hover:bg-red-700"
             size="lg"
             disabled={isPaying || createOrderMutation.isPending}
-            onClick={() => void handlePay()}
+            onClick={() => void handleProceedToPayment()}
           >
-            {isPaying ? "Processing..." : "Pay with Razorpay"}
+            {isPaying ? "Processing..." : "Proceed to Payment"}
           </Button>
           <Button asChild variant="outline" className="mt-3 w-full">
             <Link href="/cart">Back to cart</Link>

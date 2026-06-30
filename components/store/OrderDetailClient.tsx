@@ -11,14 +11,12 @@ import {
   formatOrderDisplaySerial,
   formatPaisa,
   formatPaymentStatus,
-  isOrderInvoiceAvailable,
   parseOrderAddress,
   type OrderAddress,
 } from "@/lib/format";
 import { buildConnectLoginUrl, hasUserSession } from "@/lib/auth-storage";
 import { useOrder } from "@/hooks/use-orders";
-import OrderReceiptDownloadButton from "@/components/store/OrderReceiptDownloadButton";
-import OrderInvoiceDownloadButton from "@/components/store/OrderInvoiceDownloadButton";
+import OrderDownloadActions from "@/components/store/OrderDownloadActions";
 
 type OrderDetailClientProps = {
   orderId: string;
@@ -143,7 +141,7 @@ export default function OrderDetailClient({ orderId }: OrderDetailClientProps) {
           </h1>
           <p className="mt-1 text-sm text-gray-500">{formatOrderDate(order.created_at)}</p>
         </div>
-        <div className="flex flex-wrap items-start justify-end gap-3">
+        <div className="flex flex-col items-end gap-3">
           <div className="text-right">
             <p className="text-2xl font-bold text-red-600">
               {formatPaisa(order.total_amount_in_paisa)}
@@ -152,12 +150,7 @@ export default function OrderDetailClient({ orderId }: OrderDetailClientProps) {
               <PaymentBadge status={order.payment_status} />
             </div>
           </div>
-          {order.is_paid && order.serial ? (
-            <OrderReceiptDownloadButton order={order} />
-          ) : null}
-          {isOrderInvoiceAvailable(order.status) && order.serial ? (
-            <OrderInvoiceDownloadButton order={order} />
-          ) : null}
+          <OrderDownloadActions order={order} layout="detail" />
         </div>
       </div>
 

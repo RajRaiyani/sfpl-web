@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { ChevronRight, Package, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import OrderStatusTimeline from "@/components/store/OrderStatusTimeline";
+import OrderDownloadActions from "@/components/store/OrderDownloadActions";
 import {
   formatFulfillmentStatus,
   formatOrderDate,
@@ -56,13 +57,18 @@ export default function OrdersPageClient() {
     <div className="container mx-auto px-4 py-12">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-red-600">Store</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-red-600">
+            Store
+          </p>
           <h1 className="text-3xl font-extrabold text-gray-900">My orders</h1>
-          <p className="mt-1 text-sm text-gray-500">Track your hardware orders and delivery status.</p>
+          <p className="mt-1 text-sm text-gray-500">
+            Track your hardware orders and delivery status.
+          </p>
         </div>
         {orders.length > 0 ? (
           <p className="text-sm text-gray-500">
-            <span className="font-semibold text-gray-900">{orders.length}</span> orders
+            <span className="font-semibold text-gray-900">{orders.length}</span>{" "}
+            orders
           </p>
         ) : null}
       </div>
@@ -85,53 +91,61 @@ export default function OrdersPageClient() {
       ) : (
         <div className="mt-8 space-y-4">
           {orders.map((order) => (
-            <Link
+            <div
               key={order.id}
-              href={`/orders/${order.id}`}
-              className="group block rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition hover:border-red-100 hover:shadow-md"
+              className="group rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition hover:border-red-100 hover:shadow-md"
             >
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div className="flex min-w-0 items-start gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-600">
-                    <ShoppingBag className="h-5 w-5" />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="font-bold text-gray-900">
-                      {formatOrderDisplaySerial(order)}
-                    </p>
-                    <p className="mt-0.5 text-sm text-gray-500">
-                      {formatOrderDate(order.created_at)}
-                    </p>
-                    {order.total_item_count ? (
-                      <p className="mt-1 text-xs text-gray-400">
-                        {order.total_item_count} item{order.total_item_count === 1 ? "" : "s"}
+              <Link href={`/orders/${order.id}`} className="block">
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div className="flex min-w-0 items-start gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-600">
+                      <ShoppingBag className="h-5 w-5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-bold text-gray-900">
+                        {formatOrderDisplaySerial(order)}
                       </p>
-                    ) : null}
+                      <p className="mt-0.5 text-sm text-gray-500">
+                        {formatOrderDate(order.created_at)}
+                      </p>
+                      {order.total_item_count ? (
+                        <p className="mt-1 text-xs text-gray-400">
+                          {order.total_item_count} item
+                          {order.total_item_count === 1 ? "" : "s"}
+                        </p>
+                      ) : null}
+                    </div>
+                  </div>
+
+                  <div className="text-right">
+                    <p className="font-semibold text-red-600">
+                      {formatPaisa(order.total_amount_in_paisa)}
+                    </p>
+                    <div className="mt-1.5">
+                      <PaymentBadge status={order.payment_status} />
+                    </div>
                   </div>
                 </div>
 
-                <div className="text-right">
-                  <p className="font-semibold text-red-600">
-                    {formatPaisa(order.total_amount_in_paisa)}
+                <div className="mt-4 rounded-xl bg-gray-50 p-3">
+                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-wide text-gray-500">
+                    {formatFulfillmentStatus(order.status)}
                   </p>
-                  <div className="mt-1.5">
-                    <PaymentBadge status={order.payment_status} />
-                  </div>
+                  <OrderStatusTimeline status={order.status} compact />
                 </div>
-              </div>
+              </Link>
 
-              <div className="mt-4 rounded-xl bg-gray-50 p-3">
-                <p className="mb-2 text-[10px] font-semibold uppercase tracking-wide text-gray-500">
-                  {formatFulfillmentStatus(order.status)}
-                </p>
-                <OrderStatusTimeline status={order.status} compact />
+              <div className="mt-3 flex flex-wrap items-end justify-between gap-3 border-t border-gray-100 pt-3">
+                <OrderDownloadActions order={order} layout="list" />
+                <Link
+                  href={`/orders/${order.id}`}
+                  className="ml-auto inline-flex items-center gap-1 text-xs font-semibold text-red-600 transition hover:text-red-700"
+                >
+                  View order details
+                  <ChevronRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+                </Link>
               </div>
-
-              <div className="mt-3 flex items-center justify-end gap-1 text-xs font-medium text-red-600">
-                View order details
-                <ChevronRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
-              </div>
-            </Link>
+            </div>
           ))}
         </div>
       )}
