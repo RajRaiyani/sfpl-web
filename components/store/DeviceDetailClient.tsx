@@ -42,7 +42,9 @@ export default function DeviceDetailClient({ slug }: DeviceDetailClientProps) {
   };
 
   if (isLoading) {
-    return <div className="container mx-auto px-4 py-16 animate-pulse h-96 bg-gray-50 rounded-2xl" />;
+    return (
+      <div className="container mx-auto px-4 py-16 animate-pulse h-96 bg-gray-50 rounded-2xl" />
+    );
   }
 
   if (isError || !device) {
@@ -78,16 +80,24 @@ export default function DeviceDetailClient({ slug }: DeviceDetailClientProps) {
               priority
             />
           ) : (
-            <div className="flex h-full items-center justify-center text-gray-400">No image</div>
+            <div className="flex h-full items-center justify-center text-gray-400">
+              No image
+            </div>
           )}
         </div>
 
         <div>
-          <h1 className="text-3xl font-extrabold text-gray-900 md:text-4xl">{device.name}</h1>
+          <h1 className="text-3xl font-extrabold text-gray-900 md:text-4xl">
+            {device.name}
+          </h1>
           {device.short_description ? (
-            <p className="mt-4 text-base text-gray-600">{device.short_description}</p>
+            <p className="mt-4 text-base text-gray-600">
+              {device.short_description}
+            </p>
           ) : null}
-          <p className="mt-6 text-3xl font-bold text-red-600">{formatPaisa(device.price_in_paisa)}</p>
+          <p className="mt-6 text-3xl font-bold text-red-600">
+            {formatPaisa(device.price_in_paisa)}
+          </p>
           <p className="mt-2 text-sm text-gray-500">
             {outOfStock ? "Out of stock" : "In stock"}
           </p>
@@ -102,7 +112,9 @@ export default function DeviceDetailClient({ slug }: DeviceDetailClientProps) {
               >
                 <Minus className="h-4 w-4" />
               </button>
-              <span className="min-w-10 text-center font-semibold">{quantity}</span>
+              <span className="min-w-10 text-center font-semibold">
+                {quantity}
+              </span>
               <button
                 type="button"
                 className="px-3 py-2 text-gray-600 hover:bg-gray-50 disabled:opacity-40"

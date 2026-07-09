@@ -3,6 +3,7 @@ import Services from "@/components/pages/home/services";
 import Clients from "@/components/pages/home/clients";
 import Vision from "@/components/pages/home/vision";
 import ConnectHighlights from "@/components/pages/home/connectHighlights";
+import SfplBrochureSection from "@/components/pages/home/SfplBrochureSection";
 import FinalCta from "@/components/pages/home/finalCta";
 import "@/components/pages/home/style.css";
 import { buildPageMetadata } from "@/lib/seo";
@@ -21,6 +22,7 @@ export default function Home() {
       <Hero />
       <Vision />
       <Services />
+      <SfplBrochureSection />
       <ConnectHighlights />
       <Clients />
       <FinalCta />

@@ -19,6 +19,7 @@ import {
   KeyRound,
   Webhook,
   HelpCircle,
+  Download,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -125,6 +126,20 @@ export default function Product() {
               alerts.
             </p>
           </div>
+        </div>
+        <div className="absolute z-20 bottom-8 right-4 sm:right-8">
+          <a
+            href="https://specificfire.s3.ap-south-1.amazonaws.com/public/SFPL+CONNECT+Brochure.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 rounded-xl border border-red-100/60 bg-white/95 px-4 py-2.5 text-sm font-semibold text-gray-900 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-red-200/70 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black/60"
+            aria-label="Download SFPL Connect brochure"
+          >
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-red-50 text-red-600 transition-colors group-hover:bg-red-100">
+              <Download className="h-4 w-4" aria-hidden />
+            </span>
+            <span>Download Brochure</span>
+          </a>
         </div>
       </div>
 

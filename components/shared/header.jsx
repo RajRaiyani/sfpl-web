@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
 import { ChevronDown, LayoutDashboard, LogOut, Menu, Package, User } from "lucide-react";
-import StoreCartButton from "@/components/store/StoreCartButton";
+// import StoreCartButton from "@/components/store/StoreCartButton";
 import { buildConnectLoginUrl, buildConnectRegisterUrl, clearAuthSession } from "@/lib/auth-storage";
 import { CUSTOMER_AUTH_COOKIES } from "@/lib/auth-cookies";
 import env from "@/config/env";
@@ -331,7 +331,7 @@ export default function Header() {
         {/* Desktop Actions */}
         <div className="hidden md:block">
           <div className="flex items-center gap-3 sm:gap-4">
-            <StoreCartButton />
+            {/* <StoreCartButton /> */}
             {!token ? (
               <>
                 <Link href="/contact">
@@ -395,7 +395,7 @@ export default function Header() {
         </div>
         {/* Mobile: profile / login (right) — min width matches menu button for balance */}
         <div className="relative z-10 flex h-10 min-w-10 shrink-0 items-center justify-end gap-2 md:hidden">
-          <StoreCartButton />
+          {/* <StoreCartButton /> */}
           {token ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

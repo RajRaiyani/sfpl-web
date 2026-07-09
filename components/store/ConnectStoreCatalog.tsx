@@ -1,6 +1,7 @@
 "use client";
 
 import { Cpu } from "lucide-react";
+import { ComingSoonPlansCard } from "@/components/store/ComingSoonPlansCard";
 import { StoreDeviceCard } from "@/components/store/StoreDeviceCard";
 import { useStoreDevices } from "@/hooks/use-store-devices";
 
@@ -40,10 +41,8 @@ export default function ConnectStoreCatalog() {
               />
             ))}
           </div>
-        ) : isError ? (
-          <p className="text-sm text-red-600">Unable to load devices right now.</p>
-        ) : devices.length === 0 ? (
-          <p className="text-sm text-gray-500">No devices available at the moment.</p>
+        ) : isError || devices.length === 0 ? (
+          <ComingSoonPlansCard />
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {devices.map((device) => (
