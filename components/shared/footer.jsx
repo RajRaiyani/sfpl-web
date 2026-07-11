@@ -176,6 +176,16 @@ export default function Footer() {
                 IoT device docs
               </Link>
               <Link
+                href="/iot-user-manual"
+                className={`block text-xs sm:text-sm transition-colors ${
+                  isActive("/iot-user-manual")
+                    ? "text-primary font-semibold"
+                    : "text-gray-600 hover:text-red-600"
+                }`}
+              >
+                IoT user manual
+              </Link>
+              <Link
                 href="/iot-faq"
                 className={`block text-xs sm:text-sm transition-colors ${
                   isActive("/iot-faq")

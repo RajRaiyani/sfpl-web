@@ -9,6 +9,9 @@ const routes = [
   { path: "/jobs", changeFrequency: "weekly", priority: 0.7 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.8 },
   { path: "/connect", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/iot-device-spec", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/iot-user-manual", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/iot-faq", changeFrequency: "monthly", priority: 0.6 },
 ];
 
 export default function sitemap() {

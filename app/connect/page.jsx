@@ -20,6 +20,8 @@ import {
   Webhook,
   HelpCircle,
   Download,
+  FileText,
+  BookOpen,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -324,17 +326,18 @@ export default function Product() {
                 </span>
               </div>
               <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-[1.1] tracking-tight">
-                Built for{" "}
+                What to{" "}
                 <span className="relative inline-block">
-                  <span className="relative z-10">industrial-grade</span>
+                  <span className="relative z-10">wire</span>
                   <span className="absolute bottom-1 left-0 w-full h-3 bg-red-100 -z-0 rounded" />
                 </span>{" "}
-                input
+                to each pin
               </h2>
             </div>
             <p className="text-gray-500 text-base leading-relaxed max-w-sm md:text-right">
-              Every pin, slot, and connector is purposefully designed to handle
-              real-world electrical environments with precision.
+              Match your field cables to the right terminal group — voltage,
+              current, or sensor — then power the unit and read live values in
+              the portal.
             </p>
           </div>
 
@@ -342,51 +345,83 @@ export default function Product() {
             {/* Spec breakdown */}
             <div className="space-y-5">
               <p className="text-gray-600 text-base leading-relaxed">
-                The SFPL Connect device is a compact, DIN-rail mountable IoT
-                unit. Inside the rugged enclosure sits a custom PCB with
-                screw-terminal I/O blocks, making field wiring fast and
-                reliable.
-              </p>
-              <p className="text-sm text-gray-600">
-                <Link
-                  href="/iot-device-spec"
-                  className="inline-flex items-center gap-1.5 font-semibold text-red-600 hover:text-red-800 underline-offset-2 hover:underline"
-                >
-                  IoT device technical specification
-                  <ArrowRight className="w-4 h-4 shrink-0" aria-hidden />
-                </Link>
-                <span className="text-gray-500">
-                  {" "}
-                  — I/O overview, electrical ratings, and reference diagrams.
-                </span>
+                Connect is a compact DIN-rail IoT unit with screw-terminal
+                blocks. Seventeen inputs are grouped by signal type so you can
+                wire a three-phase panel, clamp-on CTs, and DC field sensors on
+                the same device.
               </p>
 
               {/* Pin groups — aligned with /iot-device-spec */}
               <div className="space-y-3">
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                  17 input connections
+                  How to use the 17 inputs
                 </p>
 
+                {/* Power supply */}
+                <Link
+                  href="/iot-device-spec#power-supply"
+                  className="block rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md transition-all hover:border-red-200 hover:bg-white hover:shadow-lg"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-gray-200 flex items-center justify-center flex-shrink-0">
+                      <Power className="w-5 h-5 text-gray-700" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between mb-1 gap-2">
+                        <p className="font-bold text-gray-900 text-sm">
+                          Power the device
+                        </p>
+                        <span className="text-xs font-semibold bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full shrink-0">
+                          1 pin · 6–24&nbsp;V DC
+                        </span>
+                      </div>
+                      <p className="text-gray-500 text-xs leading-relaxed">
+                        <span className="font-semibold text-gray-700">
+                          Wire:
+                        </span>{" "}
+                        an external DC supply (6–24&nbsp;V) into the power
+                        terminal. This runs the electronics and cellular radio —
+                        it is not a measurement input.
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+
                 {/* AC high-voltage */}
-                <div className="rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md">
+                <Link
+                  href="/iot-device-spec#ac-high"
+                  className="block rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md transition-all hover:border-red-200 hover:bg-white hover:shadow-lg"
+                >
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0">
                       <Zap className="w-5 h-5 text-amber-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center justify-between mb-1 gap-2">
                         <p className="font-bold text-gray-900 text-sm">
-                          AC high-voltage
+                          Measure phase voltage
                         </p>
-                        <span className="text-xs font-semibold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">
-                          3 pins
+                        <span className="text-xs font-semibold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full shrink-0">
+                          3 pins · up to 300&nbsp;V AC
                         </span>
                       </div>
+                      <p className="text-gray-500 text-xs leading-relaxed mb-2">
+                        <span className="font-semibold text-gray-700">
+                          Wire:
+                        </span>{" "}
+                        each phase line from your distribution or branch panel
+                        (R, Y, B) into{" "}
+                        <span className="font-mono text-gray-700">VR</span>,{" "}
+                        <span className="font-mono text-gray-700">VY</span>, and{" "}
+                        <span className="font-mono text-gray-700">VB</span>.
+                        Isolated channels read mains-level AC voltage directly.
+                      </p>
                       <p className="text-gray-500 text-xs leading-relaxed mb-3">
-                        Isolated channels for line / phase voltage on
-                        distribution or branch circuits — up to 300&nbsp;V AC
-                        per channel. Typical use: three-phase supplies (for
-                        example R–Y–B).
+                        <span className="font-semibold text-gray-700">
+                          Use for:
+                        </span>{" "}
+                        supply health, phase presence / loss, and three-phase
+                        voltage monitoring on feeders.
                       </p>
                       <div className="flex gap-2">
                         {["R", "Y", "B"].map((phase, i) => (
@@ -406,28 +441,45 @@ export default function Product() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
 
                 {/* AC low-voltage (CT) */}
-                <div className="rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md">
+                <Link
+                  href="/iot-device-spec#ac-low"
+                  className="block rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md transition-all hover:border-red-200 hover:bg-white hover:shadow-lg"
+                >
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
                       <Gauge className="w-5 h-5 text-blue-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center justify-between mb-1 gap-2">
                         <p className="font-bold text-gray-900 text-sm">
-                          AC low-voltage (CT)
+                          Measure phase current (via CT)
                         </p>
-                        <span className="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
-                          3 pins
+                        <span className="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full shrink-0">
+                          3 pins · up to 5&nbsp;V AC
                         </span>
                       </div>
+                      <p className="text-gray-500 text-xs leading-relaxed mb-2">
+                        <span className="font-semibold text-gray-700">
+                          Wire:
+                        </span>{" "}
+                        the low-voltage output of a current transformer (CT)
+                        clamped around each phase cable into{" "}
+                        <span className="font-mono text-gray-700">IR</span>,{" "}
+                        <span className="font-mono text-gray-700">IY</span>, and{" "}
+                        <span className="font-mono text-gray-700">IB</span>. Do
+                        not connect mains here — only the CT secondary signal
+                        (up to 5&nbsp;V AC).
+                      </p>
                       <p className="text-gray-500 text-xs leading-relaxed mb-3">
-                        For low-amplitude AC from external transducers (not
-                        direct mains). Up to 5&nbsp;V AC — ideal for current
-                        transformers (CTs) that output a proportional low
-                        voltage. up to 80 amps current can be measured.
+                        <span className="font-semibold text-gray-700">
+                          Use for:
+                        </span>{" "}
+                        load / amperage per phase (typically up to ~80&nbsp;A
+                        depending on the CT), energy monitoring, and overload
+                        alerts.
                       </p>
                       <div className="flex gap-2">
                         {["R", "Y", "B"].map((n) => (
@@ -441,28 +493,42 @@ export default function Product() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
 
                 {/* Analog DC */}
-                <div className="rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md">
+                <Link
+                  href="/iot-device-spec#analog"
+                  className="block rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md transition-all hover:border-red-200 hover:bg-white hover:shadow-lg"
+                >
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center flex-shrink-0">
                       <Plug className="w-5 h-5 text-green-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center justify-between mb-1 gap-2">
                         <p className="font-bold text-gray-900 text-sm">
-                          Analog DC inputs (general purpose)
+                          Connect field sensors
                         </p>
-                        <span className="text-xs font-semibold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
-                          9 pins
+                        <span className="text-xs font-semibold bg-green-100 text-green-700 px-2 py-0.5 rounded-full shrink-0">
+                          9 pins · 0–30&nbsp;V DC
                         </span>
                       </div>
+                      <p className="text-gray-500 text-xs leading-relaxed mb-2">
+                        <span className="font-semibold text-gray-700">
+                          Wire:
+                        </span>{" "}
+                        the DC signal output from each sensor into{" "}
+                        <span className="font-mono text-gray-700">A1</span>–
+                        <span className="font-mono text-gray-700">A9</span>{" "}
+                        (0–30&nbsp;V per channel). One sensor per pin.
+                      </p>
                       <p className="text-gray-500 text-xs leading-relaxed mb-3">
-                        General-purpose DC voltage inputs (0–30&nbsp;V span per
-                        channel) for pressure, level, temperature, flow, and
-                        other field devices — calibrate per channel in the
-                        portal.
+                        <span className="font-semibold text-gray-700">
+                          Use for:
+                        </span>{" "}
+                        pressure, tank level, temperature, flow, and other
+                        process transmitters. Map volts to engineering units
+                        with per-channel calibration in the portal.
                       </p>
                       <div className="grid grid-cols-5 sm:grid-cols-9 gap-1">
                         {Array.from({ length: 9 }, (_, i) => (
@@ -476,73 +542,125 @@ export default function Product() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
 
                 {/* Cellular */}
-                <div className="rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md">
+                <Link
+                  href="/iot-device-spec#hardware"
+                  className="block rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md transition-all hover:border-red-200 hover:bg-white hover:shadow-lg"
+                >
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center flex-shrink-0">
                       <Radio className="w-5 h-5 text-red-600" />
                     </div>
                     <div className="flex-1">
-                      <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center justify-between mb-1 gap-2">
                         <p className="font-bold text-gray-900 text-sm">
-                          Cellular
+                          Send data to the cloud
                         </p>
-                        <span className="text-xs font-semibold bg-red-100 text-red-600 px-2 py-0.5 rounded-full">
+                        <span className="text-xs font-semibold bg-red-100 text-red-600 px-2 py-0.5 rounded-full shrink-0">
                           2G · integrated antenna
                         </span>
                       </div>
                       <p className="text-gray-500 text-xs leading-relaxed">
-                        GSM module with 2G connectivity and integrated antenna
-                        for uplink in covered deployments.
+                        Built-in GSM (2G) with an integrated antenna uploads
+                        readings to the SFPL portal — no separate modem or
+                        external antenna required in covered areas.
                       </p>
                     </div>
                   </div>
-                </div>
+                </Link>
 
                 {/* Battery backup */}
-                <div className="rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md">
+                <Link
+                  href="/iot-device-spec#hardware"
+                  className="block rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-md transition-all hover:border-red-200 hover:bg-white hover:shadow-lg"
+                >
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center flex-shrink-0">
                       <Battery className="w-5 h-5 text-red-600" />
                     </div>
                     <div className="flex-1">
-                      <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center justify-between mb-1 gap-2">
                         <p className="font-bold text-gray-900 text-sm">
-                          Battery backup
+                          Keep running on outage
                         </p>
-                        <span className="text-xs font-semibold bg-red-100 text-red-600 px-2 py-0.5 rounded-full">
-                          2 × 3.7&nbsp;V
+                        <span className="text-xs font-semibold bg-red-100 text-red-600 px-2 py-0.5 rounded-full shrink-0">
+                          7.4&nbsp;V · 2600&nbsp;mAh
                         </span>
                       </div>
                       <p className="text-gray-500 text-xs leading-relaxed">
-                        Two 3.7&nbsp;V cells with 1700&nbsp;mAh pack capacity to
-                        help ride through short supply interruptions.
+                        Internal two-cell pack (7.4&nbsp;V, 2600&nbsp;mAh)
+                        bridges short supply interruptions so the device can
+                        keep reporting through brief power dips.
                       </p>
                     </div>
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
 
-            {/* Blueprint image */}
-            <div className="relative overflow-hidden ">
-              <div
-                className="absolute inset-0 opacity-30"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(#93c5fd22 1px, transparent 1px), linear-gradient(90deg, #93c5fd22 1px, transparent 1px)",
-                  backgroundSize: "24px 24px",
-                }}
-              />
-              <Image
-                src="/images/pages/connect/hardware-graphic.png"
-                alt="SFPL Connect hardware exploded view — enclosure, PCB, terminals, DIN rail"
-                width={700}
-                height={560}
-                className="relative z-10 w-full h-auto object-contain "
-              />
+            {/* Blueprint image + tech spec CTA */}
+            <div className="relative flex flex-col gap-5">
+              <div className="relative overflow-hidden">
+                <div
+                  className="absolute inset-0 opacity-30"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(#93c5fd22 1px, transparent 1px), linear-gradient(90deg, #93c5fd22 1px, transparent 1px)",
+                    backgroundSize: "24px 24px",
+                  }}
+                />
+                <Image
+                  src="/images/pages/connect/hardware-graphic.png"
+                  alt="SFPL Connect hardware exploded view — enclosure, PCB, terminals, DIN rail"
+                  width={700}
+                  height={560}
+                  className="relative z-10 w-full h-auto object-contain"
+                />
+              </div>
+
+              <Link
+                href="/iot-device-spec"
+                className="group relative z-10 flex items-center gap-4 rounded-2xl border-2 border-red-200 bg-red-50 p-4 shadow-sm transition-all hover:border-red-400 hover:bg-red-100 hover:shadow-md"
+              >
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-red-600 shadow-md shadow-red-200">
+                  <FileText className="h-5 w-5 text-white" aria-hidden />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-bold text-red-700 group-hover:text-red-800">
+                    IoT device technical specification
+                  </p>
+                  <p className="mt-0.5 text-xs text-red-600/80">
+                    Full ratings, pin diagrams, and wiring reference
+                  </p>
+                </div>
+                <ArrowRight
+                  className="h-5 w-5 shrink-0 text-red-500 transition-transform group-hover:translate-x-0.5"
+                  aria-hidden
+                />
+              </Link>
+
+              <Link
+                href="/iot-user-manual"
+                className="group relative z-10 flex items-center gap-4 rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-sm transition-all hover:border-red-200 hover:bg-red-50 hover:shadow-md"
+              >
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gray-900 shadow-md">
+                  <BookOpen className="h-5 w-5 text-white" aria-hidden />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-bold text-gray-900 group-hover:text-red-800">
+                    IoT device user manual
+                  </p>
+                  <p className="mt-0.5 text-xs text-gray-500 group-hover:text-red-600/80">
+                    DC power, AC voltage, CTs, and sensors — step by step
+                  </p>
+                </div>
+                <ArrowRight
+                  className="h-5 w-5 shrink-0 text-gray-400 transition-transform group-hover:translate-x-0.5 group-hover:text-red-500"
+                  aria-hidden
+                />
+              </Link>
             </div>
           </div>
         </div>

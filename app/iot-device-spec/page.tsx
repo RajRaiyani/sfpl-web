@@ -24,6 +24,10 @@ const toc = [
   { id: "hardware", label: "Hardware" },
 ] as const;
 
+const relatedDocs = [
+  { href: "/iot-user-manual", label: "User manual" },
+] as const;
+
 export default function IotDeviceSpecPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
@@ -59,6 +63,19 @@ export default function IotDeviceSpecPage() {
                     >
                       {item.label}
                     </a>
+                  </li>
+                ))}
+                {relatedDocs.map((item) => (
+                  <li
+                    key={item.href}
+                    className="mt-2 border-t border-gray-100 pt-2"
+                  >
+                    <Link
+                      href={item.href}
+                      className="block rounded px-1 py-0.5 hover:bg-red-50 hover:text-red-700 transition-colors"
+                    >
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>

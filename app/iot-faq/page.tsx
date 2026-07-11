@@ -56,10 +56,18 @@ export default function IotFaqPage() {
                 ))}
                 <li className="border-t border-gray-100 pt-2 mt-2">
                   <Link
-                    href="/tech/iot-device-spec"
+                    href="/iot-device-spec"
                     className="block rounded px-1 py-0.5 transition-colors hover:bg-red-50 hover:text-red-700"
                   >
                     Device specification
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/iot-user-manual"
+                    className="block rounded px-1 py-0.5 transition-colors hover:bg-red-50 hover:text-red-700"
+                  >
+                    User manual
                   </Link>
                 </li>
               </ul>
@@ -112,10 +120,17 @@ export default function IotFaqPage() {
                 </Link>
                 {" · "}
                 <Link
-                  href="/tech/iot-device-spec"
+                  href="/iot-device-spec"
                   className="text-red-600 underline-offset-2 hover:text-red-700 hover:underline"
                 >
                   IoT device specification
+                </Link>
+                {" · "}
+                <Link
+                  href="/iot-user-manual"
+                  className="text-red-600 underline-offset-2 hover:text-red-700 hover:underline"
+                >
+                  User manual
                 </Link>
               </p>
             </footer>
