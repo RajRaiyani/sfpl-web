@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   topBar: {
     flexDirection: "row",
     marginBottom: 8,
-    alignItems: "stretch",
+    alignItems: "flex-start",
   },
   brandCol: {
     flex: 1.15,
@@ -89,11 +89,14 @@ const styles = StyleSheet.create({
     backgroundColor: RED,
   },
   metaCard: {
-    flex: 0.85,
+    width: 210,
+    flexGrow: 0,
+    flexShrink: 0,
     borderWidth: 1,
     borderColor: LINE,
     borderRadius: 4,
     overflow: "hidden",
+    alignSelf: "flex-start",
   },
   metaCardHead: {
     flexDirection: "row",
@@ -106,24 +109,24 @@ const styles = StyleSheet.create({
     backgroundColor: RED,
   },
   metaCardTitle: {
-    paddingVertical: 7,
-    paddingHorizontal: 10,
-    fontSize: 9,
+    paddingVertical: 5,
+    paddingHorizontal: 8,
+    fontSize: 8.5,
     fontFamily: "Helvetica-Bold",
   },
   metaRow: {
     flexDirection: "row",
     borderBottomWidth: 1,
     borderBottomColor: LINE,
-    minHeight: 18,
+    minHeight: 16,
   },
   metaRowLast: {
     borderBottomWidth: 0,
   },
   metaLabel: {
     width: "46%",
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: 7,
+    paddingVertical: 3,
     fontSize: 7.5,
     color: MUTED,
     borderRightWidth: 1,
@@ -131,8 +134,8 @@ const styles = StyleSheet.create({
   },
   metaValue: {
     width: "54%",
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: 7,
+    paddingVertical: 3,
     fontSize: 8,
     fontFamily: "Helvetica-Bold",
   },
@@ -628,9 +631,6 @@ function InvoiceDoc({ order, logoSrc }: Props) {
                 ["Invoice No.", invNo],
                 ["Date", invDate],
                 ["Order No.", order.serial || "—"],
-                ["Docket No.", ""],
-                ["Dispatched Through", ""],
-                ["Place of Supply", "Rajkot, Gujarat"],
               ] as const
             ).map(([label, value], idx, arr) => (
               <View
