@@ -185,7 +185,7 @@ export default function IotDeviceSpecPage() {
                         <td className="px-3 py-2 text-gray-900">Power</td>
                         <td className="px-3 py-2 text-gray-700">1</td>
                         <td className="px-3 py-2 text-gray-700">
-                          Device supply (DC)
+                          Device supply (12V to 24V DC)
                         </td>
                       </tr>
                       <tr>

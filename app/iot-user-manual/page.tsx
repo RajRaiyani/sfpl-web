@@ -1,13 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpen, ArrowRight, AlertTriangle, CheckCircle2 } from "lucide-react";
+import {
+  BookOpen,
+  ArrowRight,
+  AlertTriangle,
+  CheckCircle2,
+} from "lucide-react";
 import { IotUserManualPdfDownloadButton } from "@/components/iot-user-manual/iot-user-manual-pdf-download";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
   title: "IoT device — user manual",
   description:
-    "Simple wiring guide for the SFPL Connect device: 12 V power, AC voltage, CT current, and liquid level sensor.",
+    "Simple wiring guide for the SFPL Connect device: 12 V to 24 V power, AC voltage, CT current, and liquid level sensor.",
   path: "/tech/iot-user-manual",
   image: "/logo-full-black.svg",
 });
@@ -16,7 +21,7 @@ const toc = [
   { id: "document", label: "Overview" },
   { id: "diagrams", label: "Device diagrams" },
   { id: "what-you-need", label: "What you need" },
-  { id: "step-1", label: "1. Power (12 V)" },
+  { id: "step-1", label: "1. Power (12 V to 24 V)" },
   { id: "step-2", label: "2. AC voltage" },
   { id: "step-3", label: "3. CT current" },
   { id: "step-4", label: "4. Level sensor" },
@@ -24,14 +29,14 @@ const toc = [
 ] as const;
 
 const overviewSteps = [
-  { n: "1", label: "Power", detail: "12 V DC → + / −" },
+  { n: "1", label: "Power", detail: "12 V to 24 V DC → + / −" },
   { n: "2", label: "Voltage", detail: "AC supply → N B Y R" },
   { n: "3", label: "Current", detail: "CTs on motor lines" },
   { n: "4", label: "Sensor", detail: "Level probe → A1 / A2" },
 ] as const;
 
 const checklist = [
-  "12 V DC power supply (adapter)",
+  "12 V to 24 V DC power supply (adapter)",
   "Access to AC Neutral + 3 phases (if monitoring voltage)",
   "3× CT clamps (if monitoring motor / pump current)",
   "Liquid level sensor (or other 0–30 V DC analog sensor)",
@@ -42,11 +47,10 @@ const steps = [
   {
     id: "step-1",
     number: "1",
-    title: "Connect 12 V power",
-    plain:
-      "Give the device power first. Without this, nothing else works.",
+    title: "Connect 12 V to 24 V power",
+    plain: "Give the device power first. Without this, nothing else works.",
     image: "/images/pages/docs/d1.svg",
-    imageAlt: "12 V power supply wired to the + and − terminals",
+    imageAlt: "12 V to 24 V power supply wired to the + and − terminals",
     aspect: "2195/1449",
     doThis: [
       {
@@ -76,7 +80,7 @@ const steps = [
     doThis: [
       {
         label: "Keep power on",
-        text: "Leave the 12 V supply from Step 1 connected.",
+        text: "Leave the supply from Step 1 connected.",
       },
       {
         label: "Match the labels",
@@ -132,7 +136,7 @@ const steps = [
       },
       {
         label: "Connect two wires",
-        text: "Usually red and black → the two leftmost screws (A1 and A2).",
+        text: "Connect black wire to ground and red wire to any general purpose group (1-9) (voltage range: 0V - 30V DC).",
       },
       {
         label: "In the portal",
@@ -392,7 +396,10 @@ export default function IotUserManualPage() {
                 </section>
               ))}
 
-              <section id="safety" className="scroll-mt-24 border-t border-gray-100 pt-8 pb-2">
+              <section
+                id="safety"
+                className="scroll-mt-24 border-t border-gray-100 pt-8 pb-2"
+              >
                 <h2 className="text-lg font-semibold text-gray-900 sm:text-xl">
                   Safety
                 </h2>

@@ -20,9 +20,20 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
-import { ChevronDown, LayoutDashboard, LogOut, Menu, Package, User } from "lucide-react";
-// import StoreCartButton from "@/components/store/StoreCartButton";
-import { buildConnectLoginUrl, buildConnectRegisterUrl, clearAuthSession } from "@/lib/auth-storage";
+import {
+  ChevronDown,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  Package,
+  User,
+} from "lucide-react";
+import StoreCartButton from "@/components/store/StoreCartButton";
+import {
+  buildConnectLoginUrl,
+  buildConnectRegisterUrl,
+  clearAuthSession,
+} from "@/lib/auth-storage";
 import { CUSTOMER_AUTH_COOKIES } from "@/lib/auth-cookies";
 import env from "@/config/env";
 
@@ -39,9 +50,13 @@ function AccountDropdownContent({
   return (
     <>
       <DropdownMenuLabel className="font-normal">
-        <p className="truncate text-sm font-medium text-foreground">{userName}</p>
+        <p className="truncate text-sm font-medium text-foreground">
+          {userName}
+        </p>
         {typeof rawUser === "object" && rawUser?.email ? (
-          <p className="truncate text-xs text-muted-foreground">{rawUser.email}</p>
+          <p className="truncate text-xs text-muted-foreground">
+            {rawUser.email}
+          </p>
         ) : null}
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
@@ -154,8 +169,12 @@ export default function Header() {
   const dashboardHref = connectBaseUrl ? buildConnectUrl("") : "/connect";
   const profileHref = connectBaseUrl ? buildConnectUrl("/profile") : "/connect";
   const returnPath = pathname || "/";
-  const loginHref = connectBaseUrl ? buildConnectLoginUrl(returnPath) : "/login";
-  const registerHref = connectBaseUrl ? buildConnectRegisterUrl(returnPath) : "/register";
+  const loginHref = connectBaseUrl
+    ? buildConnectLoginUrl(returnPath)
+    : "/login";
+  const registerHref = connectBaseUrl
+    ? buildConnectRegisterUrl(returnPath)
+    : "/register";
 
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -331,7 +350,7 @@ export default function Header() {
         {/* Desktop Actions */}
         <div className="hidden md:block">
           <div className="flex items-center gap-3 sm:gap-4">
-            {/* <StoreCartButton /> */}
+            <StoreCartButton />
             {!token ? (
               <>
                 <Link href="/contact">
