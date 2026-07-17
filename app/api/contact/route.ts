@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     // Validate required fields
     if (!name || !email || !message) {
       return NextResponse.json(
-        { error: "Name, email, and message are required" },
+        { error: "Name, email and message are required" },
         { status: 400 }
       );
     }
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
 
     // Email content
     const subject = isEnquiry
-      ? `New Enquiry For SFPL connect`
+      ? `New Enquiry For SFPL CONNECT`
       : `New Contact Form Submission from ${name}`;
 
     const formHeading = isEnquiry

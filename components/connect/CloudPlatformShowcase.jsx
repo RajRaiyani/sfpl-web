@@ -12,7 +12,7 @@ const DESKTOP_SCREENS = [
     subtitle: "Real-time metrics & status",
     badge: { text: "Connected", tone: "success" },
     src: "/images/pages/connect/admin-portal-1.png",
-    alt: "SFPL Connect admin portal — live dashboard with real-time metrics",
+    alt: "SFPL CONNECT admin portal — live dashboard with real-time metrics",
   },
   {
     id: "history",
@@ -20,7 +20,7 @@ const DESKTOP_SCREENS = [
     subtitle: "Trends, charts & timelines",
     badge: { text: "Charts", tone: "neutral" },
     src: "/images/pages/connect/admin-portal-2.png",
-    alt: "SFPL Connect admin portal — device detail with pin history charts",
+    alt: "SFPL CONNECT admin portal — device detail with pin history charts",
   },
   {
     id: "manage",
@@ -28,18 +28,18 @@ const DESKTOP_SCREENS = [
     subtitle: "Organize, configure and scale",
     badge: { text: "Manage", tone: "neutral" },
     src: "/images/pages/connect/admin-portal-3.png",
-    alt: "SFPL Connect admin portal — device management and configuration",
+    alt: "SFPL CONNECT admin portal — device management and configuration",
   },
 ];
 
 const MOBILE_SCREENS = [
   {
     src: "/images/pages/connect/admin-portal-mobile-1.png",
-    alt: "SFPL Connect mobile — live dashboard",
+    alt: "SFPL CONNECT mobile — live dashboard",
   },
   {
     src: "/images/pages/connect/admin-portal-mobile-2.png",
-    alt: "SFPL Connect mobile — pin history chart",
+    alt: "SFPL CONNECT mobile — pin history chart",
   },
 ];
 
@@ -173,7 +173,7 @@ export default function CloudPlatformShowcase() {
             Dashboards and charts on the go
           </h3>
           <p className="text-gray-500 text-sm leading-relaxed mt-2">
-            Tap-friendly screens with the same SFPL Connect portal experience.
+            Tap-friendly screens with the same SFPL CONNECT portal experience.
           </p>
         </div>
 

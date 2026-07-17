@@ -11,7 +11,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata = buildPageMetadata({
   title: "Fire Safety Solutions | SFPL",
   description:
-    "Let's Make Fire Safe India. End-to-end fire safety solutions across compliance, design, installation, and maintenance.",
+    "Let's Make Fire Safe India. End-to-end fire safety solutions across compliance, design, installation and maintenance.",
   path: "/",
   image: "/images/pages/home/hero-banner.png",
 });

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Phone, Mail } from "lucide-react";
 
 export default function FinalCta() {
   return (
@@ -12,11 +12,12 @@ export default function FinalCta() {
                 Start a Project
               </h2>
               <p className="text-md md:text-lg opacity-90 leading-relaxed">
-                Understanding of our clients&apos; needs. If you&apos;d like to
-                learn more about our work and the thinking behind our approach,
-                we&apos;d be happy to discuss your project. With no obligation
-                on your part, it&apos;s the perfect way to see if you&apos;d
-                like us to take things further.
+                Every successful project begins with a clear understanding of
+                our clients' needs. If you'd like to learn more about our work
+                and the approach behind our fire safety solutions, we'd be happy
+                to discuss your project. With no obligation on your part, it's
+                the perfect opportunity to explore how we can help and decide
+                whether you'd like to take the next step with us.
               </p>
             </div>
 
@@ -36,8 +37,12 @@ export default function FinalCta() {
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center">
                   <a
                     href="tel:+919033050415"
-                    className="text-base sm:text-lg md:text-xl hover:text-red-500 transition-colors text-center sm:text-left"
+                    className="inline-flex items-center gap-2 text-base sm:text-lg md:text-xl hover:text-red-500 transition-colors text-center sm:text-left"
                   >
+                    <Phone
+                      className="w-4 h-4 sm:w-5 sm:h-5 shrink-0"
+                      aria-hidden
+                    />
                     +91 9033050415
                   </a>
                   <span className="hidden sm:inline text-lg md:text-xl opacity-70">
@@ -45,8 +50,12 @@ export default function FinalCta() {
                   </span>
                   <a
                     href="mailto:contact@specificfire.com"
-                    className="text-base sm:text-lg md:text-xl hover:text-red-500 transition-colors text-center sm:text-left break-all"
+                    className="inline-flex items-center gap-2 text-base sm:text-lg md:text-xl hover:text-red-500 transition-colors text-center sm:text-left break-all"
                   >
+                    <Mail
+                      className="w-4 h-4 sm:w-5 sm:h-5 shrink-0"
+                      aria-hidden
+                    />
                     contact@specificfire.com
                   </a>
                 </div>

@@ -72,7 +72,7 @@ export default function Services() {
       image: "/images/pages/service/fire-testing.png",
       services: [
         "BIS, NBC, NFPA, Local State Regulation Standard Compliance",
-        "Quarterly/Annual Inspection, Testing, and Maintenance (ITM)",
+        "Quarterly/Annual Inspection, Testing and Maintenance (ITM)",
         "Integrity Testing (for gaseous systems)",
         "Flow Testing",
         "Backflow Prevention Device Testing",

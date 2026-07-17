@@ -21,7 +21,7 @@ export default function Services() {
       title: "Statutory Compliance, Auditing & Consultancy",
       image: "/images/pages/service/fire-audit.png",
       description:
-        "Comprehensive fire safety audits, risk assessments, and regulatory compliance services.",
+        "Comprehensive fire safety audits, risk assessments and regulatory compliance services.",
       highlights: ["Fire Safety Audit", "Risk Assessment", "Compliance"],
     },
     {
@@ -45,7 +45,7 @@ export default function Services() {
       title: "AMC, Testing & Maintenance",
       image: "/images/pages/service/fire-testing.png",
       description:
-        "Regular ITM services to ensure your fire protection systems remain operational.",
+        "Regular AMC services to ensure your fire protection systems remain operational.",
       highlights: ["Quarterly Inspection", "Flow Testing", "Compliance"],
     },
   ];

@@ -21,7 +21,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata = buildPageMetadata({
   title: "Digital & IoT Solutions for Fire Prevention | SFPL",
   description:
-    "Harnessing IoT sensors, cloud computing, and AI to prevent fires and save lives before emergencies occur.",
+    "Harnessing IoT sensors, cloud computing and AI to prevent fires and save lives before emergencies occur.",
   path: "/tech",
   image: "/logo-full-black.svg",
 });
@@ -32,7 +32,7 @@ export default function Tech() {
       icon: Radio,
       title: "Smart Fire Detection Sensors",
       description:
-        "Advanced IoT sensors that continuously monitor temperature, smoke, and gas levels in real-time, providing instant alerts before fire incidents occur.",
+        "Advanced IoT sensors that continuously monitor temperature, smoke and gas levels in real-time, providing instant alerts before fire incidents occur.",
       features: [
         "Real-time temperature monitoring",
         "Smoke and gas detection",
@@ -87,7 +87,7 @@ export default function Tech() {
       icon: BarChart3,
       title: "Analytics & Reporting",
       description:
-        "Advanced analytics engine that processes fire safety data to identify patterns, predict risks, and generate actionable insights.",
+        "Advanced analytics engine that processes fire safety data to identify patterns, predict risks and generate actionable insights.",
       features: [
         "Real-time dashboards",
         "Historical trend analysis",
@@ -167,19 +167,19 @@ export default function Tech() {
       step: "03",
       title: "AI Analysis",
       description:
-        "Our cloud-based AI engine analyzes the data to detect anomalies, predict risks, and identify potential hazards.",
+        "Our cloud-based AI engine analyzes the data to detect anomalies, predict risks and identify potential hazards.",
     },
     {
       step: "04",
       title: "Instant Alerts",
       description:
-        "When a threat is detected, instant alerts are sent to designated personnel via mobile app, SMS, and email.",
+        "When a threat is detected, instant alerts are sent to designated personnel via mobile app, SMS and email.",
     },
     {
       step: "05",
       title: "Automated Response",
       description:
-        "The system can automatically activate suppression systems, unlock emergency exits, and coordinate with emergency services.",
+        "The system can automatically activate suppression systems, unlock emergency exits and coordinate with emergency services.",
     },
     {
       step: "06",
@@ -218,7 +218,7 @@ export default function Tech() {
               <span className="block mt-2">for Fire Prevention</span>
             </h1>
             <p className="text-lg md:text-xl text-red-50 max-w-3xl mx-auto leading-relaxed">
-              Harnessing the power of IoT sensors, cloud computing, and
+              Harnessing the power of IoT sensors, cloud computing and
               artificial intelligence to prevent fires and save lives before
               emergencies occur.
             </p>
@@ -235,7 +235,7 @@ export default function Tech() {
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Our technology-driven approach ensures early detection, rapid
-              response, and continuous protection
+              response and continuous protection
             </p>
           </div>
 
@@ -336,7 +336,7 @@ export default function Tech() {
               Cloud-Based Intelligence
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Powerful cloud infrastructure that processes, analyzes, and stores
+              Powerful cloud infrastructure that processes, analyzes and stores
               fire safety data securely
             </p>
           </div>
@@ -401,7 +401,7 @@ export default function Tech() {
               How It Works
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              A seamless integration of IoT devices, cloud computing, and AI to
+              A seamless integration of IoT devices, cloud computing and AI to
               create a comprehensive fire prevention system
             </p>
           </div>

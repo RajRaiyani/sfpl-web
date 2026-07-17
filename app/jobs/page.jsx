@@ -27,7 +27,7 @@ const jobs = [
     title: "Full Stack Software Engineer",
     positions: 1,
     description:
-      "We are looking for a talented Full Stack Software Engineer to join our tech team and help build innovative IoT and cloud-based fire safety solutions. You'll work on developing scalable web applications, integrating IoT devices, and creating cloud platforms that help prevent fires and save lives.",
+      "We are looking for a talented Full Stack Software Engineer to join our tech team and help build innovative IoT and cloud-based fire safety solutions. You'll work on developing scalable web applications, integrating IoT devices and creating cloud platforms that help prevent fires and save lives.",
     location: "Ahmedabad, India (Remote/Hybrid)",
     type: "Full-time",
     experience: "2-5 years",

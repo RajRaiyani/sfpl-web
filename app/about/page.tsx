@@ -6,7 +6,7 @@ import JourneyTimeline from "@/components/pages/about/JourneyTimeline";
 export const metadata = buildPageMetadata({
   title: "About SFPL | Specific Fire Protection Limited",
   description:
-    "Specific Fire Protection Limited (SFPL) delivers end-to-end, intelligent, and compliant fire safety solutions across India.",
+    "Specific Fire Protection Limited (SFPL) delivers end-to-end, intelligent and compliant fire safety solutions across India.",
   path: "/about",
   image: "/images/pages/about/about-hero.png",
 });
@@ -22,7 +22,7 @@ const timeline = [
     year: "2019",
     title: "Expansion to Integrated Systems",
     description:
-      "We expanded into fire system design and hydrant systems to deliver integrated fire protection for commercial, residential, industrial, and healthcare projects.",
+      "We expanded into fire system design and hydrant systems to deliver integrated fire protection for commercial, residential, industrial and healthcare projects.",
   },
   {
     year: "2024",
@@ -34,13 +34,13 @@ const timeline = [
     year: "2025",
     title: "IIT Gandhinagar",
     description:
-      "SFPL is excited to announce that it has obtained a space at the IIT Research Park in Gandhinagar, where we will be developing an innovative, end-to-end fire safety solution. This solution will integrate intelligent hardware and software, and we look forward to conducting successful real-world deployments for testing and refinement.",
+      "SFPL is excited to announce that it has obtained a space at the IIT Research Park in Gandhinagar, where we will be developing an innovative, end-to-end fire safety solution. This solution will integrate intelligent hardware and software and we look forward to conducting successful real-world deployments for testing and refinement.",
   },
   {
     year: "2026",
     title: "National Launch Milestone",
     description:
-      "After field validation, SFPL is set to launch its innovative solution for stronger early detection, real-time monitoring, and rapid response.",
+      "After field validation, SFPL is set to launch its innovative solution for stronger early detection, real-time monitoring and rapid response.",
   },
 ];
 
@@ -69,7 +69,7 @@ export default function About() {
           </h1>
           <p className="text-lg md:text-2xl text-white/90 max-w-4xl drop-shadow">
             End-to-end fire protection solutions powered by technical expertise,
-            innovation, and national compliance.
+            innovation and national compliance.
           </p>
         </div>
       </section>
@@ -85,7 +85,7 @@ export default function About() {
               Specific Fire Protection Limited (SFPL) is a forward-thinking fire
               safety engineering company committed to delivering end-to-end fire
               protection solutions across India. With a strong foundation built
-              on technical expertise, innovation, and compliance with national
+              on technical expertise, innovation and compliance with national
               fire safety standards, SFPL aims to redefine how fire safety is
               implemented and managed.
             </p>
@@ -181,9 +181,9 @@ export default function About() {
                 </h3>
               </div>
               <p className="text-gray-700 text-center leading-relaxed">
-                To deliver advanced, compliant, and end-to-end fire safety
-                solutions that prevent fire incidents, protect lives, and
-                support our commitment:
+                To deliver advanced, compliant and end-to-end fire safety
+                solutions that prevent fire incidents, protect lives and support
+                our commitment:
               </p>
               <p className="text-center mt-4 text-lg font-semibold text-red-600">
                 &ldquo;Let&apos;s Make Fire Safe India.&rdquo;

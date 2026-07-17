@@ -13,7 +13,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata = buildPageMetadata({
   title: "Copyright Policy | SFPL",
   description:
-    "Copyright and intellectual property policy for SFPL website content, including image sources, fonts, and brand theme usage.",
+    "Copyright and intellectual property policy for SFPL website content, including image sources, fonts and brand theme usage.",
   path: "/copyright-policy",
 });
 
@@ -25,9 +25,9 @@ const sections = [
     body: (
       <>
         <p>
-          Specific Fire Protection Limited (&ldquo;SFPL&rdquo;) owns the original
-          content on this website, including brand elements, written copy,
-          layout structure, UI patterns, and proprietary materials, unless
+          Specific Fire Protection Limited (&ldquo;SFPL&rdquo;) owns the
+          original content on this website, including brand elements, written
+          copy, layout structure, UI patterns and proprietary materials, unless
           otherwise stated.
         </p>
         <p className="mt-4">
@@ -77,7 +77,7 @@ const sections = [
       <>
         <p>
           This website uses SFPL brand styling, including our proprietary color
-          combinations, typography hierarchy, and design language.
+          combinations, typography hierarchy and design language.
         </p>
         <p className="mt-4">
           Reproduction of SFPL visual identity in a manner that implies
@@ -94,7 +94,7 @@ const sections = [
     body: (
       <>
         <p>
-          You may browse, view, and reference this website for informational
+          You may browse, view and reference this website for informational
           purposes. You may not:
         </p>
         <ul className="mt-4 list-disc space-y-2 pl-5">
@@ -167,7 +167,7 @@ export default function CopyrightPolicyPage() {
             Copyright Policy
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-600 md:text-base">
-            Guidelines for content ownership, image/font usage, and SFPL brand
+            Guidelines for content ownership, image/font usage and SFPL brand
             theme protections.
           </p>
           <p className="mt-4 text-xs text-gray-500 md:text-sm">

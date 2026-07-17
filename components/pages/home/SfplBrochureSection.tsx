@@ -7,10 +7,10 @@ const SFPL_BROCHURE_URL =
   "https://specificfire.s3.ap-south-1.amazonaws.com/public/SFPL+Brochure.pdf";
 
 const brochureHighlights = [
-  "Fire safety products & systems",
-  "Design, installation & maintenance",
-  "Compliance & project execution",
-  "Service & support",
+  "Fire Safety Products & Systems",
+  "Design, Installation & Maintenance",
+  "Compliance & Project Execution",
+  "Service & Support",
 ];
 
 export default function SfplBrochureSection() {
@@ -41,12 +41,12 @@ export default function SfplBrochureSection() {
 
                   <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 leading-tight">
                     SFPL brochure —{" "}
-                    <span className="text-red-600">products & services</span>
+                    <span className="text-red-600">Products & Services</span>
                   </h2>
 
                   <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                    Download the latest SFPL brochure for an overview of our fire
-                    safety solutions, capabilities, and project execution
+                    Download the latest SFPL brochure for an overview of our
+                    fire safety solutions, capabilities and project execution
                     approach.
                   </p>
 
@@ -64,8 +64,6 @@ export default function SfplBrochureSection() {
                       <span>Download Brochure</span>
                     </a>
                   </div>
-
-                  <p className="text-xs text-gray-500">PDF opens in a new tab.</p>
                 </div>
 
                 <div className="flex flex-col justify-center rounded-2xl border border-gray-100 bg-gray-50 p-6">

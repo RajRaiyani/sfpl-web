@@ -62,7 +62,7 @@ export default function DeviceDetailClient({ slug }: DeviceDetailClientProps) {
     <div className="container mx-auto px-4 py-12">
       <div className="mb-6 text-sm text-gray-500">
         <Link href="/connect" className="hover:text-red-600">
-          SFPL Connect
+          SFPL CONNECT
         </Link>
         <span className="mx-2">/</span>
         <span className="text-gray-900">{device.name}</span>

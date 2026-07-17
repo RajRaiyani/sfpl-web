@@ -240,7 +240,7 @@ export default function Header() {
 
   const navigationItems = [
     { href: "/", label: "Home" },
-    { href: "/connect", label: "SFPL Connect" },
+    { href: "/connect", label: "SFPL CONNECT" },
     { href: "/services", label: "Services" },
     { href: "/tech", label: "Tech" },
     { href: "/about", label: "About Us" },

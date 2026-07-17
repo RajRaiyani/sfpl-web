@@ -20,7 +20,11 @@ import {
   type CheckoutFormField,
   type CheckoutFormState,
 } from "@/lib/store-profile";
-import { useCart, useMergeGuestCartOnce, cartHasOutOfStockItems } from "@/hooks/use-cart";
+import {
+  useCart,
+  useMergeGuestCartOnce,
+  cartHasOutOfStockItems,
+} from "@/hooks/use-cart";
 import { useCreateOrder, useVerifyOrder } from "@/hooks/use-orders";
 import {
   useStoreAccountDetails,
@@ -70,7 +74,11 @@ function loadRazorpayScript() {
 
 export default function CheckoutPageClient() {
   const router = useRouter();
-  const { data: cart, isLoading: cartLoading, refetch: refetchCart } = useCart();
+  const {
+    data: cart,
+    isLoading: cartLoading,
+    refetch: refetchCart,
+  } = useCart();
   const createOrderMutation = useCreateOrder();
   const verifyOrderMutation = useVerifyOrder();
   const [sameAsBilling, setSameAsBilling] = useState(true);
@@ -309,7 +317,7 @@ export default function CheckoutPageClient() {
         key,
         amount: payment.amount,
         currency: payment.currency || "INR",
-        name: "SFPL Connect",
+        name: "SFPL CONNECT",
         description: order.serial ?? "SFPL Store order",
         order_id: payment.id,
         prefill: {

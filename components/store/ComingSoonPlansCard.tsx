@@ -20,8 +20,8 @@ export function ComingSoonPlansCard() {
         </h3>
 
         <p className="mt-4 text-sm leading-relaxed text-gray-600 sm:text-base">
-          We are preparing SFPL Connect hardware plans for online purchase.
-          Check back soon for pricing, availability, and ordering options.
+          We are preparing SFPL CONNECT hardware plans for online purchase.
+          Check back soon for pricing, availability and ordering options.
         </p>
       </div>
     </div>

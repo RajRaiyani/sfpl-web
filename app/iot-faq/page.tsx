@@ -7,7 +7,7 @@ import { FaqAccordion } from "./faq-accordion";
 export const metadata = buildPageMetadata({
   title: "IoT device & monitoring portal — FAQ",
   description:
-    "Frequently asked questions about the SFPL IoT field device and the monitoring portal: hardware, inputs, connectivity, sign-in, projects, devices, and support.",
+    "Frequently asked questions about the SFPL IoT field device and the monitoring portal: hardware, inputs, connectivity, sign-in, projects, devices and support.",
   path: "/tech/iot-faq",
   image: "/logo-full-black.svg",
 });

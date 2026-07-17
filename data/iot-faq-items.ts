@@ -5,19 +5,19 @@ export const deviceFaqs: IotFaqItem[] = [
     id: "what-is-device-for",
     question: "What is this device used for?",
     answer:
-      "It is a field monitoring unit for electrical and process signals: mains-related AC measurements, low-level AC from sensors such as CTs, and general DC analog inputs from transmitters (pressure, level, temperature, flow, etc.).",
+      "It is a field monitoring unit for electrical and process signals: mains-related AC measurements, low-level AC from sensors such as CTs and general DC analog inputs from transmitters (pressure, level, temperature, flow, etc.).",
   },
   {
     id: "enclosure-size",
-    question: "What is the enclosure made of, and how big is it?",
+    question: "What is the enclosure made of and how big is it?",
     answer:
       "The housing is ABS. The stated footprint is 165 mm × 155 mm (width × depth as given in the spec).",
   },
   {
     id: "input-count",
-    question: "How many inputs does it have, and how are they split?",
+    question: "How many inputs does it have and how are they split?",
     answer:
-      "There are 17 inputs in total: 1 DC power input, 3 high-voltage AC inputs, 3 low-voltage AC inputs, and 9 analog DC inputs.",
+      "There are 17 inputs in total: 1 DC power input, 3 high-voltage AC inputs, 3 low-voltage AC inputs and 9 analog DC inputs.",
   },
   {
     id: "power-voltage",
@@ -59,7 +59,7 @@ export const deviceFaqs: IotFaqItem[] = [
     id: "installation-responsibility",
     question: "Who is responsible for safe installation and compliance?",
     answer:
-      "The published summary states that final installation, protection, and compliance with local electrical codes are the system integrator’s responsibility; contact SFPL for deployment guidance and supported accessories.",
+      "The published summary states that final installation, protection and compliance with local electrical codes are the system integrator’s responsibility; contact SFPL for deployment guidance and supported accessories.",
   },
   {
     id: "formal-drawings",
@@ -74,7 +74,7 @@ export const portalFaqs: IotFaqItem[] = [
     id: "portal-for",
     question: "What is this portal for?",
     answer:
-      "This portal is your workspace to monitor and manage connected devices, organize them into projects, review alerts and activity, and view locations on a map. Depending on your access, you may also manage notification templates and diagrams.",
+      "This portal is your workspace to monitor and manage connected devices, organize them into projects, review alerts and activity and view locations on a map. Depending on your access, you may also manage notification templates and diagrams.",
   },
   {
     id: "sign-in",
@@ -92,7 +92,7 @@ export const portalFaqs: IotFaqItem[] = [
     id: "register-account",
     question: "How do I register a new account?",
     answer:
-      "Use Register from the login area, complete the form, and complete any email verification step if prompted. Some organizations only allow accounts created by an admin; if registration is disabled or you get an error, ask your administrator.",
+      "Use Register from the login area, complete the form and complete any email verification step if prompted. Some organizations only allow accounts created by an admin; if registration is disabled or you get an error, ask your administrator.",
   },
   {
     id: "dashboard",
@@ -104,13 +104,13 @@ export const portalFaqs: IotFaqItem[] = [
     id: "projects",
     question: "What are Projects?",
     answer:
-      "Projects group related work or devices so lists, reports, and access stay organized. You can typically create a project, open its detail page, and edit project information from the Projects section, subject to your permissions.",
+      "Projects group related work or devices so lists, reports and access stay organized. You can typically create a project, open its detail page and edit project information from the Projects section, subject to your permissions.",
   },
   {
     id: "devices",
     question: "What are Devices?",
     answer:
-      "Devices are the connected units you track in the portal. From Devices you can browse the list, open a device detail page for configuration and history, and in some cases open a device dashboard (for example, tied to a device identifier such as IMEI) for a focused operational view.",
+      "Devices are the connected units you track in the portal. From Devices you can browse the list, open a device detail page for configuration and history and in some cases open a device dashboard (for example, tied to a device identifier such as IMEI) for a focused operational view.",
   },
   {
     id: "map",
@@ -164,18 +164,18 @@ export const portalFaqs: IotFaqItem[] = [
     id: "portal-slow",
     question: "What should I do if the portal is slow or an action fails?",
     answer:
-      "Try again after a short wait, refresh the page, and try another browser or network if possible. If the problem continues, note the page you were on, what you clicked, and approximate time, and share that with your support contact or administrator.",
+      "Try again after a short wait, refresh the page and try another browser or network if possible. If the problem continues, note the page you were on, what you clicked and approximate time and share that with your support contact or administrator.",
   },
   {
     id: "session-secure",
     question: "Is my session secure?",
     answer:
-      "You should always sign out on shared computers. The portal uses standard web authentication; follow your organization’s security policies for passwords, MFA (if enabled elsewhere), and handling of sensitive operational data.",
+      "You should always sign out on shared computers. The portal uses standard web authentication; follow your organization’s security policies for passwords, MFA (if enabled elsewhere) and handling of sensitive operational data.",
   },
   {
     id: "contact-support",
     question: "Who do I contact for account or data issues?",
     answer:
-      "For login problems, missing devices, wrong project access, or incorrect data, contact your organization’s administrator or IT/support contact. They can verify device provisioning, project membership, and permissions on the server side.",
+      "For login problems, missing devices, wrong project access, or incorrect data, contact your organization’s administrator or IT/support contact. They can verify device provisioning, project membership and permissions on the server side.",
   },
 ];

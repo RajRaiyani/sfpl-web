@@ -39,9 +39,9 @@ const connectFaqPreview = [
 ];
 
 export const metadata = buildPageMetadata({
-  title: "SFPL Connect | IoT Monitoring & Real-Time Dashboard",
+  title: "SFPL CONNECT | IoT Monitoring & Real-Time Dashboard",
   description:
-    "SFPL Connect - IoT devices with multi-pin input, real-time admin portal, live monitoring dashboards, integrated map, custom calibration and alerts. Highly modular and customizable.",
+    "optimized version: SFPL CONNECT – Intelligent IoT fire safety monitoring with multi-pin inputs, real-time dashboards, remote management, smart alerts, and customizable solutions.",
   path: "/connect",
   image: "/images/pages/connect/banner1.png",
 });
@@ -79,7 +79,7 @@ export default function Product() {
       icon: Factory,
       title: "Manufacturing",
       description:
-        "Track machine load, panel health, and production utility signals in real time.",
+        "Track machine load, panel health and production utility signals in real time.",
     },
     {
       icon: Building2,
@@ -91,7 +91,7 @@ export default function Product() {
       icon: Droplets,
       title: "Water & Utilities",
       description:
-        "Capture tank level, flow, and pump status with instant threshold-based alerts.",
+        "Capture tank level, flow and pump status with instant threshold-based alerts.",
     },
     {
       icon: Gauge,
@@ -108,7 +108,7 @@ export default function Product() {
         <div className="absolute inset-0">
           <Image
             src="/images/pages/connect/banner1.png"
-            alt="SFPL Connect device banner"
+            alt="SFPL CONNECT device banner"
             fill
             priority
             className="object-cover object-top"
@@ -119,13 +119,12 @@ export default function Product() {
         <div className="container absolute px-4 z-10 bottom-1/3 left-1/2 -translate-x-1/2">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-6">
-              SFPL <span className="text-primary">Connect</span>
+              SFPL <span className="text-primary">CONNECT</span>
             </h1>
             <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
-              End-to-end IoT solution: hardware that captures multi-pin input
-              and sends data to the cloud, plus a real-time admin portal with
-              live dashboards, integrated map, and custom calibration and
-              alerts.
+              24×7 Intelligent Fire Safety Monitoring, Monitor your fire
+              protection systems in real time with CONNECT. Stay compliant,
+              prevent failures, protect lives and assets from anywhere.
             </p>
           </div>
         </div>
@@ -135,7 +134,7 @@ export default function Product() {
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 rounded-xl border border-red-100/60 bg-white/95 px-4 py-2.5 text-sm font-semibold text-gray-900 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-red-200/70 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black/60"
-            aria-label="Download SFPL Connect brochure"
+            aria-label="Download SFPL CONNECT brochure"
           >
             <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-red-50 text-red-600 transition-colors group-hover:bg-red-100">
               <Download className="h-4 w-4" aria-hidden />
@@ -173,7 +172,7 @@ export default function Product() {
                     Physical Sensors
                   </p>
                   <p className="text-xs text-gray-500 text-center max-w-[100px]">
-                    Any type, any count
+                    Any type, Any count
                   </p>
                 </div>
 
@@ -185,10 +184,10 @@ export default function Product() {
                     <Cpu className="w-8 h-8 text-white" />
                   </div>
                   <p className="text-sm font-semibold text-white text-center">
-                    SFPL Connect Device
+                    <strong className="text-primary">CONNECT</strong> Device
                   </p>
                   <p className="text-xs text-gray-400 text-center max-w-[100px]">
-                    Multi-input IoT unit
+                    Input Monitoring Device
                   </p>
                 </div>
 
@@ -200,10 +199,10 @@ export default function Product() {
                     <Cloud className="w-8 h-8 text-white" />
                   </div>
                   <p className="text-sm font-semibold text-white text-center">
-                    SFPL Cloud
+                    SFPL Cloud Server
                   </p>
                   <p className="text-xs text-gray-400 text-center max-w-[100px]">
-                    Secure real-time ingestion
+                    Secure & Real-time
                   </p>
                 </div>
 
@@ -215,10 +214,10 @@ export default function Product() {
                     <LayoutDashboard className="w-8 h-8 text-gray-300" />
                   </div>
                   <p className="text-sm font-semibold text-gray-300 text-center">
-                    Admin Portal
+                    <strong className="text-primary">CONNECT</strong> Portal
                   </p>
                   <p className="text-xs text-gray-500 text-center max-w-[100px]">
-                    Monitor, alert & analyse
+                    Monitor, Alert & Analysis
                   </p>
                 </div>
 
@@ -233,7 +232,7 @@ export default function Product() {
                     Your Team
                   </p>
                   <p className="text-xs text-gray-500 text-center max-w-[100px]">
-                    Instant alerts & insights
+                    Instant Alerts & Insights
                   </p>
                 </div>
               </div>
@@ -252,12 +251,12 @@ export default function Product() {
                 <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center shadow-lg shadow-red-200">
                   <Zap className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-xs font-bold tracking-widest uppercase text-red-600">
+                <span className="text-xs font-bold tracking-widest  text-red-600">
                   System Overview
                 </span>
               </div>
               <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-[1.1] tracking-tight">
-                How SFPL Connect{" "}
+                How SFPL <strong className="text-primary">CONNECT</strong>{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10">works</span>
                   <span className="absolute bottom-1 left-0 w-full h-3 bg-red-100 -z-0 rounded" />
@@ -265,8 +264,8 @@ export default function Product() {
               </h2>
             </div>
             <p className="text-gray-500 text-base leading-relaxed max-w-sm md:text-right">
-              From physical sensors on the ground to live insights on any screen
-              — the entire pipeline, seamlessly connected.
+              From field sensors to real-time insights, <br /> A complete fire
+              safety monitoring ecosystem.
             </p>
           </div>
 
@@ -282,7 +281,7 @@ export default function Product() {
               />
               <Image
                 src="/images/pages/connect/about.png"
-                alt="SFPL Connect system overview — sensors, IoT device, cloud, and user"
+                alt="SFPL CONNECT system overview — sensors, IoT device, cloud and user"
                 width={760}
                 height={560}
                 className="relative z-10 w-full h-auto object-cover rounded-2xl"
@@ -326,29 +325,25 @@ export default function Product() {
                 </span>
               </div>
               <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-[1.1] tracking-tight">
-                What to{" "}
-                <span className="relative inline-block">
-                  <span className="relative z-10">wire</span>
-                  <span className="absolute bottom-1 left-0 w-full h-3 bg-red-100 -z-0 rounded" />
-                </span>{" "}
-                to each pin
+                Wire the Right Signal <br /> to the Right Input
               </h2>
             </div>
-            <p className="text-gray-500 text-base leading-relaxed max-w-sm md:text-right">
-              Match your field cables to the right terminal group — voltage,
-              current, or sensor — then power the unit and read live values in
-              the portal.
+            <p className="text-gray-500 text-base leading-relaxed max-w-xl md:text-right">
+              Connect your field devices to the appropriate input terminals,
+              power up the unit,
+              <br /> start monitoring live data through the SFPL Connect Portal.
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center mx-auto">
             {/* Spec breakdown */}
             <div className="space-y-5">
-              <p className="text-gray-600 text-base leading-relaxed">
-                Connect is a compact DIN-rail IoT unit with screw-terminal
-                blocks. Seventeen inputs are grouped by signal type so you can
-                wire a three-phase panel, clamp-on CTs, and DC field sensors on
-                the same device.
+              <p className="text-gray-600 text-base text-justify leading-relaxed">
+                SFPL Connect is a compact DIN-rail mounted IoT device with
+                screw-terminal connectors. It features *17 dedicated inputs*,
+                grouped by signal type, allowing a single device to monitor
+                three-phase electrical systems, current transformers (CTs), and
+                multiple field sensors simultaneously.
               </p>
 
               {/* Pin groups — aligned with /iot-device-spec */}
@@ -372,17 +367,31 @@ export default function Product() {
                           Power the device
                         </p>
                         <span className="text-xs font-semibold bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full shrink-0">
-                          1 pin · 6–24&nbsp;V DC
+                          1 pin · 12–24&nbsp;V DC
                         </span>
                       </div>
                       <p className="text-gray-500 text-xs leading-relaxed">
-                        <span className="font-semibold text-gray-700">
-                          Wire:
-                        </span>{" "}
-                        an external DC supply (6–24&nbsp;V) into the power
-                        terminal. This runs the electronics and cellular radio —
-                        it is not a measurement input.
+                        Connect a <strong>12–24 V DC</strong> power supply to
+                        the power input terminal. This input is dedicated to
+                        powering the SFPL Connect device and its communication
+                        module.
                       </p>
+                      <div className="flex gap-2 mt-2">
+                        {["+ 12V", "G"].map((phase, i) => (
+                          <span
+                            key={phase}
+                            className={`w-10 h-8 rounded-lg flex items-center justify-center text-xs font-extrabold text-white ${
+                              i === 0
+                                ? "bg-red-500"
+                                : i === 1
+                                  ? "bg-gray-500"
+                                  : "bg-gray-500"
+                            }`}
+                          >
+                            {`${phase}`}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </Link>
@@ -399,32 +408,28 @@ export default function Product() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1 gap-2">
                         <p className="font-bold text-gray-900 text-sm">
-                          Measure phase voltage
+                          Measure Three Phase Voltage
                         </p>
                         <span className="text-xs font-semibold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full shrink-0">
-                          3 pins · up to 300&nbsp;V AC
+                          3 pins · Up to 300&nbsp;V AC
                         </span>
                       </div>
                       <p className="text-gray-500 text-xs leading-relaxed mb-2">
-                        <span className="font-semibold text-gray-700">
-                          Wire:
-                        </span>{" "}
-                        each phase line from your distribution or branch panel
-                        (R, Y, B) into{" "}
-                        <span className="font-mono text-gray-700">VR</span>,{" "}
-                        <span className="font-mono text-gray-700">VY</span>, and{" "}
-                        <span className="font-mono text-gray-700">VB</span>.
-                        Isolated channels read mains-level AC voltage directly.
+                        Connect each phase (R, Y, and B) from the electrical
+                        distribution panel to the *VR, VY, and VB* terminals.
+                        These isolated inputs continuously monitor mains
+                        voltage.
                       </p>
                       <p className="text-gray-500 text-xs leading-relaxed mb-3">
                         <span className="font-semibold text-gray-700">
                           Use for:
                         </span>{" "}
-                        supply health, phase presence / loss, and three-phase
-                        voltage monitoring on feeders.
+                        3 phase voltage monitoring , Phase loss detection ,
+                        Power supply health monitoring , Voltage imbalance
+                        detection
                       </p>
                       <div className="flex gap-2">
-                        {["R", "Y", "B"].map((phase, i) => (
+                        {["VR", "VY", "VB", "N"].map((phase, i) => (
                           <span
                             key={phase}
                             className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-extrabold text-white ${
@@ -432,10 +437,12 @@ export default function Product() {
                                 ? "bg-red-500"
                                 : i === 1
                                   ? "bg-yellow-500"
-                                  : "bg-blue-500"
+                                  : i === 2
+                                    ? "bg-blue-500"
+                                    : "bg-gray-500"
                             }`}
                           >
-                            {`V${phase}`}
+                            {`${phase}`}
                           </span>
                         ))}
                       </div>
@@ -455,39 +462,38 @@ export default function Product() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1 gap-2">
                         <p className="font-bold text-gray-900 text-sm">
-                          Measure phase current (via CT)
+                          Measure Three-Phase Current (Using CT)
                         </p>
                         <span className="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full shrink-0">
-                          3 pins · up to 5&nbsp;V AC
+                          3 pins · Up to 150 A - 5&nbsp;V AC
                         </span>
                       </div>
                       <p className="text-gray-500 text-xs leading-relaxed mb-2">
-                        <span className="font-semibold text-gray-700">
-                          Wire:
-                        </span>{" "}
-                        the low-voltage output of a current transformer (CT)
-                        clamped around each phase cable into{" "}
-                        <span className="font-mono text-gray-700">IR</span>,{" "}
-                        <span className="font-mono text-gray-700">IY</span>, and{" "}
-                        <span className="font-mono text-gray-700">IB</span>. Do
-                        not connect mains here — only the CT secondary signal
-                        (up to 5&nbsp;V AC).
+                        Connect the low-voltage output of a compatible Current
+                        Transformer (CT) to the IR, IY, and IB terminals. Do not
+                        connect mains voltage directly to these inputs. Only
+                        connect the CT secondary output (maximum 5 V AC).
                       </p>
                       <p className="text-gray-500 text-xs leading-relaxed mb-3">
                         <span className="font-semibold text-gray-700">
                           Use for:
                         </span>{" "}
-                        load / amperage per phase (typically up to ~80&nbsp;A
-                        depending on the CT), energy monitoring, and overload
-                        alerts.
+                        Phase current monitoring , Electrical load analysis ,
+                        Energy monitoring , Overload detection
                       </p>
                       <div className="flex gap-2">
-                        {["R", "Y", "B"].map((n) => (
+                        {["R", "Y", "B"].map((phase, i) => (
                           <span
-                            key={n}
-                            className="w-9 h-8 rounded-lg flex items-center justify-center text-[10px] font-extrabold text-white bg-blue-600"
+                            key={phase}
+                            className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-extrabold text-white ${
+                              i === 0
+                                ? "bg-red-500"
+                                : i === 1
+                                  ? "bg-yellow-500"
+                                  : "bg-blue-500"
+                            }`}
                           >
-                            {`I${n}`}
+                            {`I${phase}`}
                           </span>
                         ))}
                       </div>
@@ -514,21 +520,20 @@ export default function Product() {
                         </span>
                       </div>
                       <p className="text-gray-500 text-xs leading-relaxed mb-2">
-                        <span className="font-semibold text-gray-700">
-                          Wire:
-                        </span>{" "}
-                        the DC signal output from each sensor into{" "}
-                        <span className="font-mono text-gray-700">A1</span>–
-                        <span className="font-mono text-gray-700">A9</span>{" "}
-                        (0–30&nbsp;V per channel). One sensor per pin.
+                        Connect the analog output of each sensor to any of the
+                        A1–A9 input terminals. Each input supports one sensor
+                        with an operating range of 0–30 V DC. Sensor readings
+                        can be individually calibrated within the SFPL Connect
+                        Portal to display engineering units such as pressure,
+                        level, flow, or temperature.
                       </p>
                       <p className="text-gray-500 text-xs leading-relaxed mb-3">
                         <span className="font-semibold text-gray-700">
                           Use for:
                         </span>{" "}
-                        pressure, tank level, temperature, flow, and other
-                        process transmitters. Map volts to engineering units
-                        with per-channel calibration in the portal.
+                        Pressure Sensors , Water Level Sensors , Temperature
+                        Sensors , Flow Sensors , Voltage Sensors , Other 0–30 V
+                        DC Analog Sensors
                       </p>
                       <div className="grid grid-cols-5 sm:grid-cols-9 gap-1">
                         {Array.from({ length: 9 }, (_, i) => (
@@ -556,16 +561,17 @@ export default function Product() {
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1 gap-2">
                         <p className="font-bold text-gray-900 text-sm">
-                          Send data to the cloud
+                          Secure Cloud Connectivity
                         </p>
                         <span className="text-xs font-semibold bg-red-100 text-red-600 px-2 py-0.5 rounded-full shrink-0">
-                          2G · integrated antenna
+                          Integrated Antenna
                         </span>
                       </div>
                       <p className="text-gray-500 text-xs leading-relaxed">
-                        Built-in GSM (2G) with an integrated antenna uploads
-                        readings to the SFPL portal — no separate modem or
-                        external antenna required in covered areas.
+                        The built-in GSM communication module with an integrated
+                        antenna securely transmits data to the SFPL Connect
+                        Cloud. No external modem or antenna is required where
+                        GSM coverage is available.
                       </p>
                     </div>
                   </div>
@@ -583,16 +589,17 @@ export default function Product() {
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1 gap-2">
                         <p className="font-bold text-gray-900 text-sm">
-                          Keep running on outage
+                          Battery Backup
                         </p>
                         <span className="text-xs font-semibold bg-red-100 text-red-600 px-2 py-0.5 rounded-full shrink-0">
-                          7.4&nbsp;V · 2600&nbsp;mAh
+                          7.4&nbsp;V - 2600&nbsp;mAh
                         </span>
                       </div>
                       <p className="text-gray-500 text-xs leading-relaxed">
-                        Internal two-cell pack (7.4&nbsp;V, 2600&nbsp;mAh)
-                        bridges short supply interruptions so the device can
-                        keep reporting through brief power dips.
+                        An integrated 7.4 V, 2600 mAh rechargeable battery
+                        provides backup power during temporary power outages,
+                        ensuring uninterrupted monitoring and data transmission
+                        even during brief supply interruptions.
                       </p>
                     </div>
                   </div>
@@ -613,7 +620,7 @@ export default function Product() {
                 />
                 <Image
                   src="/images/pages/connect/hardware-graphic.png"
-                  alt="SFPL Connect hardware exploded view — enclosure, PCB, terminals, DIN rail"
+                  alt="SFPL CONNECT hardware exploded view — enclosure, PCB, terminals, DIN rail"
                   width={700}
                   height={560}
                   className="relative z-10 w-full h-auto object-contain"
@@ -632,7 +639,7 @@ export default function Product() {
                     IoT device technical specification
                   </p>
                   <p className="mt-0.5 text-xs text-red-600/80">
-                    Full ratings, pin diagrams, and wiring reference
+                    Full ratings, pin diagrams and wiring reference
                   </p>
                 </div>
                 <ArrowRight
@@ -653,7 +660,7 @@ export default function Product() {
                     IoT device user manual
                   </p>
                   <p className="mt-0.5 text-xs text-gray-500 group-hover:text-red-600/80">
-                    DC power, AC voltage, CTs, and sensors — step by step
+                    DC power, AC voltage, CTs and sensors — step by step
                   </p>
                 </div>
                 <ArrowRight
@@ -693,7 +700,7 @@ export default function Product() {
               </h2>
             </div>
             <p className="text-gray-500 text-base leading-relaxed max-w-sm md:text-right">
-              One portal to manage every device, project, and alert — with
+              One portal to manage every device, project and alert — with
               real-time dashboards you can act on instantly.
             </p>
           </div>
@@ -741,7 +748,7 @@ export default function Product() {
                 </span>
               </div>
               <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-[1.1] tracking-tight">
-                Integrate SFPL Connect{" "}
+                Integrate SFPL CONNECT{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10">your way</span>
                   <span className="absolute bottom-1 left-0 w-full h-3 bg-red-100 -z-0 rounded" />
@@ -785,7 +792,7 @@ export default function Product() {
                       </div>
                       <p className="text-gray-600 text-sm leading-relaxed">
                         Generate API keys per project and control access to
-                        devices, readings, alerts, and dashboards.
+                        devices, readings, alerts and dashboards.
                       </p>
                     </div>
                     <span className="inline-flex items-center rounded-full border border-red-200 bg-red-50 px-3 py-1 text-[10px] font-extrabold tracking-widest uppercase text-red-700">
@@ -908,8 +915,8 @@ export default function Product() {
 
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-1">
                       <p className="text-white/70 text-xs leading-relaxed">
-                        Build custom dashboards, automations, and integrations
-                        on top of SFPL Connect.
+                        Build custom dashboards, automations and integrations on
+                        top of SFPL CONNECT.
                       </p>
                     </div>
                   </div>
@@ -981,7 +988,7 @@ export default function Product() {
               </h2>
             </div>
             <p className="text-gray-500 text-base leading-relaxed max-w-sm md:text-right">
-              SFPL Connect adapts to different sectors where live monitoring and
+              SFPL CONNECT adapts to different sectors where live monitoring and
               fast response matter.
             </p>
           </div>
@@ -1003,7 +1010,7 @@ export default function Product() {
                     One platform. Many operations.
                   </h3>
                   <p className="mt-3 text-sm text-white/75 leading-relaxed">
-                    Deploy the same SFPL Connect stack across plants, utilities,
+                    Deploy the same SFPL CONNECT stack across plants, utilities,
                     and facilities while keeping dashboards and alerts tailored
                     per site.
                   </p>
@@ -1055,7 +1062,7 @@ export default function Product() {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5">
               <Image
                 src="/images/pages/connect/usercase.png"
-                alt="SFPL Connect use cases across multiple buildings and industry sites"
+                alt="SFPL CONNECT use cases across multiple buildings and industry sites"
                 width={1200}
                 height={800}
                 className="w-full h-auto object-cover"

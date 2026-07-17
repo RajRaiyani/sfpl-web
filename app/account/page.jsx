@@ -2,8 +2,8 @@ import StoreAccountSettingsClient from "@/components/store/StoreAccountSettingsC
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Account Settings | SFPL Connect",
-  description: "Manage your SFPL Connect store account details and addresses.",
+  title: "Account Settings | SFPL CONNECT",
+  description: "Manage your SFPL CONNECT store account details and addresses.",
   path: "/account",
 });
 

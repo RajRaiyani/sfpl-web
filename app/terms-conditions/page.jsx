@@ -15,9 +15,9 @@ import {
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Terms and Conditions | SFPL Connect",
+  title: "Terms and Conditions | SFPL CONNECT",
   description:
-    "Terms and Conditions for SFPL Connect IoT device, monitoring portal, warranty, support commitments, data handling, and refund policy.",
+    "Terms and Conditions for SFPL CONNECT IoT device, monitoring portal, warranty, support commitments, data handling and refund policy.",
   path: "/terms",
 });
 
@@ -29,13 +29,13 @@ const sections = [
     body: (
       <>
         <p>
-          This section explains what is covered when you use SFPL Connect. These
-          Terms apply to the device, the portal, and support provided by
-          Specific Fire Protection Limited (&ldquo;SFPL&rdquo;).
+          This section explains what is covered when you use SFPL CONNECT. These
+          Terms apply to the device, the portal and support provided by Specific
+          Fire Protection Limited (&ldquo;SFPL&rdquo;).
         </p>
         <ul className="mt-4 list-disc space-y-2 pl-5">
-          <li>Purchase and use of SFPL Connect hardware devices</li>
-          <li>Access to the SFPL Connect monitoring portal</li>
+          <li>Purchase and use of SFPL CONNECT hardware devices</li>
+          <li>Access to the SFPL CONNECT monitoring portal</li>
           <li>Support for device and portal-related issues</li>
         </ul>
       </>
@@ -121,8 +121,8 @@ const sections = [
     body: (
       <p>
         SFPL may use data collected from connected devices for internal
-        research, analytics, quality improvement, and product development to
-        improve reliability, performance, and future features.
+        research, analytics, quality improvement and product development to
+        improve reliability, performance and future features.
       </p>
     ),
   },
@@ -132,7 +132,7 @@ const sections = [
     title: "Data retention period",
     body: (
       <>
-        <p>SFPL retains the following operational records for SFPL Connect:</p>
+        <p>SFPL retains the following operational records for SFPL CONNECT:</p>
         <ul className="mt-4 list-disc space-y-2 pl-5">
           <li>
             <strong>Raw device data logs:</strong> up to{" "}
@@ -192,7 +192,7 @@ const sections = [
         <p className="mt-4">
           Customers must report such issues within the applicable claim window
           and provide reasonable evidence (for example photos/videos, shipment
-          details, and order information) for verification.
+          details and order information) for verification.
         </p>
       </>
     ),
@@ -204,8 +204,8 @@ const sections = [
     body: (
       <>
         <p>
-          Use of SFPL Connect must comply with applicable laws, local electrical
-          codes, and safe installation practices. The customer/integrator is
+          Use of SFPL CONNECT must comply with applicable laws, local electrical
+          codes and safe installation practices. The customer/integrator is
           responsible for proper deployment conditions and compliant usage.
         </p>
         <p className="mt-4">
@@ -259,13 +259,13 @@ export default function TermsPage() {
         <div className="mx-auto max-w-4xl rounded-2xl border border-gray-100 bg-white/90 p-6 shadow-sm md:p-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-red-100 bg-red-50 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wide text-red-700">
             <ShieldCheck className="h-4 w-4" aria-hidden />
-            <span>SFPL Connect</span>
+            <span>SFPL CONNECT</span>
           </div>
           <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl">
             Terms and Conditions
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-600 md:text-base">
-            Clear terms for device use, portal access, warranty, support, and
+            Clear terms for device use, portal access, warranty, support and
             data handling.
           </p>
           <p className="mt-4 text-xs text-gray-500 md:text-sm">

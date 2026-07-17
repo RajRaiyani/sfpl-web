@@ -12,7 +12,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata = buildPageMetadata({
   title: "IoT device — user manual",
   description:
-    "Simple wiring guide for the SFPL Connect device: 12 V to 24 V power, AC voltage, CT current, and liquid level sensor.",
+    "Simple wiring guide for the SFPL CONNECT device: 12 V to 24 V power, AC voltage, CT current and liquid level sensor.",
   path: "/tech/iot-user-manual",
   image: "/logo-full-black.svg",
 });
@@ -75,7 +75,7 @@ const steps = [
     plain:
       "Want to see if the AC supply is healthy? Wire Neutral and the three phases here.",
     image: "/images/pages/docs/d2.svg",
-    imageAlt: "AC power supply wired to N, B, Y, and R terminals",
+    imageAlt: "AC power supply wired to N, B, Y and R terminals",
     aspect: "2713/1696",
     doThis: [
       {
@@ -84,7 +84,7 @@ const steps = [
       },
       {
         label: "Match the labels",
-        text: "Connect Neutral to N, then Blue / Yellow / Red phases to B, Y, and R.",
+        text: "Connect Neutral to N, then Blue / Yellow / Red phases to B, Y and R.",
       },
       {
         label: "What this does",
@@ -140,7 +140,7 @@ const steps = [
       },
       {
         label: "In the portal",
-        text: "After power-up, open SFPL Connect and calibrate the channel (volts → level). Set alerts if needed.",
+        text: "After power-up, open SFPL CONNECT and calibrate the channel (volts → level). Set alerts if needed.",
       },
     ],
     warning: null as string | null,
@@ -211,7 +211,7 @@ export default function IotUserManualPage() {
                     Connect wiring guide
                   </h1>
                   <p className="mt-2 max-w-2xl text-sm text-gray-600 sm:text-base">
-                    Four simple steps to wire your SFPL Connect device. Follow
+                    Four simple steps to wire your SFPL CONNECT device. Follow
                     the pictures — each step adds one connection.
                   </p>
                 </div>
@@ -288,7 +288,7 @@ export default function IotUserManualPage() {
                       <span className="font-mono text-[11px] text-gray-500">
                         Diagram B —
                       </span>{" "}
-                      How power, sensors, and cellular connect to the unit
+                      How power, sensors and cellular connect to the unit
                     </figcaption>
                   </figure>
                 </div>

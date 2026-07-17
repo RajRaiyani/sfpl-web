@@ -2,8 +2,8 @@ import CartPageClient from "@/components/store/CartPageClient";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Cart | SFPL Connect",
-  description: "Review your SFPL Connect device cart.",
+  title: "Cart | SFPL CONNECT",
+  description: "Review your SFPL CONNECT device cart.",
   path: "/cart",
 });
 

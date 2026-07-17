@@ -15,7 +15,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata = buildPageMetadata({
   title: "Privacy Policy | SFPL Mobile App & Services",
   description:
-    "How Specific Fire Protection Limited collects, uses, and protects your name, email, and phone number when you use our mobile application and related services.",
+    "How Specific Fire Protection Limited collects, uses and protects your name, email and phone number when you use our mobile application and related services.",
   path: "/privacy-policy",
 });
 
@@ -27,11 +27,11 @@ const sections = [
     body: (
       <>
         <p>
-          Specific Fire Protection Limited (&ldquo;SFPL,&rdquo; &ldquo;we,&rdquo;
-          &ldquo;us,&rdquo; or &ldquo;our&rdquo;) respects your privacy. This
-          Privacy Policy explains how we handle personal information when you
-          use our mobile application and any related websites or services that
-          link to this policy.
+          Specific Fire Protection Limited (&ldquo;SFPL,&rdquo;
+          &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) respects
+          your privacy. This Privacy Policy explains how we handle personal
+          information when you use our mobile application and any related
+          websites or services that link to this policy.
         </p>
         <p className="mt-4">
           By using our app or providing your information, you agree to the
@@ -74,7 +74,7 @@ const sections = [
             <span>
               <strong className="text-gray-900">Email address</strong>
               <span className="block text-gray-600 mt-1">
-                For account access, important notices, and support-related
+                For account access, important notices and support-related
                 communication where applicable.
               </span>
             </span>
@@ -87,7 +87,7 @@ const sections = [
             <span>
               <strong className="text-gray-900">Phone number</strong>
               <span className="block text-gray-600 mt-1">
-                For verification, account security, and contacting you about
+                For verification, account security and contacting you about
                 services you request or updates relevant to your use of the app.
               </span>
             </span>
@@ -95,9 +95,8 @@ const sections = [
         </ul>
         <p className="mt-4 text-sm text-gray-600">
           We may also collect limited technical data automatically (such as
-          device type, app version, and diagnostic logs) as needed to operate,
-          secure, and improve the app. We do not sell your personal
-          information.
+          device type, app version and diagnostic logs) as needed to operate,
+          secure and improve the app. We do not sell your personal information.
         </p>
       </>
     ),
@@ -109,9 +108,11 @@ const sections = [
     body: (
       <ul className="list-disc pl-5 space-y-2 text-gray-700">
         <li>To create and maintain your account and profile</li>
-        <li>To provide, operate, and improve our products and services</li>
-        <li>To communicate with you about your account, requests, or updates</li>
-        <li>To protect against fraud, abuse, and security risks</li>
+        <li>To provide, operate and improve our products and services</li>
+        <li>
+          To communicate with you about your account, requests, or updates
+        </li>
+        <li>To protect against fraud, abuse and security risks</li>
         <li>To comply with legal obligations and enforce our terms</li>
       </ul>
     ),
@@ -143,9 +144,9 @@ const sections = [
     body: (
       <p>
         We keep personal information only as long as needed for the purposes
-        described in this policy, unless a longer period is required or permitted
-        by law. When data is no longer needed, we take reasonable steps to
-        delete or anonymize it.
+        described in this policy, unless a longer period is required or
+        permitted by law. When data is no longer needed, we take reasonable
+        steps to delete or anonymize it.
       </p>
     ),
   },
@@ -189,10 +190,10 @@ const sections = [
     body: (
       <p>
         Our services are not directed at children under the age where parental
-        consent is required under local law. We do not knowingly collect personal
-        information from such children. If you believe we have collected data
-        from a child inappropriately, please contact us and we will take
-        appropriate steps.
+        consent is required under local law. We do not knowingly collect
+        personal information from such children. If you believe we have
+        collected data from a child inappropriately, please contact us and we
+        will take appropriate steps.
       </p>
     ),
   },
@@ -273,12 +274,11 @@ export default function PrivacyPolicyPage() {
               Privacy Policy
             </h1>
             <p className="mt-4 text-lg text-white/85 md:text-xl leading-relaxed">
-              Clear information about how we handle your name, email, and phone
+              Clear information about how we handle your name, email and phone
               number—and how you can reach us with questions.
             </p>
             <p className="mt-6 text-sm text-white/60">
-              Last updated:{" "}
-              <time dateTime="2026-04-05">5 April 2026</time>
+              Last updated: <time dateTime="2026-04-05">5 April 2026</time>
             </p>
           </div>
         </div>

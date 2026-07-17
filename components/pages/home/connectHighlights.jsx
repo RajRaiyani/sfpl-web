@@ -17,24 +17,24 @@ export default function ConnectHighlights() {
   const highlights = [
     {
       icon: LayoutDashboard,
-      title: "Real-time admin portal",
+      title: "Real-time Admin Portal",
       description: "Manage devices and projects from one unified dashboard.",
     },
     {
       icon: Bell,
-      title: "Custom alerts",
+      title: "Custom Alerts",
       description:
         "Set threshold-based alerts per device and project for faster response.",
     },
     {
       icon: Gauge,
-      title: "Live monitoring",
+      title: "Live Monitoring",
       description:
         "Track telemetry in real time with continuously updating data.",
     },
     {
       icon: MapPin,
-      title: "Integrated map view",
+      title: "Integrated Map View",
       description:
         "Visualize distributed devices and sites through location-aware monitoring.",
     },
@@ -48,7 +48,7 @@ export default function ConnectHighlights() {
     {
       icon: Monitor,
       title: "Web Portal",
-      description: "Live dashboards, map tracking, and project controls.",
+      description: "Live dashboards, map tracking and project controls.",
     },
     {
       icon: Smartphone,
@@ -79,12 +79,12 @@ export default function ConnectHighlights() {
                 Smart Monitoring Platform
               </div>
               <h2 className="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight">
-                SFPL Connect{" "}
+                SFPL CONNECT{" "}
                 <span className="text-red-200">in one powerful view</span>
               </h2>
               <p className="mt-4 text-white/80 text-sm md:text-base leading-relaxed max-w-xl">
                 Industrial IoT hardware + secure cloud stack with live
-                telemetry, project-wise control, map visibility, and instant
+                telemetry, project-wise control, map visibility and instant
                 alerts.
               </p>
 
@@ -131,7 +131,7 @@ export default function ConnectHighlights() {
                   href="/connect"
                   className="inline-flex items-center gap-2 bg-primary text-white font-bold py-3 px-7 rounded-xl hover:bg-primary/90 transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
-                  Explore SFPL Connect
+                  Explore SFPL CONNECT
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
@@ -163,7 +163,7 @@ export default function ConnectHighlights() {
                   </div>
                   <Image
                     src="/images/pages/connect/admin-portal-1.png"
-                    alt="SFPL Connect web portal dashboard mockup"
+                    alt="SFPL CONNECT web portal dashboard mockup"
                     width={1200}
                     height={760}
                     className="w-full h-auto object-cover"
@@ -175,7 +175,7 @@ export default function ConnectHighlights() {
                   <div className="h-4 bg-black/70" />
                   <Image
                     src="/images/pages/connect/admin-portal-mobile-1.png"
-                    alt="SFPL Connect mobile app mockup"
+                    alt="SFPL CONNECT mobile app mockup"
                     width={420}
                     height={900}
                     className="w-full h-auto object-cover"
@@ -187,7 +187,7 @@ export default function ConnectHighlights() {
                   <div className="h-3.5 bg-black/60" />
                   <Image
                     src="/images/pages/connect/admin-portal-mobile-2.png"
-                    alt="SFPL Connect mobile alerts mockup"
+                    alt="SFPL CONNECT mobile alerts mockup"
                     width={420}
                     height={900}
                     className="w-full h-auto object-cover"

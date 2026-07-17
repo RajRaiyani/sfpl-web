@@ -104,7 +104,7 @@ export default function Footer() {
                     : "text-gray-600 hover:text-red-600"
                 }`}
               >
-                SFPL Connect
+                SFPL CONNECT
               </Link>
               <Link
                 href="/services"
@@ -159,10 +159,10 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* SFPL Connect Links */}
+          {/* SFPL CONNECT Links */}
           <div className="space-y-3 sm:space-y-4">
             <h3 className="font-semibold text-sm sm:text-base text-gray-900">
-              SFPL Connect
+              SFPL CONNECT
             </h3>
             <div className="space-y-2">
               <Link

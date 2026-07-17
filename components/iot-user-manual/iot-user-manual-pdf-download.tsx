@@ -175,7 +175,7 @@ function IotUserManualPdfDocument({
 }: IotUserManualPdfProps) {
   return (
     <Document
-      title="SFPL Connect — wiring guide"
+      title="SFPL CONNECT — wiring guide"
       author="Specific Fire Protection Limited"
     >
       <Page size="A4" style={styles.page}>
@@ -250,7 +250,7 @@ function IotUserManualPdfDocument({
           <View style={{ marginTop: 14 }} wrap={false}>
             <Image style={styles.figureImg} src={diagram2Src} />
             <Text style={styles.figureCaption}>
-              Diagram B — How power, sensors, and cellular connect
+              Diagram B — How power, sensors and cellular connect
             </Text>
           </View>
         ) : null}
@@ -273,7 +273,9 @@ function IotUserManualPdfDocument({
             {stepImages[i]?.src ? (
               <View>
                 <Image style={styles.figureImg} src={stepImages[i].src} />
-                <Text style={styles.figureCaption}>{stepImages[i].caption}</Text>
+                <Text style={styles.figureCaption}>
+                  {stepImages[i].caption}
+                </Text>
               </View>
             ) : null}
             <View style={styles.ul}>
@@ -298,7 +300,9 @@ function IotUserManualPdfDocument({
             <View key={step.title} style={styles.section} wrap={false}>
               <View style={styles.h2}>
                 <Text style={styles.h2Num}>{idx + 1}.</Text>
-                <Text style={{ fontSize: 12, fontWeight: 700, color: "#111827" }}>
+                <Text
+                  style={{ fontSize: 12, fontWeight: 700, color: "#111827" }}
+                >
                   {step.title}
                 </Text>
               </View>
@@ -334,8 +338,8 @@ function IotUserManualPdfDocument({
               qualified electrician.
             </Text>
             <Text style={styles.li}>
-              • CT terminals take only thin CT clamp wires — never phase /
-              mains cables.
+              • CT terminals take only thin CT clamp wires — never phase / mains
+              cables.
             </Text>
             <Text style={styles.li}>
               • Contact SFPL for help or the full technical specification.
@@ -356,7 +360,10 @@ const MAX_SVG_RASTER_WIDTH_PX = 1200;
 function parseSvgPixelSize(svgMarkup: string): { w: number; h: number } {
   const viewBox = svgMarkup.match(/viewBox="([^"]+)"/);
   if (viewBox) {
-    const parts = viewBox[1].trim().split(/[\s,]+/).map(parseFloat);
+    const parts = viewBox[1]
+      .trim()
+      .split(/[\s,]+/)
+      .map(parseFloat);
     if (parts.length >= 4 && parts[2] > 0 && parts[3] > 0) {
       return { w: parts[2], h: parts[3] };
     }
@@ -370,7 +377,7 @@ function parseSvgPixelSize(svgMarkup: string): { w: number; h: number } {
 }
 
 async function rasterizeSvgPublicPathToPngDataUrl(
-  publicPath: string
+  publicPath: string,
 ): Promise<string | undefined> {
   try {
     const res = await fetch(`${window.location.origin}${publicPath}`);
@@ -382,7 +389,7 @@ async function rasterizeSvgPublicPathToPngDataUrl(
     const { w: srcW, h: srcH } = parseSvgPixelSize(svgText);
     const outW = Math.min(
       MAX_SVG_RASTER_WIDTH_PX,
-      Math.max(1, Math.round(srcW))
+      Math.max(1, Math.round(srcW)),
     );
     const outH = Math.max(1, Math.round(srcH * (outW / srcW)));
 
@@ -448,7 +455,10 @@ export function IotUserManualPdfDownloadButton() {
         { src: d1, caption: "Figure 1 — Connect 12 V power (+ / −)" },
         { src: d2, caption: "Figure 2 — Connect AC voltage (N B Y R)" },
         { src: d3, caption: "Figure 3 — Connect CTs for motor / pump current" },
-        { src: d4, caption: "Figure 4 — Connect liquid level sensor (A1 / A2)" },
+        {
+          src: d4,
+          caption: "Figure 4 — Connect liquid level sensor (A1 / A2)",
+        },
       ];
 
       const blob = await pdf(
@@ -456,7 +466,7 @@ export function IotUserManualPdfDownloadButton() {
           stepImages={stepImages}
           diagram1Src={diagram1Src}
           diagram2Src={diagram2Src}
-        />
+        />,
       ).toBlob();
 
       const objectUrl = URL.createObjectURL(blob);

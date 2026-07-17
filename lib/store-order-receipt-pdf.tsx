@@ -194,7 +194,8 @@ function getBillingName(order: StoreOrder) {
   if (!details || typeof details !== "object") return "—";
   const fullName = details.full_name;
   if (typeof fullName === "string" && fullName.trim()) return fullName.trim();
-  const first = typeof details.first_name === "string" ? details.first_name : "";
+  const first =
+    typeof details.first_name === "string" ? details.first_name : "";
   const last = typeof details.last_name === "string" ? details.last_name : "";
   const combined = `${first} ${last}`.trim();
   return combined || "—";
@@ -210,11 +211,16 @@ type OrderReceiptPdfDocumentProps = {
   logoSrc?: string;
 };
 
-function OrderReceiptPdfDocument({ order, logoSrc }: OrderReceiptPdfDocumentProps) {
+function OrderReceiptPdfDocument({
+  order,
+  logoSrc,
+}: OrderReceiptPdfDocumentProps) {
   const items = order.items ?? [];
   const paidAmount = order.paid_amount_in_paisa ?? 0;
   const balanceDue = Math.max(0, order.total_amount_in_paisa - paidAmount);
-  const receiptNumber = order.serial ? getOrderReceiptNumber(order.serial) : "—";
+  const receiptNumber = order.serial
+    ? getOrderReceiptNumber(order.serial)
+    : "—";
 
   return (
     <Document title={`SFPL Receipt ${receiptNumber}`}>
@@ -223,12 +229,20 @@ function OrderReceiptPdfDocument({ order, logoSrc }: OrderReceiptPdfDocumentProp
           {logoSrc ? (
             <Image src={logoSrc} style={styles.logo} />
           ) : (
-            <Text style={{ fontSize: 14, fontFamily: "Helvetica-Bold", color: SFPL_RED }}>
-              SFPL Connect
+            <Text
+              style={{
+                fontSize: 14,
+                fontFamily: "Helvetica-Bold",
+                color: SFPL_RED,
+              }}
+            >
+              SFPL CONNECT
             </Text>
           )}
           <View>
-            <Text style={styles.brandText}>{SFPL_INVOICE_SELLER.legalName}</Text>
+            <Text style={styles.brandText}>
+              {SFPL_INVOICE_SELLER.legalName}
+            </Text>
             <Text style={styles.brandText}>{SFPL_INVOICE_SELLER.website}</Text>
           </View>
         </View>
@@ -322,11 +336,18 @@ function OrderReceiptPdfDocument({ order, logoSrc }: OrderReceiptPdfDocumentProp
           {items.map((item, index) => (
             <View
               key={item.id}
-              style={[styles.tableRow, index % 2 === 1 ? styles.tableRowAlt : {}]}
+              style={[
+                styles.tableRow,
+                index % 2 === 1 ? styles.tableRowAlt : {},
+              ]}
             >
               <Text style={[styles.tdCell, styles.colIndex]}>{index + 1}</Text>
-              <Text style={[styles.tdCell, styles.colItem]}>{item.device_name}</Text>
-              <Text style={[styles.tdCell, styles.colQty]}>{item.quantity}</Text>
+              <Text style={[styles.tdCell, styles.colItem]}>
+                {item.device_name}
+              </Text>
+              <Text style={[styles.tdCell, styles.colQty]}>
+                {item.quantity}
+              </Text>
             </View>
           ))}
         </View>
@@ -334,7 +355,7 @@ function OrderReceiptPdfDocument({ order, logoSrc }: OrderReceiptPdfDocumentProp
         <View style={styles.footer}>
           <Text>
             This is a computer-generated payment receipt from{" "}
-            {SFPL_INVOICE_SELLER.legalName} (SFPL Connect).
+            {SFPL_INVOICE_SELLER.legalName} (SFPL CONNECT).
           </Text>
         </View>
       </Page>
@@ -343,8 +364,12 @@ function OrderReceiptPdfDocument({ order, logoSrc }: OrderReceiptPdfDocumentProp
 }
 
 export async function generateOrderReceiptPdf(order: StoreOrder) {
-  const logoSrc = await rasterizeSvgPublicPathToPngDataUrl("/logo-full-black.svg");
-  return pdf(<OrderReceiptPdfDocument order={order} logoSrc={logoSrc} />).toBlob();
+  const logoSrc = await rasterizeSvgPublicPathToPngDataUrl(
+    "/logo-full-black.svg",
+  );
+  return pdf(
+    <OrderReceiptPdfDocument order={order} logoSrc={logoSrc} />,
+  ).toBlob();
 }
 
 export function getOrderReceiptFileName(orderSerial: string) {

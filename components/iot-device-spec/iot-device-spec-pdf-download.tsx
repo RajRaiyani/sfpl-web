@@ -171,7 +171,10 @@ type IotDeviceSpecPdfProps = {
   diagram2Src?: string;
 };
 
-function IotDeviceSpecPdfDocument({ diagram1Src, diagram2Src }: IotDeviceSpecPdfProps) {
+function IotDeviceSpecPdfDocument({
+  diagram1Src,
+  diagram2Src,
+}: IotDeviceSpecPdfProps) {
   return (
     <Document
       title="SFPL IoT device — technical specification"
@@ -181,8 +184,9 @@ function IotDeviceSpecPdfDocument({ diagram1Src, diagram2Src }: IotDeviceSpecPdf
         <Text style={styles.badge}>Technical specification</Text>
         <Text style={styles.title}>IoT monitoring device</Text>
         <Text style={styles.subtitle}>
-          Field monitoring unit for electrical and process signals. This document
-          summarizes mechanical, electrical I/O, and core hardware characteristics.
+          Field monitoring unit for electrical and process signals. This
+          document summarizes mechanical, electrical I/O and core hardware
+          characteristics.
         </Text>
         <View style={styles.metaRow}>
           <View style={styles.metaBlock}>
@@ -228,7 +232,7 @@ function IotDeviceSpecPdfDocument({ diagram1Src, diagram2Src }: IotDeviceSpecPdf
           <Text style={styles.p}>
             The device exposes seventeen dedicated input connections, grouped by
             signal type for supply, mains-level AC, low-level AC (for external
-            sensors such as CTs), and general-purpose DC analog sensing.
+            sensors such as CTs) and general-purpose DC analog sensing.
           </Text>
           <View style={styles.table}>
             <View style={styles.tableHeader}>
@@ -273,10 +277,7 @@ function IotDeviceSpecPdfDocument({ diagram1Src, diagram2Src }: IotDeviceSpecPdf
           </View>
         </View>
 
-        <Text
-          style={styles.footer}
-          fixed
-        >
+        <Text style={styles.footer} fixed>
           Specific Fire Protection Limited — technical summary for web. For
           certified drawings or full compliance pack, contact SFPL.
         </Text>
@@ -302,7 +303,8 @@ function IotDeviceSpecPdfDocument({ diagram1Src, diagram2Src }: IotDeviceSpecPdf
           </View>
         ) : (
           <Text style={[styles.p, { fontSize: 8, fontFamily: "Courier" }]}>
-            Figure 1 — Diagram not embedded (open the web specification to view).
+            Figure 1 — Diagram not embedded (open the web specification to
+            view).
           </Text>
         )}
         {diagram2Src ? (
@@ -314,9 +316,13 @@ function IotDeviceSpecPdfDocument({ diagram1Src, diagram2Src }: IotDeviceSpecPdf
           </View>
         ) : (
           <Text
-            style={[styles.p, { fontSize: 8, fontFamily: "Courier", marginTop: 8 }]}
+            style={[
+              styles.p,
+              { fontSize: 8, fontFamily: "Courier", marginTop: 8 },
+            ]}
           >
-            Figure 2 — Diagram not embedded (open the web specification to view).
+            Figure 2 — Diagram not embedded (open the web specification to
+            view).
           </Text>
         )}
 
@@ -328,7 +334,8 @@ function IotDeviceSpecPdfDocument({ diagram1Src, diagram2Src }: IotDeviceSpecPdf
             </Text>
           </View>
           <Text style={styles.p}>
-            Powers the internal electronics and radio from an external DC source.
+            Powers the internal electronics and radio from an external DC
+            source.
           </Text>
           <View style={styles.ul}>
             <Text style={styles.li}>
@@ -344,10 +351,7 @@ function IotDeviceSpecPdfDocument({ diagram1Src, diagram2Src }: IotDeviceSpecPdf
           </View>
         </View>
 
-        <Text
-          style={styles.footer}
-          fixed
-        >
+        <Text style={styles.footer} fixed>
           Specific Fire Protection Limited — technical summary for web.
         </Text>
       </Page>
@@ -372,8 +376,8 @@ function IotDeviceSpecPdfDocument({ diagram1Src, diagram2Src }: IotDeviceSpecPdf
             <Text style={styles.li}>
               <Text style={styles.liStrong}>Typical usage: </Text>
               Monitoring phase-to-neutral or line-to-line relationships on
-              three-phase supplies (for example R–Y–B phase voltages) where direct
-              mains measurement is required.
+              three-phase supplies (for example R–Y–B phase voltages) where
+              direct mains measurement is required.
             </Text>
           </View>
         </View>
@@ -421,9 +425,9 @@ function IotDeviceSpecPdfDocument({ diagram1Src, diagram2Src }: IotDeviceSpecPdf
             </Text>
             <Text style={styles.li}>
               <Text style={styles.liStrong}>Typical usage: </Text>
-              Pressure, level, temperature (transmitter output), flow, and other
-              field devices that present a DC voltage proportional to the measured
-              quantity.
+              Pressure, level, temperature (transmitter output), flow and other
+              field devices that present a DC voltage proportional to the
+              measured quantity.
             </Text>
           </View>
         </View>
@@ -439,8 +443,8 @@ function IotDeviceSpecPdfDocument({ diagram1Src, diagram2Src }: IotDeviceSpecPdf
             <View style={{ flex: 1 }}>
               <Text style={styles.cardTitle}>Cellular</Text>
               <Text style={styles.cardBody}>
-                GSM module with 2G connectivity and integrated antenna for uplink in
-                covered deployments.
+                GSM module with 2G connectivity and integrated antenna for
+                uplink in covered deployments.
               </Text>
             </View>
           </View>
@@ -457,18 +461,16 @@ function IotDeviceSpecPdfDocument({ diagram1Src, diagram2Src }: IotDeviceSpecPdf
             <View style={{ flex: 1 }}>
               <Text style={styles.cardTitle}>Integration note</Text>
               <Text style={styles.cardBody}>
-                Final installation, protection, and compliance with local electrical
-                codes remain the responsibility of the system integrator. Contact
-                SFPL for deployment guidance and supported accessories.
+                Final installation, protection and compliance with local
+                electrical codes remain the responsibility of the system
+                integrator. Contact SFPL for deployment guidance and supported
+                accessories.
               </Text>
             </View>
           </View>
         </View>
 
-        <Text
-          style={styles.footer}
-          fixed
-        >
+        <Text style={styles.footer} fixed>
           Specific Fire Protection Limited — technical summary for web.
         </Text>
       </Page>
@@ -481,7 +483,10 @@ const MAX_SVG_RASTER_WIDTH_PX = 1200;
 function parseSvgPixelSize(svgMarkup: string): { w: number; h: number } {
   const viewBox = svgMarkup.match(/viewBox="([^"]+)"/);
   if (viewBox) {
-    const parts = viewBox[1].trim().split(/[\s,]+/).map(parseFloat);
+    const parts = viewBox[1]
+      .trim()
+      .split(/[\s,]+/)
+      .map(parseFloat);
     if (parts.length >= 4 && parts[2] > 0 && parts[3] > 0) {
       return { w: parts[2], h: parts[3] };
     }
@@ -499,7 +504,7 @@ function parseSvgPixelSize(svgMarkup: string): { w: number; h: number } {
  * Rasterize to PNG in the browser so the PDF engine receives a supported format.
  */
 async function rasterizeSvgPublicPathToPngDataUrl(
-  publicPath: string
+  publicPath: string,
 ): Promise<string | undefined> {
   try {
     const res = await fetch(`${window.location.origin}${publicPath}`);
@@ -511,7 +516,7 @@ async function rasterizeSvgPublicPathToPngDataUrl(
     const { w: srcW, h: srcH } = parseSvgPixelSize(svgText);
     const outW = Math.min(
       MAX_SVG_RASTER_WIDTH_PX,
-      Math.max(1, Math.round(srcW))
+      Math.max(1, Math.round(srcW)),
     );
     const outH = Math.max(1, Math.round(srcH * (outW / srcW)));
 
@@ -573,7 +578,7 @@ export function IotDeviceSpecPdfDownloadButton() {
         <IotDeviceSpecPdfDocument
           diagram1Src={diagram1Src}
           diagram2Src={diagram2Src}
-        />
+        />,
       ).toBlob();
 
       const objectUrl = URL.createObjectURL(blob);

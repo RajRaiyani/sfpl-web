@@ -2,8 +2,8 @@ import OrdersPageClient from "@/components/store/OrdersPageClient";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "My Orders | SFPL Connect",
-  description: "Track your SFPL Connect device orders.",
+  title: "My Orders | SFPL CONNECT",
+  description: "Track your SFPL CONNECT device orders.",
   path: "/orders",
 });
 

@@ -4,8 +4,8 @@ import { buildPageMetadata } from "@/lib/seo";
 export async function generateMetadata({ params }) {
   const { orderId } = await params;
   return buildPageMetadata({
-    title: `Order ${orderId} | SFPL Connect`,
-    description: "SFPL Connect order details.",
+    title: `Order ${orderId} | SFPL CONNECT`,
+    description: "SFPL CONNECT order details.",
     path: `/orders/${orderId}`,
   });
 }

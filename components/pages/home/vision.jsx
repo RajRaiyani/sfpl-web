@@ -19,16 +19,17 @@ export default function Vision() {
           </p>
           <p className="text-lg text-gray-700 mb-4 leading-relaxed">
             <span className="font-semibold text-gray-900">Our mission: </span>
-            To deliver advanced, compliant, and end-to-end fire safety solutions
-            that prevent fire incidents, protect lives, and support our
+            To deliver advanced, compliant and end-to-end fire safety solutions
+            that prevent fire incidents, protect lives and support our
             commitment:{" "}
             <span className="font-semibold text-red-600">
               &ldquo;Let&apos;s Make Fire Safe India.&rdquo;
             </span>
           </p>
           <p className="text-gray-700 leading-relaxed">
-            At SFPL, we don&apos;t just install systems—we engineer safety with
-            our customers, partners, and stakeholders across India.
+            At SFPL, we don&apos;t just install systems—we engineer safety in
+            collaboration with our customers, partners and stakeholders across
+            India.
           </p>
         </div>
         <div className="flex-1 h-full w-full flex justify-center relative min-w-[320px]">

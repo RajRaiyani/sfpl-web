@@ -4,8 +4,8 @@ import { buildPageMetadata } from "@/lib/seo";
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   return buildPageMetadata({
-    title: `SFPL Connect Device | ${slug}`,
-    description: "SFPL Connect device details and purchase options.",
+    title: `SFPL CONNECT Device | ${slug}`,
+    description: "SFPL CONNECT device details and purchase options.",
     path: `/connect/devices/${slug}`,
   });
 }

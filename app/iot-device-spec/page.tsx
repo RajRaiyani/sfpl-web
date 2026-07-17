@@ -7,7 +7,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata = buildPageMetadata({
   title: "IoT device — technical specification",
   description:
-    "Technical specification for the SFPL IoT monitoring device: enclosure, 17 input channels, connectivity, and power backup.",
+    "Technical specification for the SFPL IoT monitoring device: enclosure, 17 input channels, connectivity and power backup.",
   path: "/tech/iot-device-spec",
   image: "/logo-full-black.svg",
 });
@@ -98,8 +98,8 @@ export default function IotDeviceSpecPage() {
                   </h1>
                   <p className="mt-2 max-w-2xl text-sm text-gray-600 sm:text-base">
                     Field monitoring unit for electrical and process signals.
-                    This document summarizes mechanical, electrical I/O, and
-                    core hardware characteristics.
+                    This document summarizes mechanical, electrical I/O and core
+                    hardware characteristics.
                   </p>
                 </div>
                 <div className="shrink-0 sm:pt-1">
@@ -168,7 +168,7 @@ export default function IotDeviceSpecPage() {
                 <p>
                   The device exposes seventeen dedicated input connections,
                   grouped by signal type for supply, mains-level AC, low-level
-                  AC (for external sensors such as CTs), and general-purpose DC
+                  AC (for external sensors such as CTs) and general-purpose DC
                   analog sensing.
                 </p>
                 <div className="not-prose mt-4 overflow-x-auto rounded border border-gray-200 font-mono text-xs">
@@ -367,7 +367,7 @@ export default function IotDeviceSpecPage() {
                   </li>
                   <li>
                     <strong className="text-gray-800">Typical usage:</strong>{" "}
-                    Pressure, level, temperature, flow, and other field devices
+                    Pressure, level, temperature, flow and other field devices
                     that present a DC voltage proportional to the measured
                     quantity.
                   </li>

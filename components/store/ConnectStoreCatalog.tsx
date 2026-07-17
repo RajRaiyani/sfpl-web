@@ -11,7 +11,10 @@ export default function ConnectStoreCatalog() {
   const devices = data?.data ?? [];
 
   return (
-    <section id="connect-devices" className="py-24 bg-white border-t border-gray-100">
+    <section
+      id="connect-devices"
+      className="py-24 bg-white border-t border-gray-100"
+    >
       <div className="container mx-auto px-4">
         <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
@@ -24,10 +27,11 @@ export default function ConnectStoreCatalog() {
               </p>
             </div>
             <h2 className="text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
-              Buy SFPL Connect hardware
+              Buy SFPL CONNECT hardware
             </h2>
             <p className="mt-3 max-w-2xl text-base text-gray-600">
-              Order IoT devices directly and get started with real-time monitoring on SFPL Connect.
+              Order IoT devices directly and get started with real-time
+              monitoring on SFPL CONNECT.
             </p>
           </div>
         </div>
