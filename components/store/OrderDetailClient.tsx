@@ -44,7 +44,9 @@ function AddressField({ label, value }: { label: string; value?: string }) {
   if (!value) return null;
   return (
     <div>
-      <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">{label}</p>
+      <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">
+        {label}
+      </p>
       <p className="mt-1 text-sm font-medium text-gray-900">{value}</p>
     </div>
   );
@@ -69,7 +71,9 @@ function OrderAddressDisplay({
       <AddressField label="City & state" value={cityState} />
       <AddressField
         label="PIN code"
-        value={parsed.postal_code ? `PIN CODE ${parsed.postal_code}` : undefined}
+        value={
+          parsed.postal_code ? `PIN CODE ${parsed.postal_code}` : undefined
+        }
       />
     </div>
   );
@@ -77,7 +81,10 @@ function OrderAddressDisplay({
 
 function hasAddressContent(address: OrderAddress) {
   return Boolean(
-    address.address || address.city || address.state_name || address.postal_code,
+    address.address ||
+    address.city ||
+    address.state_name ||
+    address.postal_code,
   );
 }
 
@@ -86,7 +93,9 @@ export default function OrderDetailClient({ orderId }: OrderDetailClientProps) {
 
   useEffect(() => {
     if (!hasUserSession()) {
-      window.location.href = buildConnectLoginUrl(`/orders/${orderId}`);
+      window.location.href = buildConnectLoginUrl(
+        `${window.location.origin}/orders/${orderId}`,
+      );
     }
   }, [orderId]);
 
@@ -135,11 +144,15 @@ export default function OrderDetailClient({ orderId }: OrderDetailClientProps) {
 
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-red-600">Order</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-red-600">
+            Order
+          </p>
           <h1 className="text-3xl font-extrabold text-gray-900">
             {formatOrderDisplaySerial(order)}
           </h1>
-          <p className="mt-1 text-sm text-gray-500">{formatOrderDate(order.created_at)}</p>
+          <p className="mt-1 text-sm text-gray-500">
+            {formatOrderDate(order.created_at)}
+          </p>
         </div>
         <div className="flex flex-col items-end gap-3">
           <div className="text-right">
@@ -184,9 +197,13 @@ export default function OrderDetailClient({ orderId }: OrderDetailClientProps) {
                     ) : null}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="font-medium text-gray-900">{item.device_name}</p>
+                    <p className="font-medium text-gray-900">
+                      {item.device_name}
+                    </p>
                     {item.hsn_sac ? (
-                      <p className="text-xs text-gray-500">HSN/SAC {item.hsn_sac}</p>
+                      <p className="text-xs text-gray-500">
+                        HSN/SAC {item.hsn_sac}
+                      </p>
                     ) : null}
                     <p className="text-sm text-gray-500">Qty {item.quantity}</p>
                     <p className="mt-1 text-sm font-semibold text-red-600">

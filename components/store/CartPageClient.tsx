@@ -14,7 +14,6 @@ import {
   useUpdateCartItem,
   cartHasOutOfStockItems,
 } from "@/hooks/use-cart";
-import DeliveryChargesNotice from "@/components/store/DeliveryChargesNotice";
 
 export default function CartPageClient() {
   const router = useRouter();
@@ -28,7 +27,9 @@ export default function CartPageClient() {
 
   const handleCheckout = async () => {
     if (!hasUserSession()) {
-      window.location.href = buildConnectLoginUrl("/checkout");
+      window.location.href = buildConnectLoginUrl(
+        `${window.location.origin}/checkout`,
+      );
       return;
     }
 

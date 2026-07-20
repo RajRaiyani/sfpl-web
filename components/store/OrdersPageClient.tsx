@@ -39,7 +39,9 @@ export default function OrdersPageClient() {
 
   useEffect(() => {
     if (!hasUserSession()) {
-      window.location.href = buildConnectLoginUrl("/orders");
+      window.location.href = buildConnectLoginUrl(
+        `${window.location.origin}/orders`,
+      );
     }
   }, []);
 

@@ -112,7 +112,9 @@ export default function CheckoutPageClient() {
 
   useEffect(() => {
     if (!hasUserSession()) {
-      window.location.href = buildConnectLoginUrl("/checkout");
+      window.location.href = buildConnectLoginUrl(
+        `${window.location.origin}/checkout`,
+      );
       return;
     }
     setIsCheckingAuth(false);
