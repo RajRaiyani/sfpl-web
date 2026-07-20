@@ -6,13 +6,6 @@ import {
 const GUEST_CART_KEY = "guest_cart_id";
 export const AUTH_BRIDGE_PATH = "/auth/bridge";
 
-function getSfplWebOrigin() {
-  return (
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    (typeof window !== "undefined" ? window.location.origin : "http://localhost:3000")
-  ).replace(/\/$/, "");
-}
-
 function getCookie(name: string) {
   if (typeof document === "undefined") return null;
   const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
@@ -89,30 +82,14 @@ export function persistGuestCartIdFromResponse(payload: unknown) {
   }
 }
 
-export function buildConnectLoginUrl(returnPath = "/cart") {
+export function buildConnectLoginUrl(redirectUrl = "/") {
   const connectSiteUrl = process.env.NEXT_PUBLIC_CONNECT_SITE_URL
-    ?.replace(/\/:(\d+)/, ":$1")
-    .replace(/\/$/, "");
-  if (!connectSiteUrl) return "/login";
+  if (!connectSiteUrl || typeof window === "undefined") return "/login";
 
-  const bridgeUrl = buildConnectAuthBridgeUrl(returnPath);
-  return `${connectSiteUrl}/login?redirect_url=${encodeURIComponent(bridgeUrl)}`;
+  return `${connectSiteUrl}/login?redirect_url=${encodeURIComponent(redirectUrl)}`;
 }
 
-export function buildConnectRegisterUrl(returnPath = "/") {
-  const connectSiteUrl = process.env.NEXT_PUBLIC_CONNECT_SITE_URL
-    ?.replace(/\/:(\d+)/, ":$1")
-    .replace(/\/$/, "");
-  if (!connectSiteUrl) return "/register";
 
-  const bridgeUrl = buildConnectAuthBridgeUrl(returnPath);
-  return `${connectSiteUrl}/register?redirect_url=${encodeURIComponent(bridgeUrl)}`;
-}
-
-function buildConnectAuthBridgeUrl(returnPath = "/") {
-  const normalizedPath = returnPath.startsWith("/") ? returnPath : `/${returnPath}`;
-  return `${getSfplWebOrigin()}${AUTH_BRIDGE_PATH}?next=${encodeURIComponent(normalizedPath)}`;
-}
 
 /** Unwrap mistaken connect-origin /auth/bridge URLs in the next param. */
 export function resolveAuthBridgeDestination(next: string): string {

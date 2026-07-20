@@ -29,11 +29,7 @@ import {
   User,
 } from "lucide-react";
 import StoreCartButton from "@/components/store/StoreCartButton";
-import {
-  buildConnectLoginUrl,
-  buildConnectRegisterUrl,
-  clearAuthSession,
-} from "@/lib/auth-storage";
+import { clearAuthSession } from "@/lib/auth-storage";
 import { CUSTOMER_AUTH_COOKIES } from "@/lib/auth-cookies";
 import env from "@/config/env";
 
@@ -168,13 +164,25 @@ export default function Header() {
 
   const dashboardHref = connectBaseUrl ? buildConnectUrl("") : "/connect";
   const profileHref = connectBaseUrl ? buildConnectUrl("/profile") : "/connect";
-  const returnPath = pathname || "/";
-  const loginHref = connectBaseUrl
-    ? buildConnectLoginUrl(returnPath)
-    : "/login";
-  const registerHref = connectBaseUrl
-    ? buildConnectRegisterUrl(returnPath)
-    : "/register";
+  const connectSiteUrl = connectBaseUrl
+    ? String(connectBaseUrl)
+        .replace(/\/:(\d+)/, ":$1")
+        .replace(/\/$/, "")
+    : "";
+  const [redirectUrl, setRedirectUrl] = useState("");
+  useEffect(() => {
+    setRedirectUrl(window.location.href);
+  }, [pathname]);
+
+  const loginHref =
+    connectSiteUrl && redirectUrl
+      ? `${connectSiteUrl}/login?redirect_url=${encodeURIComponent(redirectUrl)}`
+      : "/login";
+
+  const registerHref =
+    connectSiteUrl && redirectUrl
+      ? `${connectSiteUrl}/register?redirect_url=${encodeURIComponent(redirectUrl)}`
+      : "/register";
 
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
