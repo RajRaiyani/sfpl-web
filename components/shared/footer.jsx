@@ -215,6 +215,16 @@ export default function Footer() {
               >
                 Terms &amp; Conditions
               </Link>
+              <Link
+                href="/returns-refunds"
+                className={`block text-xs sm:text-sm transition-colors ${
+                  isActive("/returns-refunds")
+                    ? "text-primary font-semibold"
+                    : "text-gray-600 hover:text-red-600"
+                }`}
+              >
+                Returns &amp; Refunds
+              </Link>
             </div>
           </div>
 
@@ -306,6 +316,16 @@ export default function Footer() {
                 }`}
               >
                 Terms &amp; Conditions
+              </Link>
+              <Link
+                href="/returns-refunds"
+                className={`transition-colors ${
+                  isActive("/returns-refunds")
+                    ? "text-primary font-semibold"
+                    : "text-gray-500 hover:text-red-600"
+                }`}
+              >
+                Returns &amp; Refunds
               </Link>
               <a
                 href="https://rajraiyani.com/"

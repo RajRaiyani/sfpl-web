@@ -19,7 +19,7 @@ export const CHECKOUT_TERMS_SECTIONS: { title: string; body: string }[] = [
   },
   {
     title: "Returns and refunds",
-    body: "Returns and refunds are subject to our return policy. Please review our terms and conditions before placing your order.",
+    body: "Returns and refunds are subject to our Returns and Refunds policy. Manufacturing defects and verified shipping damage may qualify; all other sales are final.",
   },
   {
     title: "Liability",
@@ -80,6 +80,14 @@ export default function CheckoutTermsDialog({
                 className="font-medium text-red-600 underline-offset-2 hover:underline"
               >
                 terms and conditions
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/returns-refunds"
+                target="_blank"
+                className="font-medium text-red-600 underline-offset-2 hover:underline"
+              >
+                returns and refunds
               </Link>
               .
             </p>

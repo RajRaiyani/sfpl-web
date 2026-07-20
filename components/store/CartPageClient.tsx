@@ -161,7 +161,7 @@ export default function CartPageClient() {
                 Remove out-of-stock items to continue to checkout.
               </p>
             ) : null}
-            <DeliveryChargesNotice />
+            {/* <DeliveryChargesNotice /> */}
           </div>
         </div>
       )}

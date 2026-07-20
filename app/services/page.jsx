@@ -17,7 +17,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata = buildPageMetadata({
   title: "Fire Safety Services | SFPL",
   description:
-    "Comprehensive fire protection solutions designed to keep you safe, from compliance and design to installation and maintenance.",
+    "End-to-end fire protection: compliance audits, design and engineering, installation and commissioning, AMC, and detection and suppression systems.",
   path: "/services",
   image: "/images/pages/service/fire-audit.png",
 });
@@ -32,7 +32,7 @@ export default function Services() {
         "Fire Safety Audit (FSA)",
         "Fire Risk Assessment (FRA)",
         "Due Diligence Audits",
-        "Gap Analysis against regulatory standards",
+        "Gap Analysis Against Applicable Regulatory Standards",
         "Emergency Response Plan (ERP) Development",
       ],
     },
@@ -45,8 +45,8 @@ export default function Services() {
         "Performance-Based Design (PBD)",
         "System Architecture",
         "Code Compliance (BIS, NBC, NFPA)",
-        "Fire load calculation",
-        "Hydraulic calculation (for sprinkler systems)",
+        "Fire Load Calculation",
+        "Hydraulic Calculations (Sprinkler Systems)",
         "Occupant Load Calculation",
         "Fire Modeling",
         "Piping and Instrumentation Diagrams (P&ID)",

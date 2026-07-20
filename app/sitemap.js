@@ -12,6 +12,8 @@ const routes = [
   { path: "/iot-device-spec", changeFrequency: "monthly", priority: 0.7 },
   { path: "/iot-user-manual", changeFrequency: "monthly", priority: 0.7 },
   { path: "/iot-faq", changeFrequency: "monthly", priority: 0.6 },
+  { path: "/terms-conditions", changeFrequency: "yearly", priority: 0.4 },
+  { path: "/returns-refunds", changeFrequency: "yearly", priority: 0.4 },
 ];
 
 export default function sitemap() {

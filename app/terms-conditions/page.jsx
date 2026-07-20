@@ -7,7 +7,6 @@ import {
   Scale,
   FlaskConical,
   Headset,
-  ReceiptText,
   TriangleAlert,
   Mail,
   Database,
@@ -17,7 +16,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata = buildPageMetadata({
   title: "Terms and Conditions | SFPL CONNECT",
   description:
-    "Terms and Conditions for SFPL CONNECT IoT device, monitoring portal, warranty, support commitments, data handling and refund policy.",
+    "Terms and Conditions for SFPL CONNECT IoT device, monitoring portal, warranty, support commitments, and data handling.",
   path: "/terms",
 });
 
@@ -74,6 +73,15 @@ const sections = [
           <li>Name</li>
           <li>Email address</li>
           <li>Phone number</li>
+          <li>PAN number</li>
+          <li>GSTIN number</li>
+          <li>Address</li>
+          <li>City</li>
+          <li>State</li>
+          <li>Country</li>
+          <li>Postal code</li>
+          <li>Company name</li>
+          <li>Company address</li>
         </ul>
         <p className="mt-4">
           You are responsible for ensuring this information is accurate and kept
@@ -135,11 +143,10 @@ const sections = [
         <p>SFPL retains the following operational records for SFPL CONNECT:</p>
         <ul className="mt-4 list-disc space-y-2 pl-5">
           <li>
-            <strong>Raw device data logs:</strong> up to{" "}
-            <strong>2 years</strong>
+            <strong>Raw device data logs:</strong> up to <strong>1 year</strong>
           </li>
           <li>
-            <strong>Generated alerts:</strong> up to <strong>3 years</strong>
+            <strong>Generated alerts:</strong> up to <strong>3 months</strong>
           </li>
         </ul>
         <p className="mt-4">
@@ -161,38 +168,11 @@ const sections = [
             <strong>Initial response target:</strong> within 24 working hours of
             receiving a user query/ticket.
           </li>
-          <li>
-            <strong>Issue resolution target:</strong> within 72 working hours
-            from query/ticket receipt, subject to issue complexity and
-            dependencies.
-          </li>
         </ul>
         <p className="mt-4">
           These are service targets and may vary in exceptional situations,
           including major outages, force majeure events, or where additional
           information/access is required from the customer.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "returns-refunds",
-    icon: ReceiptText,
-    title: "Return and refund policy",
-    body: (
-      <>
-        <p>
-          SFPL does not provide return or refund for devices once sold, except
-          in the following cases:
-        </p>
-        <ul className="mt-4 list-disc space-y-2 pl-5">
-          <li>Device is defective due to manufacturing fault</li>
-          <li>Device is damaged during shipping and verified promptly</li>
-        </ul>
-        <p className="mt-4">
-          Customers must report such issues within the applicable claim window
-          and provide reasonable evidence (for example photos/videos, shipment
-          details and order information) for verification.
         </p>
       </>
     ),
@@ -245,7 +225,14 @@ const sections = [
           <Link href="/contact" className="text-red-600 hover:underline">
             contact page
           </Link>
-          .
+          . For returns and refunds, see our{" "}
+          <Link
+            href="/returns-refunds"
+            className="text-red-600 hover:underline"
+          >
+            Returns and Refunds
+          </Link>{" "}
+          policy.
         </p>
       </div>
     ),

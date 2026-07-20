@@ -166,11 +166,11 @@ export default function CloudPlatformShowcase() {
       {/* Mobile mockups */}
       <div className="lg:col-span-4">
         <div className="mb-5">
-          <p className="text-xs font-bold tracking-widest uppercase text-red-600">
+          <p className="text-xs font-bold tracking-widest text-red-600">
             Mobile ready
           </p>
           <h3 className="text-2xl font-extrabold text-gray-900 mt-2 leading-tight">
-            Dashboards and charts on the go
+            Dashboards and Charts on the go
           </h3>
           <p className="text-gray-500 text-sm leading-relaxed mt-2">
             Tap-friendly screens with the same SFPL CONNECT portal experience.

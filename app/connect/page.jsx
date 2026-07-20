@@ -41,7 +41,7 @@ const connectFaqPreview = [
 export const metadata = buildPageMetadata({
   title: "SFPL CONNECT | IoT Monitoring & Real-Time Dashboard",
   description:
-    "optimized version: SFPL CONNECT – Intelligent IoT fire safety monitoring with multi-pin inputs, real-time dashboards, remote management, smart alerts, and customizable solutions.",
+    "optimized version: SFPL CONNECT – Intelligent IoT fire safety monitoring with multi-pin inputs, real-time dashboards, remote management, smart alerts and customizable solutions.",
   path: "/connect",
   image: "/images/pages/connect/banner1.png",
 });
@@ -50,25 +50,25 @@ export default function Product() {
   const cloudFeatures = [
     {
       icon: LayoutDashboard,
-      title: "Real-time admin portal",
+      title: "Real-time Admin Portal",
       description:
         "Manage devices and projects from a single, intuitive dashboard.",
     },
     {
       icon: Bell,
-      title: "Custom alerts",
+      title: "Custom Alerts",
       description:
         "Set custom alerts at project and device level. Get notified when thresholds are crossed.",
     },
     {
       icon: Gauge,
-      title: "Live monitoring dashboard",
+      title: "Live Monitoring Dashboard",
       description:
         "Real-time dashboards for each device with live data visualization.",
     },
     {
       icon: MapPin,
-      title: "Integrated map",
+      title: "Integrated Map",
       description:
         "View all devices on an integrated map for location-based monitoring.",
     },
@@ -320,7 +320,7 @@ export default function Product() {
                 <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center shadow-lg shadow-red-200">
                   <Cpu className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-xs font-bold tracking-widest uppercase text-red-600">
+                <span className="text-xs font-bold tracking-widest text-red-600">
                   The Hardware
                 </span>
               </div>
@@ -342,7 +342,7 @@ export default function Product() {
                 SFPL Connect is a compact DIN-rail mounted IoT device with
                 screw-terminal connectors. It features *17 dedicated inputs*,
                 grouped by signal type, allowing a single device to monitor
-                three-phase electrical systems, current transformers (CTs), and
+                three-phase electrical systems, current transformers (CTs) and
                 multiple field sensors simultaneously.
               </p>
 
@@ -415,8 +415,8 @@ export default function Product() {
                         </span>
                       </div>
                       <p className="text-gray-500 text-xs leading-relaxed mb-2">
-                        Connect each phase (R, Y, and B) from the electrical
-                        distribution panel to the *VR, VY, and VB* terminals.
+                        Connect each phase (R, Y and B) from the electrical
+                        distribution panel to the *VR, VY and VB* terminals.
                         These isolated inputs continuously monitor mains
                         voltage.
                       </p>
@@ -470,7 +470,7 @@ export default function Product() {
                       </div>
                       <p className="text-gray-500 text-xs leading-relaxed mb-2">
                         Connect the low-voltage output of a compatible Current
-                        Transformer (CT) to the IR, IY, and IB terminals. Do not
+                        Transformer (CT) to the IR, IY and IB terminals. Do not
                         connect mains voltage directly to these inputs. Only
                         connect the CT secondary output (maximum 5 V AC).
                       </p>
@@ -686,7 +686,7 @@ export default function Product() {
                 <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center shadow-lg shadow-red-200">
                   <Cloud className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-xs font-bold tracking-widest uppercase text-red-600">
+                <span className="text-xs font-bold tracking-widest text-red-600">
                   Cloud Platform
                 </span>
               </div>
@@ -743,7 +743,7 @@ export default function Product() {
                 <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center shadow-lg shadow-red-200">
                   <Code2 className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-xs font-bold tracking-widest uppercase text-red-600">
+                <span className="text-xs font-bold tracking-widest text-red-600">
                   Developers
                 </span>
               </div>
@@ -974,7 +974,7 @@ export default function Product() {
                 <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center shadow-lg shadow-red-200">
                   <MapPin className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-xs font-bold tracking-widest uppercase text-red-600">
+                <span className="text-xs font-bold tracking-widest text-red-600">
                   Use cases / Industries
                 </span>
               </div>
@@ -1010,7 +1010,7 @@ export default function Product() {
                     One platform. Many operations.
                   </h3>
                   <p className="mt-3 text-sm text-white/75 leading-relaxed">
-                    Deploy the same SFPL CONNECT stack across plants, utilities,
+                    Deploy the same SFPL CONNECT stack across plants, utilities
                     and facilities while keeping dashboards and alerts tailored
                     per site.
                   </p>
