@@ -2,14 +2,11 @@ import Link from "next/link";
 import {
   ShieldCheck,
   Cpu,
-  UserRound,
-  Lock,
-  Scale,
-  FlaskConical,
   Headset,
   TriangleAlert,
   Mail,
   Database,
+  Lock,
 } from "lucide-react";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -47,91 +44,60 @@ const sections = [
     body: (
       <>
         <p>
-          SFPL provides a <strong>one (1) year manufacturing warranty</strong>{" "}
-          on the Device from the date of billing.
+          Your Connect O1 device comes with a{" "}
+          <strong>1-year warranty</strong> from the date you buy it or install
+          it—whichever comes first. If a manufacturing fault appears in that
+          time, SFPL will repair or replace the unit.
         </p>
         <p className="mt-4">
-          This warranty covers manufacturing defects in materials or workmanship
-          under normal and intended usage conditions.
+          This covers problems caused by how the device was made, when used as
+          intended. It does <strong>not</strong> cover damage from water, power
+          surges, wrong installation, misuse, opening or modifying the unit,
+          accidents, or using it outside the product instructions. The warranty
+          is for the Connect device itself only—not installation work, field
+          wiring, sensors, or other accessories.
         </p>
         <p className="mt-4">
-          The warranty does not cover damage resulting from improper
-          installation, misuse, unauthorized modifications, accidental damage,
-          environmental extremes, or external electrical faults.
+          For the full warranty details and how to raise a claim, see the{" "}
+          <Link
+            href="/connect-o1-warranty"
+            className="font-medium text-red-600 hover:underline"
+          >
+            Connect O1 Warranty
+          </Link>{" "}
+          page.
         </p>
       </>
     ),
   },
+
   {
-    id: "data-collected",
-    icon: UserRound,
-    title: "Information collected through the portal",
-    body: (
-      <>
-        <p>For account setup and service operation, SFPL may collect:</p>
-        <ul className="mt-4 list-disc space-y-2 pl-5">
-          <li>Name</li>
-          <li>Email address</li>
-          <li>Phone number</li>
-          <li>PAN number</li>
-          <li>GSTIN number</li>
-          <li>Address</li>
-          <li>City</li>
-          <li>State</li>
-          <li>Country</li>
-          <li>Postal code</li>
-          <li>Company name</li>
-          <li>Company address</li>
-        </ul>
-        <p className="mt-4">
-          You are responsible for ensuring this information is accurate and kept
-          up to date.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "privacy",
+    id: "privacy-user-data",
     icon: Lock,
-    title: "Privacy and confidentiality commitments",
+    title: "Privacy and user data",
     body: (
       <>
         <p>
-          SFPL does <strong>not</strong> sell user personal information to third
-          parties under any circumstances.
+          When you create an account, place an order, or use SFPL CONNECT, we
+          may collect personal and business details you provide—such as name,
+          email, phone number, address, company information, and tax identifiers
+          (for example PAN or GSTIN)—to operate your account, process orders,
+          and deliver support.
         </p>
         <p className="mt-4">
-          SFPL also does not disclose customer operational metadata (including,
-          but not limited to, number of devices, number of projects,
-          configurations, usage patterns, or similar account-level details) to
-          third parties, except where required by law.
+          We use this information only for the purposes described in our
+          Privacy Policy. We do not sell your personal information. How we
+          collect, use, store, and protect your data—and your choices
+          regarding it—is explained in full in our{" "}
+          <Link
+            href="/privacy-policy"
+            className="font-medium text-red-600 hover:underline"
+          >
+            Privacy Policy
+          </Link>
+          .
         </p>
       </>
-    ),
-  },
-  {
-    id: "legal-disclosure",
-    icon: Scale,
-    title: "Lawful disclosure",
-    body: (
-      <p>
-        If required by applicable law, legal process, or lawful government
-        request, SFPL may disclose relevant user or system data to authorized
-        authorities. Such disclosure will be limited to the extent legally
-        required.
-      </p>
-    ),
-  },
-  {
-    id: "r-and-d",
-    icon: FlaskConical,
-    title: "Use of device data for improvement",
-    body: (
-      <p>
-        SFPL may use data collected from connected devices for internal
-        research, analytics, quality improvement and product development to
-        improve reliability, performance and future features.
-      </p>
     ),
   },
   {
@@ -189,8 +155,9 @@ const sections = [
           responsible for proper deployment conditions and compliant usage.
         </p>
         <p className="mt-4">
-          SFPL may update these Terms from time to time. Revised Terms become
-          effective upon publication unless otherwise stated.
+          We may update these Terms occasionally. When we do, we will post the
+          new version on this page. The updated Terms apply from the date they
+          are published, unless we say otherwise.
         </p>
       </>
     ),

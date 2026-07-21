@@ -225,6 +225,16 @@ export default function Footer() {
               >
                 Returns &amp; Refunds
               </Link>
+              <Link
+                href="/connect-o1-warranty"
+                className={`block text-xs sm:text-sm transition-colors ${
+                  isActive("/connect-o1-warranty")
+                    ? "text-primary font-semibold"
+                    : "text-gray-600 hover:text-red-600"
+                }`}
+              >
+                Connect O1 Warranty
+              </Link>
             </div>
           </div>
 
@@ -326,6 +336,16 @@ export default function Footer() {
                 }`}
               >
                 Returns &amp; Refunds
+              </Link>
+              <Link
+                href="/connect-o1-warranty"
+                className={`transition-colors ${
+                  isActive("/connect-o1-warranty")
+                    ? "text-primary font-semibold"
+                    : "text-gray-500 hover:text-red-600"
+                }`}
+              >
+                Connect O1 Warranty
               </Link>
               <a
                 href="https://rajraiyani.com/"

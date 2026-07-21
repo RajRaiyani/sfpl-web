@@ -6,18 +6,97 @@ import {
   Mail,
   Phone,
   Lock,
-  Share2,
-  Clock,
-  FileQuestion,
+  Scale,
+  FlaskConical,
+  Building2,
+  MapPin,
+  FileText,
+  Hash,
+  Globe,
 } from "lucide-react";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
   title: "Privacy Policy | SFPL Mobile App & Services",
   description:
-    "How Specific Fire Protection Limited collects, uses and protects your name, email and phone number when you use our mobile application and related services.",
+    "How Specific Fire Protection Limited collects, uses and protects personal and business information when you use our mobile application, portal and related services.",
   path: "/privacy-policy",
 });
+
+const collectedFields = [
+  {
+    icon: User,
+    label: "Name",
+    description:
+      "To identify you and personalize your experience (for example, greetings and account records).",
+  },
+  {
+    icon: Mail,
+    label: "Email address",
+    description:
+      "For account access, important notices and support-related communication where applicable.",
+  },
+  {
+    icon: Phone,
+    label: "Phone number",
+    description:
+      "For verification, account security and contacting you about services you request or updates relevant to your use of our services.",
+  },
+  {
+    icon: FileText,
+    label: "PAN number",
+    description:
+      "For billing, invoicing and tax compliance where required for purchases or business accounts.",
+  },
+  {
+    icon: Hash,
+    label: "GSTIN number",
+    description:
+      "For GST-compliant invoicing and tax records when you provide a GST-registered business identity.",
+  },
+  {
+    icon: MapPin,
+    label: "Address",
+    description:
+      "For delivery, billing and service location records associated with your account or orders.",
+  },
+  {
+    icon: MapPin,
+    label: "City",
+    description:
+      "Part of your address details for delivery and account records.",
+  },
+  {
+    icon: MapPin,
+    label: "State",
+    description:
+      "Part of your address details for delivery and account records.",
+  },
+  {
+    icon: Globe,
+    label: "Country",
+    description:
+      "Part of your address details for delivery and account records.",
+  },
+  {
+    icon: Hash,
+    label: "Postal code",
+    description:
+      "Part of your address details for delivery and account records.",
+  },
+  {
+    icon: Building2,
+    label: "Company name",
+    description:
+      "To associate your account or orders with an organization and support business billing.",
+  },
+  {
+    icon: Building2,
+    label: "Company address",
+    description:
+      "For business billing, invoicing and correspondence related to your organization.",
+  },
+];
 
 const sections = [
   {
@@ -34,9 +113,11 @@ const sections = [
           websites or services that link to this policy.
         </p>
         <p className="mt-4">
-          By using our app or providing your information, you agree to the
-          practices described here. If you do not agree, please do not use the
-          app or submit personal data.
+          We invite you to read this policy carefully. By continuing to use our
+          services or sharing your information with us, you acknowledge that you
+          understand how we handle your data. If you prefer not to proceed on
+          these terms, in that case we respect your decision and you must not
+          continue to our services.
         </p>
       </>
     ),
@@ -48,57 +129,84 @@ const sections = [
     body: (
       <>
         <p>
-          When you register or interact with our mobile app, we may collect the
-          following categories of personal information that you choose to
-          provide:
+          When you register, place an order, or interact with our app, portal,
+          or related services, we may collect the following personal and
+          business information that you choose to provide:
         </p>
         <ul className="mt-4 space-y-3">
-          <li className="flex gap-3 rounded-xl border border-gray-100 bg-gray-50/80 p-4">
-            <User
-              className="h-5 w-5 shrink-0 text-red-600 mt-0.5"
-              aria-hidden
-            />
-            <span>
-              <strong className="text-gray-900">Name</strong>
-              <span className="block text-gray-600 mt-1">
-                To identify you and personalize your experience (for example,
-                greetings and account records).
-              </span>
-            </span>
-          </li>
-          <li className="flex gap-3 rounded-xl border border-gray-100 bg-gray-50/80 p-4">
-            <Mail
-              className="h-5 w-5 shrink-0 text-red-600 mt-0.5"
-              aria-hidden
-            />
-            <span>
-              <strong className="text-gray-900">Email address</strong>
-              <span className="block text-gray-600 mt-1">
-                For account access, important notices and support-related
-                communication where applicable.
-              </span>
-            </span>
-          </li>
-          <li className="flex gap-3 rounded-xl border border-gray-100 bg-gray-50/80 p-4">
-            <Phone
-              className="h-5 w-5 shrink-0 text-red-600 mt-0.5"
-              aria-hidden
-            />
-            <span>
-              <strong className="text-gray-900">Phone number</strong>
-              <span className="block text-gray-600 mt-1">
-                For verification, account security and contacting you about
-                services you request or updates relevant to your use of the app.
-              </span>
-            </span>
-          </li>
+          {collectedFields.map((field) => {
+            const Icon = field.icon;
+            return (
+              <li
+                key={field.label}
+                className="flex gap-3 rounded-xl border border-gray-100 bg-gray-50/80 p-4"
+              >
+                <Icon
+                  className="h-5 w-5 shrink-0 text-red-600 mt-0.5"
+                  aria-hidden
+                />
+                <span>
+                  <strong className="text-gray-900">{field.label}</strong>
+                  <span className="mt-1 block text-gray-600">
+                    {field.description}
+                  </span>
+                </span>
+              </li>
+            );
+          })}
         </ul>
         <p className="mt-4 text-sm text-gray-600">
           We may also collect limited technical data automatically (such as
           device type, app version and diagnostic logs) as needed to operate,
-          secure and improve the app. We do not sell your personal information.
+          secure and improve our services. We do not sell your personal
+          information.
         </p>
       </>
+    ),
+  },
+  {
+    id: "privacy",
+    icon: Lock,
+    title: "Privacy and confidentiality commitments",
+    body: (
+      <>
+        <p>
+          SFPL does <strong>not</strong> sell user personal information to third
+          parties under any circumstances.
+        </p>
+        <p className="mt-4">
+          SFPL also does not disclose customer operational metadata (including,
+          but not limited to, number of devices, number of projects,
+          configurations, usage patterns, or similar account-level details) to
+          third parties, except where required by law.
+        </p>
+      </>
+    ),
+  },
+
+  {
+    id: "legal-disclosure",
+    icon: Scale,
+    title: "Lawful disclosure",
+    body: (
+      <p>
+        If required by applicable law, legal process, or lawful government
+        request, SFPL may disclose relevant user or system data to authorized
+        authorities. Such disclosure will be limited to the extent legally
+        required.
+      </p>
+    ),
+  },
+  {
+    id: "r-and-d",
+    icon: FlaskConical,
+    title: "Use of device data for improvement",
+    body: (
+      <p>
+        SFPL may use data collected from connected devices for internal
+        research, analytics, quality improvement and product development to
+        improve reliability, performance and future features.
+      </p>
     ),
   },
   {
@@ -108,6 +216,7 @@ const sections = [
     body: (
       <ul className="list-disc pl-5 space-y-2 text-gray-700">
         <li>To create and maintain your account and profile</li>
+        <li>To process orders, billing, invoicing and tax compliance</li>
         <li>To provide, operate and improve our products and services</li>
         <li>
           To communicate with you about your account, requests, or updates
@@ -117,39 +226,7 @@ const sections = [
       </ul>
     ),
   },
-  {
-    id: "sharing",
-    icon: Share2,
-    title: "Sharing and disclosure",
-    body: (
-      <>
-        <p>
-          We may share personal information with service providers who assist us
-          (for example, hosting, analytics, or communication tools) under
-          contracts that require them to protect your data and use it only for
-          the services they provide to us.
-        </p>
-        <p className="mt-4">
-          We may disclose information if required by law, court order, or
-          government request, or when we believe disclosure is necessary to
-          protect our rights, your safety, or the safety of others.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "retention",
-    icon: Clock,
-    title: "Retention",
-    body: (
-      <p>
-        We keep personal information only as long as needed for the purposes
-        described in this policy, unless a longer period is required or
-        permitted by law. When data is no longer needed, we take reasonable
-        steps to delete or anonymize it.
-      </p>
-    ),
-  },
+
   {
     id: "security",
     icon: Shield,
@@ -164,53 +241,7 @@ const sections = [
       </p>
     ),
   },
-  {
-    id: "your-rights",
-    icon: FileQuestion,
-    title: "Your choices and rights",
-    body: (
-      <>
-        <p>
-          Depending on applicable law, you may have the right to access,
-          correct, or delete certain personal information, or to withdraw
-          consent where processing is consent-based. You may also be able to
-          object to or restrict certain processing.
-        </p>
-        <p className="mt-4">
-          To exercise these rights or ask questions, contact us using the
-          details below. We will respond in line with applicable requirements.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "children",
-    icon: User,
-    title: "Children",
-    body: (
-      <p>
-        Our services are not directed at children under the age where parental
-        consent is required under local law. We do not knowingly collect
-        personal information from such children. If you believe we have
-        collected data from a child inappropriately, please contact us and we
-        will take appropriate steps.
-      </p>
-    ),
-  },
-  {
-    id: "changes",
-    icon: FileQuestion,
-    title: "Changes to this policy",
-    body: (
-      <p>
-        We may update this Privacy Policy from time to time. We will post the
-        revised version on this page and update the &ldquo;Last updated&rdquo;
-        date below. Where changes are material, we may provide additional notice
-        (for example, through the app or by email). Continued use after changes
-        means you accept the updated policy.
-      </p>
-    ),
-  },
+
   {
     id: "contact",
     icon: Mail,
@@ -274,8 +305,8 @@ export default function PrivacyPolicyPage() {
               Privacy Policy
             </h1>
             <p className="mt-4 text-lg text-white/85 md:text-xl leading-relaxed">
-              Clear information about how we handle your name, email and phone
-              number—and how you can reach us with questions.
+              How we handle the personal and business information you share with
+              us—and how you can reach us with questions.
             </p>
             <p className="mt-6 text-sm text-white/60">
               Last updated: <time dateTime="2026-04-05">5 April 2026</time>

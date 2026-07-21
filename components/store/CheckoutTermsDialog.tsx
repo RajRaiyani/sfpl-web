@@ -6,24 +6,32 @@ import { Button } from "@/components/ui/button";
 
 export const CHECKOUT_TERMS_SECTIONS: { title: string; body: string }[] = [
   {
-    title: "Order processing",
-    body: "By proceeding with this order, you agree to our terms of service and confirm that all information provided is accurate.",
+    title: "Order Confirmation",
+    body: "By placing this order, you confirm that all information provided is accurate and complete. Your order will be processed only after successful payment verification.",
   },
   {
-    title: "Payment terms",
-    body: "Payment will be processed immediately upon confirmation through our secure payment gateway. All transactions are encrypted.",
+    title: "Payment",
+    body: "All payments are securely processed through our authorized payment gateway. Prices are displayed in Indian Rupees (INR) unless otherwise specified and include applicable taxes where mentioned.",
   },
   {
-    title: "Shipping and delivery",
-    body: "Delivery will be made to the shipping address provided. Please ensure the address is complete and accurate. Delivery charges, if applicable, may be communicated separately before dispatch.",
+    title: "Shipping & Delivery",
+    body: "Products will be shipped to the delivery address provided during checkout. Please ensure your shipping information is accurate. Estimated delivery timelines may vary based on location and product availability.",
   },
   {
-    title: "Returns and refunds",
-    body: "Returns and refunds are subject to our Returns and Refunds policy. Manufacturing defects and verified shipping damage may qualify; all other sales are final.",
+    title: "Installation & Activation",
+    body: "Where applicable, installation, configuration, or activation services are provided according to the selected plan or service agreement. Additional charges may apply for on-site installation or locations outside our standard service areas.",
   },
   {
-    title: "Liability",
-    body: "Specific Fire Protection Limited is not liable for any damages arising from the use of our products beyond the scope of our warranty.",
+    title: "Warranty",
+    body: "Products are covered by the applicable warranty period specified on the product page or accompanying documentation. The warranty does not cover damage caused by improper installation, misuse, unauthorized modification, accidents, or natural disasters.",
+  },
+  {
+    title: "Returns & Refunds",
+    body: "Returns, replacements, and refunds are governed by our Return & Refund Policy. Please review the policy before placing your order.",
+  },
+  {
+    title: "Limitation of Liability",
+    body: "Specific Fire Protection Limited shall not be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use the product, except as required under applicable law. Our liability is limited to the value of the purchased product or service.",
   },
 ];
 
@@ -57,40 +65,57 @@ export default function CheckoutTermsDialog({
       <div className="flex min-h-full items-center justify-center">
         <div className="relative flex max-h-[min(90vh,720px)] w-full max-w-lg flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
           <div className="border-b border-gray-200 px-6 py-4">
-            <h2 className="text-lg font-bold text-gray-900">Terms and Conditions</h2>
-            <p className="mt-1 text-sm text-gray-500">
-              Review and accept before proceeding to payment.
+            <h2 className="text-lg font-bold text-gray-900">
+              Terms &amp; Conditions
+            </h2>
+            <p className="mt-1 text-sm italic text-gray-500">
+              Please review and accept the following terms before completing
+              your purchase.
             </p>
           </div>
 
-          <div className="max-h-[min(50vh,420px)] space-y-4 overflow-y-auto px-6 py-4 text-sm">
-            <ol className="list-decimal space-y-4 pl-5 marker:font-semibold">
-              {CHECKOUT_TERMS_SECTIONS.map((section) => (
-                <li key={section.title} className="pl-1">
-                  <p className="font-semibold text-gray-900">{section.title}</p>
-                  <p className="mt-1.5 leading-relaxed text-gray-600">{section.body}</p>
-                </li>
-              ))}
-            </ol>
-            <p className="text-sm text-gray-500">
-              Read the full{" "}
-              <Link
-                href="/terms-conditions"
-                target="_blank"
-                className="font-medium text-red-600 underline-offset-2 hover:underline"
-              >
-                terms and conditions
-              </Link>{" "}
-              and{" "}
-              <Link
-                href="/returns-refunds"
-                target="_blank"
-                className="font-medium text-red-600 underline-offset-2 hover:underline"
-              >
-                returns and refunds
-              </Link>
-              .
-            </p>
+          <div className="max-h-[min(50vh,420px)] space-y-5 overflow-y-auto px-6 py-4 text-sm">
+            {CHECKOUT_TERMS_SECTIONS.map((section) => (
+              <section key={section.title}>
+                <h3 className="font-semibold text-gray-900">{section.title}</h3>
+                <p className="mt-1.5 leading-relaxed text-gray-600">
+                  {section.body}
+                </p>
+              </section>
+            ))}
+
+            <section>
+              <h3 className="font-semibold text-gray-900">Acceptance</h3>
+              <p className="mt-1.5 leading-relaxed text-gray-600">
+                By clicking &ldquo;Place Order&rdquo; or &ldquo;Proceed to
+                Payment&rdquo;, you acknowledge that you have read, understood,
+                and agree to our{" "}
+                <Link
+                  href="/terms-conditions"
+                  target="_blank"
+                  className="font-medium text-red-600 underline-offset-2 hover:underline"
+                >
+                  Terms &amp; Conditions
+                </Link>
+                ,{" "}
+                <Link
+                  href="/privacy-policy"
+                  target="_blank"
+                  className="font-medium text-red-600 underline-offset-2 hover:underline"
+                >
+                  Privacy Policy
+                </Link>
+                , and{" "}
+                <Link
+                  href="/returns-refunds"
+                  target="_blank"
+                  className="font-medium text-red-600 underline-offset-2 hover:underline"
+                >
+                  Return &amp; Refund Policy
+                </Link>
+                .
+              </p>
+            </section>
           </div>
 
           <div className="space-y-4 border-t border-gray-200 bg-gray-50 px-6 py-4">
