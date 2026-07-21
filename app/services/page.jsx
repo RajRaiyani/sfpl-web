@@ -9,6 +9,8 @@ import {
   ArrowRight,
   Shield,
   CheckCircle2,
+  Phone,
+  Mail,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -272,8 +274,9 @@ export default function Services() {
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center">
                   <a
                     href="tel:+919033050415"
-                    className="text-base sm:text-lg md:text-xl hover:text-red-500 transition-colors text-center sm:text-left"
+                    className="inline-flex items-center gap-2 text-base sm:text-lg md:text-xl hover:text-red-500 transition-colors text-center sm:text-left"
                   >
+                    <Phone className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" aria-hidden />
                     +91 9033050415
                   </a>
                   <span className="hidden sm:inline text-lg md:text-xl opacity-70">
@@ -281,8 +284,9 @@ export default function Services() {
                   </span>
                   <a
                     href="mailto:contact@specificfire.com"
-                    className="text-base sm:text-lg md:text-xl hover:text-red-500 transition-colors text-center sm:text-left break-all"
+                    className="inline-flex items-center gap-2 text-base sm:text-lg md:text-xl hover:text-red-500 transition-colors text-center sm:text-left break-all"
                   >
+                    <Mail className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" aria-hidden />
                     contact@specificfire.com
                   </a>
                 </div>
