@@ -115,6 +115,10 @@ const sections = [
           may include inspection, replacement, repair under warranty, or
           refund—depending on the outcome of verification.
         </p>
+        <p className="mt-4">
+          If your claim is valid, we will replace your item within{" "}
+          <strong>7 working days</strong> of approval.
+        </p>
       </>
     ),
   },
