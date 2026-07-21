@@ -1,10 +1,14 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { CheckCircle2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export const CHECKOUT_TERMS_SECTIONS: { title: string; body: string }[] = [
+const policyLinkClassName =
+  "font-medium text-red-600 underline-offset-2 hover:underline";
+
+export const CHECKOUT_TERMS_SECTIONS: { title: string; body: ReactNode }[] = [
   {
     title: "Order Confirmation",
     body: "By placing this order, you confirm that all information provided is accurate and complete. Your order will be processed only after successful payment verification.",
@@ -23,15 +27,58 @@ export const CHECKOUT_TERMS_SECTIONS: { title: string; body: string }[] = [
   },
   {
     title: "Warranty",
-    body: "Products are covered by the applicable warranty period specified on the product page or accompanying documentation. The warranty does not cover damage caused by improper installation, misuse, unauthorized modification, accidents, or natural disasters.",
+    body: (
+      <>
+        Products are covered by the applicable warranty period specified on the
+        product page or accompanying documentation. The warranty does not cover
+        damage caused by improper installation, misuse, unauthorized
+        modification, accidents, or natural disasters. See the{" "}
+        <Link
+          href="/connect-o1-warranty"
+          target="_blank"
+          className={policyLinkClassName}
+        >
+          Connect O1 Warranty
+        </Link>{" "}
+        for full coverage details and how to raise a claim.
+      </>
+    ),
   },
   {
     title: "Returns & Refunds",
-    body: "Returns, replacements, and refunds are governed by our Return & Refund Policy. Please review the policy before placing your order.",
+    body: (
+      <>
+        Returns, replacements, and refunds are governed by our{" "}
+        <Link
+          href="/returns-refunds"
+          target="_blank"
+          className={policyLinkClassName}
+        >
+          Return &amp; Refund Policy
+        </Link>
+        . Please review the policy before placing your order.
+      </>
+    ),
   },
   {
     title: "Limitation of Liability",
-    body: "Specific Fire Protection Limited shall not be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use the product, except as required under applicable law. Our liability is limited to the value of the purchased product or service.",
+    body: (
+      <>
+        Specific Fire Protection Limited shall not be liable for any indirect,
+        incidental, special, or consequential damages arising from the use or
+        inability to use the product, except as required under applicable law.
+        Our liability is limited to the value of the purchased product or
+        service. See our{" "}
+        <Link
+          href="/terms-conditions"
+          target="_blank"
+          className={policyLinkClassName}
+        >
+          Terms &amp; Conditions
+        </Link>{" "}
+        for more detail.
+      </>
+    ),
   },
 ];
 
@@ -93,7 +140,7 @@ export default function CheckoutTermsDialog({
                 <Link
                   href="/terms-conditions"
                   target="_blank"
-                  className="font-medium text-red-600 underline-offset-2 hover:underline"
+                  className={policyLinkClassName}
                 >
                   Terms &amp; Conditions
                 </Link>
@@ -101,17 +148,25 @@ export default function CheckoutTermsDialog({
                 <Link
                   href="/privacy-policy"
                   target="_blank"
-                  className="font-medium text-red-600 underline-offset-2 hover:underline"
+                  className={policyLinkClassName}
                 >
                   Privacy Policy
                 </Link>
-                , and{" "}
+                ,{" "}
                 <Link
                   href="/returns-refunds"
                   target="_blank"
-                  className="font-medium text-red-600 underline-offset-2 hover:underline"
+                  className={policyLinkClassName}
                 >
                   Return &amp; Refund Policy
+                </Link>
+                , and{" "}
+                <Link
+                  href="/connect-o1-warranty"
+                  target="_blank"
+                  className={policyLinkClassName}
+                >
+                  Connect O1 Warranty
                 </Link>
                 .
               </p>
