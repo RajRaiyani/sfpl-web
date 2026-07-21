@@ -4,7 +4,23 @@ import {
 } from "./auth-cookies";
 
 const GUEST_CART_KEY = "guest_cart_id";
-export const AUTH_BRIDGE_PATH = "/auth/bridge";
+// Shared across store + connect portal so the portal can merge the guest cart at login.
+const GUEST_CART_COOKIE = "sfpl_guest_cart_id";
+const GUEST_CART_COOKIE_MAX_AGE = 30 * 24 * 60 * 60;
+
+function getSharedCookieDomain(): string | undefined {
+  if (typeof window === "undefined") return undefined;
+
+  const { hostname } = window.location;
+  if (hostname.endsWith(".localhost.com") || hostname === "localhost.com") {
+    return ".localhost.com";
+  }
+  if (hostname.endsWith(".specificfire.com") || hostname === "specificfire.com") {
+    return ".specificfire.com";
+  }
+
+  return undefined;
+}
 
 function getCookie(name: string) {
   if (typeof document === "undefined") return null;
@@ -15,7 +31,12 @@ function getCookie(name: string) {
 function clearCookie(name: string) {
   if (typeof document === "undefined") return;
   const secure = window.location.protocol === "https:" ? "; Secure" : "";
+  // Clear host-only and shared-domain variants.
   document.cookie = `${name}=; Max-Age=0; path=/; SameSite=Lax${secure}`;
+  const domain = getSharedCookieDomain();
+  if (domain) {
+    document.cookie = `${name}=; Max-Age=0; path=/; domain=${domain}; SameSite=Lax${secure}`;
+  }
 }
 
 function clearLegacyCustomerAuthCookies() {
@@ -32,22 +53,6 @@ export function hasUserSession() {
   return Boolean(getAuthToken());
 }
 
-function setCookie(name: string, value: string, maxAgeSeconds: number) {
-  if (typeof document === "undefined") return;
-  const secure = window.location.protocol === "https:" ? "; Secure" : "";
-  document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAgeSeconds}; SameSite=Lax${secure}`;
-}
-
-/** Persist customer session on the sfpl-web origin after connect-portal login. */
-export function setAuthSession(token: string, user?: string, refreshToken?: string) {
-  clearLegacyCustomerAuthCookies();
-  setCookie(CUSTOMER_AUTH_COOKIES.token, token, 60 * 60);
-  if (user) setCookie(CUSTOMER_AUTH_COOKIES.user, user, 60 * 60);
-  if (refreshToken) {
-    setCookie(CUSTOMER_AUTH_COOKIES.refreshToken, refreshToken, 7 * 24 * 60 * 60);
-  }
-}
-
 export function clearAuthSession() {
   Object.values(CUSTOMER_AUTH_COOKIES).forEach((name) => {
     clearCookie(name);
@@ -57,16 +62,35 @@ export function clearAuthSession() {
 
 export function getGuestCartId() {
   if (typeof window === "undefined") return null;
-  return window.localStorage.getItem(GUEST_CART_KEY);
+
+  const fromCookie = getCookie(GUEST_CART_COOKIE);
+  if (fromCookie) return fromCookie;
+
+  // Migrate the legacy localStorage value into the shared cookie.
+  const legacy = window.localStorage.getItem(GUEST_CART_KEY);
+  if (legacy) {
+    setGuestCartId(legacy);
+    window.localStorage.removeItem(GUEST_CART_KEY);
+    return legacy;
+  }
+
+  return null;
 }
 
 export function setGuestCartId(id: string) {
-  if (typeof window === "undefined") return;
-  window.localStorage.setItem(GUEST_CART_KEY, id);
+  if (typeof document === "undefined") return;
+  const secure = window.location.protocol === "https:" ? "; Secure" : "";
+  const domain = getSharedCookieDomain();
+  const domainPart = domain ? `; domain=${domain}` : "";
+  document.cookie = `${GUEST_CART_COOKIE}=${encodeURIComponent(id)}; path=/; max-age=${GUEST_CART_COOKIE_MAX_AGE}${domainPart}; SameSite=Lax${secure}`;
 }
 
 export function clearGuestCartId() {
-  if (typeof window === "undefined") return;
+  if (typeof document === "undefined") return;
+  const secure = window.location.protocol === "https:" ? "; Secure" : "";
+  const domain = getSharedCookieDomain();
+  const domainPart = domain ? `; domain=${domain}` : "";
+  document.cookie = `${GUEST_CART_COOKIE}=; Max-Age=0; path=/${domainPart}; SameSite=Lax${secure}`;
   window.localStorage.removeItem(GUEST_CART_KEY);
 }
 
@@ -87,24 +111,4 @@ export function buildConnectLoginUrl(redirectUrl = "/") {
   if (!connectSiteUrl || typeof window === "undefined") return "/login";
 
   return `${connectSiteUrl}/login?redirect_url=${encodeURIComponent(redirectUrl)}`;
-}
-
-
-
-/** Unwrap mistaken connect-origin /auth/bridge URLs in the next param. */
-export function resolveAuthBridgeDestination(next: string): string {
-  if (!next.startsWith("http://") && !next.startsWith("https://")) {
-    return next.startsWith("/") ? next : `/${next}`;
-  }
-
-  try {
-    const url = new URL(next);
-    if (url.pathname === AUTH_BRIDGE_PATH) {
-      const inner = url.searchParams.get("next");
-      return inner ? resolveAuthBridgeDestination(inner) : "/";
-    }
-    return next;
-  } catch {
-    return "/";
-  }
 }

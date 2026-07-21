@@ -20,11 +20,7 @@ import {
   type CheckoutFormField,
   type CheckoutFormState,
 } from "@/lib/store-profile";
-import {
-  useCart,
-  useMergeGuestCartOnce,
-  cartHasOutOfStockItems,
-} from "@/hooks/use-cart";
+import { useCart, cartHasOutOfStockItems } from "@/hooks/use-cart";
 import { useCreateOrder, useVerifyOrder } from "@/hooks/use-orders";
 import {
   useStoreAccountDetails,
@@ -91,8 +87,6 @@ export default function CheckoutPageClient() {
     Partial<Record<CheckoutFormField, boolean>>
   >({});
   const hasPrefilledRef = useRef(false);
-
-  useMergeGuestCartOnce();
 
   const [form, setForm] = useState({
     full_name: "",

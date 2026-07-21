@@ -22,9 +22,3 @@ export async function updateCartItem(deviceId: string, quantity: number) {
 
   return response;
 }
-
-export async function mergeGuestCart(guestCartId: string) {
-  return http.post<unknown, ApiResponse<{ merged: boolean }>>("/storefront/cart/merge", {
-    guest_cart_id: guestCartId,
-  });
-}

@@ -9,15 +9,17 @@ const nextConfig: NextConfig = {
       "via.placeholder.com",
       "localhost",
       "127.0.0.1",
+      "sfpl.localhost.com",
+      "connect.localhost.com",
       "server.specificfire.com",
     ],
   },
-  typescript: {
+  typescript:{
     ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
-  },
+  }
 };
 
 export default nextConfig;

@@ -10,7 +10,6 @@ import { formatPaisa } from "@/lib/format";
 import { buildConnectLoginUrl, hasUserSession } from "@/lib/auth-storage";
 import {
   useCart,
-  useMergeGuestCartOnce,
   useUpdateCartItem,
   cartHasOutOfStockItems,
 } from "@/hooks/use-cart";
@@ -19,7 +18,6 @@ export default function CartPageClient() {
   const router = useRouter();
   const { data: cart, isLoading, refetch, isFetching } = useCart();
   const updateCart = useUpdateCartItem();
-  useMergeGuestCartOnce();
 
   const items = cart?.items ?? [];
   const total = cart?.total_amount_in_paisa ?? 0;
