@@ -417,12 +417,10 @@ export default function CheckoutPageClient() {
                 <Input
                   id="full_name"
                   value={form.full_name}
-                  onChange={(e) =>
-                    handleFieldChange("full_name", e.target.value)
-                  }
-                  onBlur={() => handleFieldBlur("full_name")}
-                  placeholder="Enter your full name"
-                  className={fieldClassName(Boolean(formErrors.full_name))}
+                  disabled
+                  readOnly
+                  placeholder="Your full name"
+                  className={`bg-gray-50 text-gray-500 ${fieldClassName(Boolean(formErrors.full_name))}`}
                 />
                 <FieldError message={formErrors.full_name} />
               </div>
@@ -437,14 +435,12 @@ export default function CheckoutPageClient() {
                 <Input
                   id="phone_number"
                   value={form.phone_number}
-                  onChange={(e) =>
-                    handleFieldChange("phone_number", e.target.value)
-                  }
-                  onBlur={() => handleFieldBlur("phone_number")}
+                  disabled
+                  readOnly
                   placeholder="10-digit mobile number"
                   inputMode="numeric"
                   maxLength={10}
-                  className={fieldClassName(Boolean(formErrors.phone_number))}
+                  className={`bg-gray-50 text-gray-500 ${fieldClassName(Boolean(formErrors.phone_number))}`}
                 />
                 <FieldError message={formErrors.phone_number} />
               </div>
