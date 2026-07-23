@@ -93,6 +93,49 @@ export type StoreOrder = {
   items?: StoreOrderItem[];
 };
 
+export type InvoiceChargeType = "CGST" | "SGST" | "IGST";
+
+export type InvoiceCharge = {
+  type: InvoiceChargeType;
+  rate: number;
+  amount_in_paisa: number;
+};
+
+export type StoreInvoiceItem = {
+  plan_id: string;
+  plan_name: string;
+  hsn_sac?: string | null;
+  quantity: number;
+  price_in_paisa: number;
+  taxable_amount_in_paisa: number;
+  tax_amount_in_paisa: number;
+  total_amount_in_paisa: number;
+};
+
+export type StoreInvoice = {
+  id: string;
+  order_id: string;
+  order_number: string;
+  serial: string;
+  issued_at: string;
+  status: string;
+  billing_details: Record<string, unknown>;
+  billing_address: Record<string, unknown>;
+  shipping_address: Record<string, unknown>;
+  place_of_supply_state_name: string;
+  place_of_supply_gst_code: string;
+  is_inter_state: boolean;
+  items: StoreInvoiceItem[];
+  charges: InvoiceCharge[];
+  taxable_amount_in_paisa: number;
+  tax_amount_in_paisa: number;
+  total_amount_in_paisa: number;
+  seller_gstin: string;
+  seller_state_gst_code: string;
+  created_at: string;
+  updated_at?: string | null;
+};
+
 export type PaginatedResponse<T> = {
   data: T[];
   meta: {

@@ -3,6 +3,7 @@ import type {
   ApiResponse,
   StoreAccountDetails,
   StoreAddress,
+  StoreInvoice,
   StoreOrder,
   StoreState,
 } from "@/types/store";
@@ -76,4 +77,10 @@ export async function listOrders(params?: { offset?: number; limit?: number }) {
 
 export async function getOrder(orderId: string) {
   return http.get<unknown, ApiResponse<StoreOrder>>(`/storefront/orders/${orderId}`);
+}
+
+export async function getOrderInvoice(orderId: string) {
+  return http.get<unknown, ApiResponse<StoreInvoice>>(
+    `/storefront/orders/${orderId}/invoice`,
+  );
 }

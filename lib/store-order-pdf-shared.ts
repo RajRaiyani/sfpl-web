@@ -122,7 +122,9 @@ export const SFPL_INVOICE_SELLER = {
 };
 
 export function formatInvoiceAmount(amountInPaisa: number) {
-  const amount = amountInPaisa / 100;
+  // Always whole paisa → exactly 2 decimal rupees (no 122.333… float dust)
+  const paisa = Math.round(Number(amountInPaisa) || 0);
+  const amount = paisa / 100;
   return amount.toLocaleString("en-IN", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
@@ -152,6 +154,9 @@ export function formatInvoiceDate(value: string) {
 }
 
 export function formatPdfCurrency(paisa: number) {
-  const amount = paisa / 100;
-  return `INR ${amount.toLocaleString("en-IN", { maximumFractionDigits: 2 })}`;
+  const amount = Math.round(Number(paisa) || 0) / 100;
+  return `INR ${amount.toLocaleString("en-IN", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
 }

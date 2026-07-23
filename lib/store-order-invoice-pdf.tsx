@@ -8,40 +8,55 @@ import {
   pdf,
 } from "@react-pdf/renderer";
 import type { ReactNode } from "react";
-import type { StoreOrder } from "@/types/store";
+import type { StoreInvoice } from "@/types/store";
 import { amountInIndianWords } from "@/lib/amount-in-words";
 import { parseOrderAddress } from "@/lib/format";
 import {
   SFPL_INVOICE_SELLER,
   formatInvoiceAmount,
   formatInvoiceDate,
-  getOrderInvoiceNumber,
   getPdfAddressLines,
   rasterizeSvgPublicPathToPngDataUrl,
 } from "@/lib/store-order-pdf-shared";
 
 const RED = "#dc2626";
-const DARK = "#111827";
+const DARK = "#1f2937";
 const MUTED = "#6b7280";
+const BODY = "#4b5563";
 const LINE = "#e5e7eb";
 
 const COL_TOTALS_WIDTH = "31%";
 const COL_BEFORE_TOTALS = "69%";
 
+/**
+ * Clear hierarchy:
+ * - Bold only: document title, seller/buyer names, table header, grand total
+ * - Regular everywhere else (addresses, meta values, line items, totals rows, footer)
+ */
+const FONT = {
+  title: 16,
+  name: 10,
+  body: 9,
+  label: 8,
+  header: 8,
+  small: 7.5,
+  grand: 10,
+} as const;
+
 const styles = StyleSheet.create({
   page: {
-    paddingTop: 22,
+    paddingTop: 24,
     paddingBottom: 100,
     paddingHorizontal: 32,
     fontFamily: "Helvetica",
-    fontSize: 8.5,
+    fontSize: FONT.body,
     color: DARK,
     backgroundColor: "#fff",
     position: "relative",
   },
   topBar: {
     flexDirection: "row",
-    marginBottom: 8,
+    marginBottom: 10,
     alignItems: "flex-start",
   },
   brandCol: {
@@ -56,36 +71,36 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   companyName: {
-    fontSize: 10,
+    fontSize: FONT.name,
     fontFamily: "Helvetica-Bold",
-    textTransform: "uppercase",
     lineHeight: 1.35,
-    marginBottom: 5,
+    marginBottom: 4,
+    color: DARK,
   },
   muted: {
-    fontSize: 8,
-    color: MUTED,
+    fontSize: FONT.body,
+    fontFamily: "Helvetica",
+    color: DARK,
     lineHeight: 1.5,
-    marginBottom: 1,
+    marginBottom: 1.5,
   },
   titleBlock: {
     alignItems: "center",
-    marginBottom: 10,
-    paddingBottom: 6,
+    marginBottom: 12,
+    paddingBottom: 8,
     borderBottomWidth: 1,
     borderBottomColor: LINE,
   },
   title: {
-    fontSize: 15,
+    fontSize: FONT.title,
     fontFamily: "Helvetica-Bold",
     color: RED,
-    letterSpacing: 1,
-    textTransform: "uppercase",
+    letterSpacing: 1.2,
   },
   titleLine: {
-    marginTop: 5,
+    marginTop: 6,
     height: 2,
-    width: 64,
+    width: 56,
     backgroundColor: RED,
   },
   metaCard: {
@@ -100,7 +115,7 @@ const styles = StyleSheet.create({
   },
   metaCardHead: {
     flexDirection: "row",
-    backgroundColor: "#fafafa",
+    backgroundColor: "#f9fafb",
     borderBottomWidth: 1,
     borderBottomColor: LINE,
   },
@@ -109,16 +124,19 @@ const styles = StyleSheet.create({
     backgroundColor: RED,
   },
   metaCardTitle: {
-    paddingVertical: 5,
+    paddingVertical: 6,
     paddingHorizontal: 8,
-    fontSize: 8.5,
-    fontFamily: "Helvetica-Bold",
+    fontSize: FONT.label,
+    fontFamily: "Helvetica",
+    color: MUTED,
+    letterSpacing: 0.3,
   },
   metaRow: {
     flexDirection: "row",
     borderBottomWidth: 1,
     borderBottomColor: LINE,
-    minHeight: 16,
+    minHeight: 18,
+    alignItems: "center",
   },
   metaRowLast: {
     borderBottomWidth: 0,
@@ -126,22 +144,24 @@ const styles = StyleSheet.create({
   metaLabel: {
     width: "46%",
     paddingHorizontal: 7,
-    paddingVertical: 3,
-    fontSize: 7.5,
-    color: MUTED,
+    paddingVertical: 4,
+    fontSize: FONT.body,
+    fontFamily: "Helvetica",
+    color: DARK,
     borderRightWidth: 1,
     borderRightColor: LINE,
   },
   metaValue: {
     width: "54%",
     paddingHorizontal: 7,
-    paddingVertical: 3,
-    fontSize: 8,
-    fontFamily: "Helvetica-Bold",
+    paddingVertical: 4,
+    fontSize: FONT.body,
+    fontFamily: "Helvetica",
+    color: DARK,
   },
   partyRow: {
     flexDirection: "row",
-    marginBottom: 8,
+    marginBottom: 10,
   },
   panel: {
     flex: 1,
@@ -155,7 +175,7 @@ const styles = StyleSheet.create({
   },
   panelHead: {
     flexDirection: "row",
-    backgroundColor: "#fafafa",
+    backgroundColor: "#f9fafb",
     borderBottomWidth: 1,
     borderBottomColor: LINE,
   },
@@ -166,25 +186,28 @@ const styles = StyleSheet.create({
   panelTitle: {
     paddingVertical: 6,
     paddingHorizontal: 10,
-    fontSize: 8.5,
-    fontFamily: "Helvetica-Bold",
+    fontSize: FONT.label,
+    fontFamily: "Helvetica",
+    color: MUTED,
+    letterSpacing: 0.3,
   },
   panelBody: {
     paddingHorizontal: 10,
-    paddingVertical: 6,
+    paddingVertical: 8,
     minHeight: 64,
   },
   partyName: {
-    fontSize: 9,
+    fontSize: FONT.name,
     fontFamily: "Helvetica-Bold",
-    textTransform: "uppercase",
-    marginBottom: 4,
+    marginBottom: 5,
     lineHeight: 1.35,
+    color: DARK,
   },
   bodyLine: {
-    fontSize: 8,
-    lineHeight: 1.45,
-    color: "#374151",
+    fontSize: FONT.body,
+    fontFamily: "Helvetica",
+    lineHeight: 1.5,
+    color: DARK,
     marginBottom: 2,
   },
   table: {
@@ -204,32 +227,37 @@ const styles = StyleSheet.create({
     backgroundColor: RED,
     color: "#fff",
     fontFamily: "Helvetica-Bold",
-    fontSize: 7.5,
+    fontSize: FONT.header,
   },
   trow: {
     flexDirection: "row",
     borderTopWidth: 1,
     borderTopColor: LINE,
-    minHeight: 22,
+    minHeight: 24,
     alignItems: "center",
   },
   trowAlt: {
     backgroundColor: "#fafafa",
   },
   th: {
-    paddingVertical: 6,
+    paddingVertical: 7,
     paddingHorizontal: 5,
+    fontFamily: "Helvetica-Bold",
+    fontSize: FONT.header,
+    color: "#fff",
   },
   td: {
-    paddingVertical: 5,
+    paddingVertical: 6,
     paddingHorizontal: 5,
     borderRightWidth: 1,
     borderRightColor: LINE,
-    fontSize: 8,
+    fontSize: FONT.body,
+    fontFamily: "Helvetica",
+    color: DARK,
   },
   tdLast: { borderRightWidth: 0 },
   tdCol: {
-    paddingVertical: 5,
+    paddingVertical: 6,
     paddingHorizontal: 5,
     borderRightWidth: 1,
     borderRightColor: LINE,
@@ -239,17 +267,19 @@ const styles = StyleSheet.create({
     borderRightWidth: 0,
   },
   tdColTextRight: {
-    fontSize: 8,
+    fontSize: FONT.body,
+    fontFamily: "Helvetica",
+    color: DARK,
     textAlign: "right",
     width: "100%",
   },
   thCol: {
-    paddingVertical: 6,
+    paddingVertical: 7,
     paddingHorizontal: 5,
     justifyContent: "center",
   },
   thColTextRight: {
-    fontSize: 7.5,
+    fontSize: FONT.header,
     fontFamily: "Helvetica-Bold",
     color: "#fff",
     textAlign: "right",
@@ -258,22 +288,24 @@ const styles = StyleSheet.create({
   right: { textAlign: "right" },
   center: { textAlign: "center" },
   tdTotalLabel: {
-    paddingVertical: 5,
+    paddingVertical: 6,
     paddingHorizontal: 5,
     borderRightWidth: 1,
     borderRightColor: LINE,
-    fontSize: 8,
-    fontFamily: "Helvetica-Bold",
-    color: MUTED,
+    fontSize: FONT.body,
+    fontFamily: "Helvetica",
+    color: DARK,
     textAlign: "right",
   },
   tdTotalValue: {
-    paddingVertical: 5,
+    paddingVertical: 6,
     paddingHorizontal: 5,
     justifyContent: "center",
   },
   totalsValueText: {
-    fontSize: 8,
+    fontSize: FONT.body,
+    fontFamily: "Helvetica",
+    color: DARK,
     textAlign: "right",
     width: "100%",
   },
@@ -282,12 +314,13 @@ const styles = StyleSheet.create({
   },
   tdGrandLabel: {
     color: RED,
-    fontSize: 9,
+    fontSize: FONT.grand,
+    fontFamily: "Helvetica-Bold",
   },
   tdGrandValue: {
     fontFamily: "Helvetica-Bold",
     color: RED,
-    fontSize: 9,
+    fontSize: FONT.grand,
   },
   totalsTableWrap: {
     width: "100%",
@@ -315,7 +348,7 @@ const styles = StyleSheet.create({
   totalsRow: {
     flexDirection: "row",
     alignItems: "center",
-    minHeight: 22,
+    minHeight: 24,
     borderTopWidth: 1,
     borderTopColor: LINE,
   },
@@ -329,18 +362,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: LINE,
     borderRadius: 4,
-    padding: 7,
+    padding: 8,
     width: "100%",
   },
   wordsLabel: {
-    fontSize: 7.5,
-    fontFamily: "Helvetica-Bold",
+    fontSize: FONT.label,
+    fontFamily: "Helvetica",
     color: MUTED,
-    marginBottom: 3,
-    textTransform: "uppercase",
+    marginBottom: 4,
   },
   wordsText: {
-    fontSize: 8.5,
+    fontSize: FONT.body,
+    fontFamily: "Helvetica",
+    color: DARK,
     lineHeight: 1.45,
   },
   footerNoteRow: {
@@ -355,14 +389,15 @@ const styles = StyleSheet.create({
   footerDisclaimer: {
     flex: 1,
     paddingRight: 20,
-    fontSize: 7.5,
+    fontSize: FONT.small,
+    fontFamily: "Helvetica",
     color: MUTED,
     lineHeight: 1.45,
     maxWidth: "58%",
   },
   footerSignLine: {
-    fontSize: 8,
-    fontFamily: "Helvetica-Bold",
+    fontSize: FONT.label,
+    fontFamily: "Helvetica",
     color: DARK,
     textAlign: "right",
   },
@@ -372,11 +407,10 @@ const styles = StyleSheet.create({
     left: 32,
     right: 32,
     textAlign: "center",
-    fontSize: 7.5,
-    fontFamily: "Helvetica-Bold",
+    fontSize: FONT.small,
+    fontFamily: "Helvetica",
     color: MUTED,
-    letterSpacing: 0.5,
-    textTransform: "uppercase",
+    letterSpacing: 1,
     borderTopWidth: 1,
     borderTopColor: LINE,
     paddingTop: 8,
@@ -385,9 +419,9 @@ const styles = StyleSheet.create({
 
 const COL = {
   sl: "5%",
-  desc: "48%",
+  desc: "45%",
   hsn: "9%",
-  qty: "7%",
+  qty: "10%",
   unit: "5%",
   rate: "12%",
   amt: "14%",
@@ -420,12 +454,7 @@ function TotalsTable({
             >
               {line.label}
             </Text>
-            <View
-              style={[
-                styles.tdTotalValue,
-                styles.totalsValueCol,
-              ]}
-            >
+            <View style={[styles.tdTotalValue, styles.totalsValueCol]}>
               <Text
                 style={[
                   styles.totalsValueText,
@@ -462,73 +491,36 @@ function Panel({
   );
 }
 
-function getBillingName(order: StoreOrder) {
-  const d = order.billing_details;
+function getBillingName(invoice: StoreInvoice) {
+  const d = invoice.billing_details;
   if (!d || typeof d !== "object") return "—";
-  if (typeof d.full_name === "string" && d.full_name.trim()) return d.full_name.trim();
+  if (typeof d.full_name === "string" && d.full_name.trim())
+    return d.full_name.trim();
   const first = typeof d.first_name === "string" ? d.first_name : "";
   const last = typeof d.last_name === "string" ? d.last_name : "";
   return `${first} ${last}`.trim() || "—";
 }
 
-function billingField(order: StoreOrder, key: string) {
-  const d = order.billing_details;
+function billingField(invoice: StoreInvoice, key: string) {
+  const d = invoice.billing_details;
   if (!d || typeof d !== "object") return "";
   const v = d[key];
   return typeof v === "string" ? v.trim() : "";
 }
 
-function party(order: StoreOrder, kind: "billing" | "shipping") {
-  const addr = kind === "billing" ? order.billing_address : order.shipping_address;
+function party(invoice: StoreInvoice, kind: "billing" | "shipping") {
+  const addr =
+    kind === "billing" ? invoice.billing_address : invoice.shipping_address;
   const parsed = parseOrderAddress(addr);
-  const org = billingField(order, "organization_name");
+  const org = billingField(invoice, "organization_name");
   return {
-    name: (org || getBillingName(order)).toUpperCase(),
+    name: org || getBillingName(invoice),
     lines: getPdfAddressLines(addr),
-    gst: billingField(order, "gst_number"),
-    pan: billingField(order, "pan_number"),
-    phone: billingField(order, "phone_number"),
+    gst: billingField(invoice, "gst_number"),
+    pan: billingField(invoice, "pan_number"),
+    phone: billingField(invoice, "phone_number"),
     state: parsed?.state_name || "—",
     code: parsed?.state_gst_code || "—",
-  };
-}
-
-const GST_INCLUSIVE_FACTOR = 1.18;
-
-function exclusivePaisa(grossPaisa: number) {
-  return Math.round(grossPaisa / GST_INCLUSIVE_FACTOR);
-}
-
-function gstBreakdown(totalPaisa: number, buyerCode: string) {
-  const inter = buyerCode !== SFPL_INVOICE_SELLER.stateCode;
-  const taxable = exclusivePaisa(totalPaisa);
-  const tax = totalPaisa - taxable;
-  if (inter) {
-    return {
-      inter,
-      taxable,
-      cgst: 0,
-      sgst: 0,
-      igst: tax,
-      cgstR: 0,
-      sgstR: 0,
-      igstR: 18,
-      total: totalPaisa,
-      tax,
-    };
-  }
-  const cgst = Math.round(tax / 2);
-  return {
-    inter,
-    taxable,
-    cgst,
-    sgst: tax - cgst,
-    igst: 0,
-    cgstR: 9,
-    sgstR: 9,
-    igstR: 0,
-    total: totalPaisa,
-    tax,
   };
 }
 
@@ -551,48 +543,49 @@ function PartyContent({ p }: { p: ReturnType<typeof party> }) {
   );
 }
 
-type Props = { order: StoreOrder; logoSrc?: string };
+type Props = { invoice: StoreInvoice; logoSrc?: string };
 
-function InvoiceDoc({ order, logoSrc }: Props) {
-  const items = order.items ?? [];
-  const invNo = order.serial ? getOrderInvoiceNumber(order.serial) : "—";
-  const invDate = formatInvoiceDate(order.created_at);
-  const bill = party(order, "billing");
-  const ship = party(order, "shipping");
-  const gst = gstBreakdown(order.total_amount_in_paisa, bill.code);
+function InvoiceDoc({ invoice, logoSrc }: Props) {
+  const items = invoice.items ?? [];
+  const invNo = invoice.serial || "—";
+  const invDate = formatInvoiceDate(invoice.issued_at);
+  const bill = party(invoice, "billing");
+  const ship = party(invoice, "shipping");
+
+  const roundPaisa = (value: number) => Math.round(Number(value) || 0);
 
   const rows = items.map((item, i) => {
-    const amt = exclusivePaisa(item.price_in_paisa * item.quantity);
-    const rate = item.quantity > 0 ? Math.round(amt / item.quantity) : amt;
+    const amt = roundPaisa(item.taxable_amount_in_paisa);
+    const qty = Math.max(0, Math.round(Number(item.quantity) || 0));
+    const rate = qty > 0 ? roundPaisa(amt / qty) : amt;
     return {
-      id: item.id,
+      id: `${item.plan_id}-${i}`,
       sl: i + 1,
-      name: item.device_name.toUpperCase(),
+      name: item.plan_name,
       hsn: item.hsn_sac || "—",
-      qty: item.quantity,
+      qty,
       rate,
       amt,
     };
   });
 
-  const lineTaxableTotal = rows.reduce((sum, row) => sum + row.amt, 0);
-  if (rows.length > 0 && lineTaxableTotal !== gst.taxable) {
-    const last = rows[rows.length - 1]!;
-    last.amt += gst.taxable - lineTaxableTotal;
-    last.rate = last.qty > 0 ? Math.round(last.amt / last.qty) : last.amt;
-  }
+  const taxable = roundPaisa(invoice.taxable_amount_in_paisa);
+  const grandTotal = roundPaisa(invoice.total_amount_in_paisa);
+
+  const chargeLines = (invoice.charges ?? []).map((charge) => ({
+    label: `${charge.type} @ ${charge.rate}%`,
+    value: formatInvoiceAmount(roundPaisa(charge.amount_in_paisa)),
+  }));
 
   const totalLines: { label: string; value: string; grand?: boolean }[] = [
-    { label: "Taxable value", value: formatInvoiceAmount(gst.taxable) },
-    ...(gst.inter
-      ? [{ label: `IGST @ ${gst.igstR}%`, value: formatInvoiceAmount(gst.igst) }]
-      : [
-          { label: `CGST @ ${gst.cgstR}%`, value: formatInvoiceAmount(gst.cgst) },
-          { label: `SGST @ ${gst.sgstR}%`, value: formatInvoiceAmount(gst.sgst) },
-        ]),
+    {
+      label: "Taxable value",
+      value: formatInvoiceAmount(taxable),
+    },
+    ...chargeLines,
     {
       label: "Grand Total",
-      value: `INR ${formatInvoiceAmount(gst.total)}`,
+      value: `INR ${formatInvoiceAmount(grandTotal)}`,
       grand: true,
     },
   ];
@@ -601,23 +594,27 @@ function InvoiceDoc({ order, logoSrc }: Props) {
     <Document title={`Tax Invoice ${invNo}`}>
       <Page size="A4" style={styles.page}>
         <View style={styles.titleBlock}>
-          <Text style={styles.title}>Tax Invoice</Text>
+          <Text style={styles.title}>TAX INVOICE</Text>
           <View style={styles.titleLine} />
         </View>
 
         <View style={styles.topBar}>
           <View style={styles.brandCol}>
             {logoSrc ? <Image src={logoSrc} style={styles.logo} /> : null}
-            <Text style={styles.companyName}>{SFPL_INVOICE_SELLER.legalName}</Text>
+            <Text style={styles.companyName}>
+              {SFPL_INVOICE_SELLER.legalName}
+            </Text>
             {SFPL_INVOICE_SELLER.addressLines.map((l) => (
               <Text key={l} style={styles.muted}>
                 {l}
               </Text>
             ))}
-            <Text style={styles.muted}>GSTIN/UIN : {SFPL_INVOICE_SELLER.gstin}</Text>
             <Text style={styles.muted}>
-              {SFPL_INVOICE_SELLER.stateName} (Code {SFPL_INVOICE_SELLER.stateCode}) ·{" "}
-              {SFPL_INVOICE_SELLER.phone}
+              GSTIN/UIN : {SFPL_INVOICE_SELLER.gstin}
+            </Text>
+            <Text style={styles.muted}>
+              {SFPL_INVOICE_SELLER.stateName} (Code{" "}
+              {SFPL_INVOICE_SELLER.stateCode}) · {SFPL_INVOICE_SELLER.phone}
             </Text>
           </View>
 
@@ -630,12 +627,15 @@ function InvoiceDoc({ order, logoSrc }: Props) {
               [
                 ["Invoice No.", invNo],
                 ["Date", invDate],
-                ["Order No.", order.serial || "—"],
+                ["Order No.", invoice.order_number || "—"],
               ] as const
             ).map(([label, value], idx, arr) => (
               <View
                 key={label}
-                style={[styles.metaRow, idx === arr.length - 1 ? styles.metaRowLast : {}]}
+                style={[
+                  styles.metaRow,
+                  idx === arr.length - 1 ? styles.metaRowLast : {},
+                ]}
               >
                 <Text style={styles.metaLabel}>{label}</Text>
                 <Text style={styles.metaValue}>{value || " "}</Text>
@@ -656,11 +656,19 @@ function InvoiceDoc({ order, logoSrc }: Props) {
         <View style={styles.tableBlock}>
           <View style={styles.table}>
             <View style={styles.thead}>
-              <Text style={[styles.th, { width: COL.sl }, styles.center]}>#</Text>
+              <Text style={[styles.th, { width: COL.sl }, styles.center]}>
+                #
+              </Text>
               <Text style={[styles.th, { width: COL.desc }]}>Description</Text>
-              <Text style={[styles.th, { width: COL.hsn }, styles.center]}>HSN/SAC</Text>
-              <Text style={[styles.th, { width: COL.qty }, styles.center]}>Quantity</Text>
-              <Text style={[styles.th, { width: COL.unit }, styles.center]}>Unit</Text>
+              <Text style={[styles.th, { width: COL.hsn }, styles.center]}>
+                HSN/SAC
+              </Text>
+              <Text style={[styles.th, { width: COL.qty }, styles.center]}>
+                Quantity
+              </Text>
+              <Text style={[styles.th, { width: COL.unit }, styles.center]}>
+                Unit
+              </Text>
               <View style={[styles.thCol, { width: COL.rate }]}>
                 <Text style={styles.thColTextRight}>Rate</Text>
               </View>
@@ -670,18 +678,31 @@ function InvoiceDoc({ order, logoSrc }: Props) {
             </View>
 
             {rows.map((r, idx) => (
-              <View key={r.id} style={[styles.trow, idx % 2 === 1 ? styles.trowAlt : {}]}>
-                <Text style={[styles.td, { width: COL.sl }, styles.center]}>{r.sl}</Text>
+              <View
+                key={r.id}
+                style={[styles.trow, idx % 2 === 1 ? styles.trowAlt : {}]}
+              >
+                <Text style={[styles.td, { width: COL.sl }, styles.center]}>
+                  {r.sl}
+                </Text>
                 <Text style={[styles.td, { width: COL.desc }]}>{r.name}</Text>
-                <Text style={[styles.td, { width: COL.hsn }, styles.center]}>{r.hsn}</Text>
-                <Text style={[styles.td, { width: COL.qty }, styles.center]}>{r.qty}</Text>
-                <Text style={[styles.td, { width: COL.unit }, styles.center]}>Nos</Text>
+                <Text style={[styles.td, { width: COL.hsn }, styles.center]}>
+                  {r.hsn}
+                </Text>
+                <Text style={[styles.td, { width: COL.qty }, styles.center]}>
+                  {r.qty}
+                </Text>
+                <Text style={[styles.td, { width: COL.unit }, styles.center]}>
+                  Nos
+                </Text>
                 <View style={[styles.tdCol, { width: COL.rate }]}>
                   <Text style={styles.tdColTextRight}>
                     {formatInvoiceAmount(r.rate)}
                   </Text>
                 </View>
-                <View style={[styles.tdCol, styles.tdColLast, { width: COL.amt }]}>
+                <View
+                  style={[styles.tdCol, styles.tdColLast, { width: COL.amt }]}
+                >
                   <Text style={styles.tdColTextRight}>
                     {formatInvoiceAmount(r.amt)}
                   </Text>
@@ -696,7 +717,9 @@ function InvoiceDoc({ order, logoSrc }: Props) {
         <View style={styles.bottomRow}>
           <View style={styles.wordsBox}>
             <Text style={styles.wordsLabel}>Amount chargeable (in words)</Text>
-            <Text style={styles.wordsText}>{amountInIndianWords(gst.total)}</Text>
+            <Text style={styles.wordsText}>
+              {amountInIndianWords(grandTotal)}
+            </Text>
           </View>
         </View>
 
@@ -704,21 +727,26 @@ function InvoiceDoc({ order, logoSrc }: Props) {
           <Text style={styles.footerDisclaimer}>
             {SFPL_INVOICE_SELLER.electronicInvoiceNote}
           </Text>
-          <Text style={styles.footerSignLine}>Signature & stamp .................</Text>
+          <Text style={styles.footerSignLine}>
+            Signature & stamp .................
+          </Text>
         </View>
 
-        <Text style={styles.jurisdiction}>{SFPL_INVOICE_SELLER.jurisdiction}</Text>
+        <Text style={styles.jurisdiction}>
+          {SFPL_INVOICE_SELLER.jurisdiction}
+        </Text>
       </Page>
     </Document>
   );
 }
 
-export async function generateOrderInvoicePdf(order: StoreOrder) {
-  const logoSrc = await rasterizeSvgPublicPathToPngDataUrl("/logo-full-black.svg");
-  return pdf(<InvoiceDoc order={order} logoSrc={logoSrc} />).toBlob();
+export async function generateOrderInvoicePdf(invoice: StoreInvoice) {
+  const logoSrc = await rasterizeSvgPublicPathToPngDataUrl(
+    "/logo-full-black.svg",
+  );
+  return pdf(<InvoiceDoc invoice={invoice} logoSrc={logoSrc} />).toBlob();
 }
 
-export function getOrderInvoiceFileName(orderSerial: string) {
-  const n = getOrderInvoiceNumber(orderSerial);
-  return `${n.replace(/[^\w-]+/g, "-")}-invoice.pdf`;
+export function getOrderInvoiceFileName(invoiceSerial: string) {
+  return `${invoiceSerial.replace(/[^\w-]+/g, "-")}-invoice.pdf`;
 }
