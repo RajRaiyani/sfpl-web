@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   Phone,
   Mail,
+  type LucideIcon,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,8 +25,21 @@ export const metadata = buildPageMetadata({
   image: "/images/pages/service/fire-audit.png",
 });
 
+interface MainService {
+  icon: LucideIcon;
+  title: string;
+  image: string;
+  services: string[];
+}
+
+interface SystemService {
+  icon: LucideIcon;
+  title: string;
+  services: string[];
+}
+
 export default function Services() {
-  const mainServices = [
+  const mainServices: MainService[] = [
     {
       icon: FileCheck,
       title: "Statutory Compliance, Auditing & Consultancy",
@@ -83,7 +97,7 @@ export default function Services() {
     },
   ];
 
-  const systemServices = [
+  const systemServices: SystemService[] = [
     {
       icon: AlertTriangle,
       title: "Detection Systems",

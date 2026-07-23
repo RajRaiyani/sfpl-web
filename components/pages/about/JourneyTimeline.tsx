@@ -6,10 +6,28 @@ import {
   useReducedMotion,
   useScroll,
   useTransform,
+  type MotionValue,
+  type Variants,
 } from "motion/react";
 import { CalendarDays } from "lucide-react";
 
-const containerVariants = {
+export interface TimelineEntry {
+  year: string;
+  title: string;
+  description: string;
+}
+
+interface TimelineItemProps {
+  item: TimelineEntry;
+  index: number;
+  progress: MotionValue<number>;
+}
+
+interface JourneyTimelineProps {
+  timeline: TimelineEntry[];
+}
+
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -20,7 +38,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 28 },
   show: {
     opacity: 1,
@@ -32,7 +50,7 @@ const itemVariants = {
   },
 };
 
-function TimelineItem({ item, index, progress }) {
+function TimelineItem({ item, index, progress }: TimelineItemProps) {
   const isEven = index % 2 === 0;
   const reduceMotion = useReducedMotion();
   const start = Math.max(0, index * 0.16);
@@ -89,8 +107,8 @@ function TimelineItem({ item, index, progress }) {
   );
 }
 
-export default function JourneyTimeline({ timeline }) {
-  const containerRef = useRef(null);
+export default function JourneyTimeline({ timeline }: JourneyTimelineProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 80%", "end 20%"],

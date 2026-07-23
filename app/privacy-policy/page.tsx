@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import {
   Shield,
   Smartphone,
@@ -13,6 +14,7 @@ import {
   FileText,
   Hash,
   Globe,
+  type LucideIcon,
 } from "lucide-react";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -23,7 +25,11 @@ export const metadata = buildPageMetadata({
   path: "/privacy-policy",
 });
 
-const collectedFields = [
+const collectedFields: {
+  icon: LucideIcon;
+  label: string;
+  description: string;
+}[] = [
   {
     icon: User,
     label: "Name",
@@ -98,7 +104,12 @@ const collectedFields = [
   },
 ];
 
-const sections = [
+const sections: {
+  id: string;
+  icon: LucideIcon;
+  title: string;
+  body: ReactNode;
+}[] = [
   {
     id: "overview",
     icon: Shield,

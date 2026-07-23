@@ -58,8 +58,9 @@ function integerToIndianWords(n: number) {
 }
 
 export function amountInIndianWords(amountInPaisa: number) {
-  const rupees = Math.floor(amountInPaisa / 100);
-  const paise = amountInPaisa % 100;
+  const paisa = Math.round(Number(amountInPaisa) || 0);
+  const rupees = Math.floor(paisa / 100);
+  const paise = paisa % 100;
   const rupeeWords = integerToIndianWords(rupees);
   if (!paise) {
     return `INR ${rupeeWords} Only`;

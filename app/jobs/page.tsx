@@ -22,7 +22,20 @@ export const metadata = buildPageMetadata({
   image: "/logo-full-black.svg",
 });
 
-const jobs = [
+interface Job {
+  title: string;
+  positions: number;
+  description: string;
+  location: string;
+  type: string;
+  experience: string;
+  requirements?: string[];
+  responsibilities?: string[];
+  skills?: string[];
+  url: string;
+}
+
+const jobs: Job[] = [
   {
     title: "Full Stack Software Engineer",
     positions: 1,

@@ -1,6 +1,11 @@
 import Image from "next/image";
 
-const clients = [
+interface Client {
+  src: string;
+  alt: string;
+}
+
+const clients: Client[] = [
   { src: "/images/clients/adani.webp", alt: "Adani" },
   { src: "/images/clients/anant.webp", alt: "Anant" },
   { src: "/images/clients/binori.webp", alt: "Binori" },

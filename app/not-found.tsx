@@ -10,9 +10,9 @@ import { ArrowLeft, Home, Search } from "lucide-react";
 gsap.registerPlugin(useGSAP);
 
 export default function NotFound() {
-  const cardRef = useRef(null);
-  const ringOneRef = useRef(null);
-  const ringTwoRef = useRef(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const ringOneRef = useRef<HTMLDivElement>(null);
+  const ringTwoRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: "power2.out" } });

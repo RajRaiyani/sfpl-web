@@ -1,6 +1,8 @@
+import type { MetadataRoute } from "next";
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://specificfire.com";
 
-export default function robots() {
+export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
@@ -12,4 +14,3 @@ export default function robots() {
     sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }
-

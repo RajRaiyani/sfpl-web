@@ -9,13 +9,27 @@ import {
   Droplets,
   Flame,
   ArrowRight,
-  Shield,
+  type LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
+interface MainService {
+  icon: LucideIcon;
+  title: string;
+  image: string;
+  description: string;
+  highlights: string[];
+}
+
+interface SystemService {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
 export default function Services() {
-  const mainServices = [
+  const mainServices: MainService[] = [
     {
       icon: FileCheck,
       title: "Statutory Compliance, Auditing & Consultancy",
@@ -50,7 +64,7 @@ export default function Services() {
     },
   ];
 
-  const systemServices = [
+  const systemServices: SystemService[] = [
     {
       icon: AlertTriangle,
       title: "Detection Systems",

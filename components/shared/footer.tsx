@@ -17,7 +17,7 @@ import { usePathname } from "next/navigation";
 export default function Footer() {
   const pathname = usePathname();
 
-  const isActive = (path) => {
+  const isActive = (path: string) => {
     return pathname === path;
   };
 

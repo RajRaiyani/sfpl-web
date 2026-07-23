@@ -35,6 +35,32 @@ import env from "@/config/env";
 
 const CUSTOMER_PORTAL_LOGOUT_URL = `${env.serverProxyUrl}/customer-portal/auth/logout`;
 
+type RawUserRecord = {
+  email?: string;
+  name?: string;
+  full_name?: string;
+  user_name?: string;
+  avatar_url?: string;
+  avatar?: string;
+  profile_picture?: string;
+  profileImage?: string;
+  image?: string;
+  picture?: string;
+  photo_url?: string;
+  [key: string]: unknown;
+};
+
+type RawUser = string | RawUserRecord | null | undefined;
+
+interface AccountDropdownContentProps {
+  userName: string;
+  rawUser: RawUser;
+  profileHref: string;
+  dashboardHref: string;
+  isLoggingOut: boolean;
+  onLogout: () => void | Promise<void>;
+}
+
 function AccountDropdownContent({
   userName,
   rawUser,
@@ -42,7 +68,7 @@ function AccountDropdownContent({
   dashboardHref,
   isLoggingOut,
   onLogout,
-}) {
+}: AccountDropdownContentProps) {
   return (
     <>
       <DropdownMenuLabel className="font-normal">
@@ -94,13 +120,16 @@ export default function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const cookiesApi = useMemo(() => new Cookies(), []);
-  const [cookieState, setCookieState] = useState({
+  const [cookieState, setCookieState] = useState<{
+    token: string | undefined;
+    rawUser: RawUser;
+  }>({
     token: undefined,
     rawUser: undefined,
   });
 
   useEffect(() => {
-    const getUserFingerprint = (user) => {
+    const getUserFingerprint = (user: RawUser) => {
       if (user === undefined || user === null) return String(user);
       if (typeof user === "string") return `str:${user}`;
       try {
@@ -111,8 +140,10 @@ export default function Header() {
     };
 
     const syncFromCookies = () => {
-      const nextToken = cookiesApi.get(CUSTOMER_AUTH_COOKIES.token);
-      const nextRawUser = cookiesApi.get(CUSTOMER_AUTH_COOKIES.user);
+      const nextToken = cookiesApi.get(CUSTOMER_AUTH_COOKIES.token) as
+        | string
+        | undefined;
+      const nextRawUser = cookiesApi.get(CUSTOMER_AUTH_COOKIES.user) as RawUser;
 
       setCookieState((prev) => {
         const prevUserFp = getUserFingerprint(prev.rawUser);
@@ -195,7 +226,9 @@ export default function Header() {
     if (isLoggingOut) return;
     setIsLoggingOut(true);
     try {
-      const headers = { "Content-Type": "application/json" };
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
       if (token) {
         headers.Authorization = `Bearer ${token}`;
       }
@@ -239,7 +272,7 @@ export default function Header() {
     return s ? s[0].toUpperCase() : "U";
   }, [userName]);
 
-  const isActive = (path) => {
+  const isActive = (path: string) => {
     if (path === "/") {
       return pathname === "/";
     }

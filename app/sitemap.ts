@@ -1,7 +1,14 @@
+import type { MetadataRoute } from "next";
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://specificfire.com";
 
 const DEFAULT_LAST_MODIFIED = new Date("2026-05-07T00:00:00.000Z");
-const routes = [
+
+const routes: {
+  path: string;
+  changeFrequency: NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
+  priority: number;
+}[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/about", changeFrequency: "monthly", priority: 0.8 },
   { path: "/services", changeFrequency: "weekly", priority: 0.9 },
@@ -17,7 +24,7 @@ const routes = [
   { path: "/connect-o1-warranty", changeFrequency: "yearly", priority: 0.4 },
 ];
 
-export default function sitemap() {
+export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({
     url: new URL(route.path, SITE_URL).toString(),
     lastModified: DEFAULT_LAST_MODIFIED,
@@ -25,4 +32,3 @@ export default function sitemap() {
     priority: route.priority,
   }));
 }
-

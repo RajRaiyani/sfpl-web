@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import {
   ShieldCheck,
   Cpu,
@@ -7,6 +8,7 @@ import {
   Mail,
   Database,
   Lock,
+  type LucideIcon,
 } from "lucide-react";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -17,7 +19,12 @@ export const metadata = buildPageMetadata({
   path: "/terms",
 });
 
-const sections = [
+const sections: {
+  id: string;
+  icon: LucideIcon;
+  title: string;
+  body: ReactNode;
+}[] = [
   {
     id: "scope",
     icon: Cpu,

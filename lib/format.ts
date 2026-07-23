@@ -106,5 +106,9 @@ export function formatOrderDisplaySerial(order: {
 
 export function isOrderInvoiceAvailable(status: string) {
   const normalized = status.toLowerCase();
-  return normalized === "delivered" || normalized === "complete";
+  return (
+    normalized === "out_for_delivery" ||
+    normalized === "delivered" ||
+    normalized === "complete"
+  );
 }

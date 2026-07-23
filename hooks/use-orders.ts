@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast";
 import {
   createOrder,
   getOrder,
+  getOrderInvoice,
   listOrders,
   verifyOrder,
   type CreateOrderPayload,
@@ -15,6 +16,7 @@ export const orderKeys = {
   list: (params?: { offset?: number; limit?: number }) =>
     [...orderKeys.lists(), params ?? {}] as const,
   detail: (orderId: string) => [...orderKeys.all, "detail", orderId] as const,
+  invoice: (orderId: string) => [...orderKeys.all, "invoice", orderId] as const,
 };
 
 export function useOrders(params?: { offset?: number; limit?: number }) {
@@ -29,6 +31,14 @@ export function useOrder(orderId: string) {
     queryKey: orderKeys.detail(orderId),
     queryFn: () => getOrder(orderId),
     enabled: Boolean(orderId),
+  });
+}
+
+export function useOrderInvoice(orderId: string, enabled = true) {
+  return useQuery({
+    queryKey: orderKeys.invoice(orderId),
+    queryFn: () => getOrderInvoice(orderId),
+    enabled: Boolean(orderId) && enabled,
   });
 }
 

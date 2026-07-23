@@ -5,7 +5,7 @@ import { Download, FileText, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { resolveStoreOrderForPdf } from "@/lib/resolve-store-order-for-pdf";
+import { getOrderInvoice } from "@/services/api/orders.api";
 import type { StoreOrder } from "@/types/store";
 import {
   generateOrderInvoicePdf,
@@ -43,12 +43,12 @@ export default function OrderInvoiceDownloadButton({
     }
     setLoading(true);
     try {
-      const fullOrder = await resolveStoreOrderForPdf(order);
-      const blob = await generateOrderInvoicePdf(fullOrder);
+      const { data: invoice } = await getOrderInvoice(order.id);
+      const blob = await generateOrderInvoicePdf(invoice);
       const objectUrl = URL.createObjectURL(blob);
       const anchor = document.createElement("a");
       anchor.href = objectUrl;
-      anchor.download = getOrderInvoiceFileName(fullOrder.serial!);
+      anchor.download = getOrderInvoiceFileName(invoice.serial);
       anchor.click();
       URL.revokeObjectURL(objectUrl);
       toast.success("Invoice downloaded.");
