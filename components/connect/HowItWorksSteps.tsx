@@ -1,9 +1,26 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { motion } from "motion/react";
-import { Plug, Cpu, Cloud, LayoutDashboard } from "lucide-react";
+import { Plug, Cpu, Cloud, LayoutDashboard, type LucideIcon } from "lucide-react";
 
-function StepItem({ icon: Icon, step, index, title, isLast, children }) {
+interface StepItemProps {
+  icon: LucideIcon;
+  step: string;
+  index: number;
+  title: string;
+  isLast?: boolean;
+  children: ReactNode;
+}
+
+function StepItem({
+  icon: Icon,
+  step,
+  index,
+  title,
+  isLast,
+  children,
+}: StepItemProps) {
   return (
     <motion.div
       initial={{ opacity: 0, x: 48 }}

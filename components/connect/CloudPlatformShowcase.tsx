@@ -5,7 +5,16 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { CheckCircle2 } from "lucide-react";
 
-const DESKTOP_SCREENS = [
+type BadgeTone = "success" | "neutral";
+
+const DESKTOP_SCREENS: {
+  id: string;
+  title: string;
+  subtitle: string;
+  badge: { text: string; tone: BadgeTone };
+  src: string;
+  alt: string;
+}[] = [
   {
     id: "live",
     title: "Live Dashboard",
@@ -32,7 +41,7 @@ const DESKTOP_SCREENS = [
   },
 ];
 
-const MOBILE_SCREENS = [
+const MOBILE_SCREENS: { src: string; alt: string }[] = [
   {
     src: "/images/pages/connect/admin-portal-mobile-1.png",
     alt: "SFPL CONNECT mobile — live dashboard",
@@ -43,7 +52,12 @@ const MOBILE_SCREENS = [
   },
 ];
 
-function Badge({ text, tone }) {
+interface BadgeProps {
+  text: string;
+  tone: BadgeTone;
+}
+
+function Badge({ text, tone }: BadgeProps) {
   const cls =
     tone === "success"
       ? "text-green-700 bg-green-50 border-green-100"

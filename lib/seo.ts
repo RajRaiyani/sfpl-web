@@ -1,13 +1,22 @@
+import type { Metadata } from "next";
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://specificfire.com";
 const SITE_NAME = "SFPL";
 const DEFAULT_OG_IMAGE = "/logo-full-black.svg";
+
+type BuildPageMetadataArgs = {
+  title: string;
+  description: string;
+  path: string;
+  image?: string;
+};
 
 export function buildPageMetadata({
   title,
   description,
   path,
   image = DEFAULT_OG_IMAGE,
-}) {
+}: BuildPageMetadataArgs): Metadata {
   const canonicalUrl = new URL(path, SITE_URL).toString();
 
   return {

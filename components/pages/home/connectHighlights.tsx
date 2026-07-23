@@ -10,11 +10,24 @@ import {
   Cpu,
   Monitor,
   Smartphone,
+  type LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
 
+interface HighlightItem {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
+interface PlatformPillar {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
 export default function ConnectHighlights() {
-  const highlights = [
+  const highlights: HighlightItem[] = [
     {
       icon: LayoutDashboard,
       title: "Real-time Admin Portal",
@@ -39,7 +52,7 @@ export default function ConnectHighlights() {
         "Visualize distributed devices and sites through location-aware monitoring.",
     },
   ];
-  const platformPillars = [
+  const platformPillars: PlatformPillar[] = [
     {
       icon: Cpu,
       title: "Hardware",

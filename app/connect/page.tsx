@@ -22,6 +22,7 @@ import {
   Download,
   FileText,
   BookOpen,
+  type LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -46,8 +47,14 @@ export const metadata = buildPageMetadata({
   image: "/images/pages/connect/banner1.png",
 });
 
+interface FeatureItem {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
 export default function Product() {
-  const cloudFeatures = [
+  const cloudFeatures: FeatureItem[] = [
     {
       icon: LayoutDashboard,
       title: "Real-time Admin Portal",
@@ -74,7 +81,7 @@ export default function Product() {
     },
   ];
 
-  const useCases = [
+  const useCases: FeatureItem[] = [
     {
       icon: Factory,
       title: "Manufacturing",
