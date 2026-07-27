@@ -278,20 +278,20 @@ export default function Product() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Image */}
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 via-slate-700 to-red-950 ring-1 ring-red-900/40 p-2">
+            <div className="relative rounded-3xl overflow-hidden ">
               <div
-                className="absolute inset-0 opacity-20 pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at 30% 60%, #ef444455 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, #b91c1c33 0%, transparent 50%)",
-                }}
+                className="absolute inset-0 opacity-40 pointer-events-none"
+                // style={{
+                //   background:
+                //     "radial-gradient(ellipse at 30% 60%, #fecaca55 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, #f5f5f433 0%, transparent 50%)",
+                // }}
               />
               <Image
                 src="/images/pages/connect/about.png"
                 alt="SFPL CONNECT system overview — sensors, IoT device, cloud and user"
                 width={760}
                 height={560}
-                className="relative z-10 w-full h-auto object-cover rounded-2xl"
+                className="relative z-10 w-full h-auto object-contain rounded-2xl"
               />
             </div>
 
