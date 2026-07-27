@@ -9,7 +9,7 @@ import "@/components/pages/home/style.css";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Fire Safety Solutions | SFPL",
+  title: "SFPL | Specific Fire Protection Limited",
   description:
     "Let's Make Fire Safe India. End-to-end fire safety solutions across compliance, design, installation and maintenance.",
   path: "/",
@@ -26,7 +26,6 @@ export default function Home() {
       <ConnectHighlights />
       <Clients />
       <FinalCta />
-      {/* <Contact /> */}
     </>
   );
 }
