@@ -28,6 +28,16 @@ function getCookie(name: string) {
   return match ? decodeURIComponent(match[1]) : null;
 }
 
+function setCookie(name: string, value: string) {
+  if (typeof document === "undefined") return;
+  const secure = window.location.protocol === "https:" ? "; Secure" : "";
+  const domain = getSharedCookieDomain();
+  const domainPart = domain ? `; domain=${domain}` : "";
+  // Session cookie (no Max-Age) — matches connect client so an expired JWT
+  // stays readable long enough for the refresh interceptor to run.
+  document.cookie = `${name}=${encodeURIComponent(value)}; path=/${domainPart}; SameSite=Lax${secure}`;
+}
+
 function clearCookie(name: string) {
   if (typeof document === "undefined") return;
   const secure = window.location.protocol === "https:" ? "; Secure" : "";
@@ -47,6 +57,27 @@ function clearLegacyCustomerAuthCookies() {
 
 export function getAuthToken() {
   return getCookie(CUSTOMER_AUTH_COOKIES.token);
+}
+
+export function getRefreshToken() {
+  return getCookie(CUSTOMER_AUTH_COOKIES.refreshToken);
+}
+
+export function setAuthTokens(payload: {
+  token: string;
+  refresh_token: string;
+  user?: { id: string; name: string; email: string } | string;
+}) {
+  clearLegacyCustomerAuthCookies();
+  setCookie(CUSTOMER_AUTH_COOKIES.token, payload.token);
+  setCookie(CUSTOMER_AUTH_COOKIES.refreshToken, payload.refresh_token);
+  if (payload.user) {
+    const userValue =
+      typeof payload.user === "string"
+        ? payload.user
+        : JSON.stringify(payload.user);
+    setCookie(CUSTOMER_AUTH_COOKIES.user, userValue);
+  }
 }
 
 export function hasUserSession() {
