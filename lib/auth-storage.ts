@@ -60,14 +60,27 @@ export function getRefreshToken() {
   return jsCookie.get(CUSTOMER_AUTH_COOKIES.refreshToken) ?? null;
 }
 
-export function getAuthUser(): { id?: string; name?: string; email?: string } | null {
+export function getAuthUser(): {
+  id?: string;
+  name?: string;
+  email?: string;
+  full_name?: string;
+  user_name?: string;
+  avatar_url?: string;
+  avatar?: string;
+  profile_picture?: string;
+  profileImage?: string;
+  image?: string;
+  picture?: string;
+  photo_url?: string;
+} | null {
   if (typeof window === "undefined") return null;
 
   const raw = jsCookie.get(CUSTOMER_AUTH_COOKIES.user);
   if (!raw) return null;
 
   try {
-    const user = JSON.parse(raw) as { id?: string; name?: string; email?: string };
+    const user = JSON.parse(raw);
     return user && typeof user === "object" ? user : null;
   } catch {
     return null;

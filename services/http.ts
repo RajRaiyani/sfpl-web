@@ -5,11 +5,9 @@ import {
   buildConnectLoginUrl,
   clearAuthSession,
   getAuthToken,
-  getGuestCartId,
   getRefreshToken,
   persistGuestCartIdFromResponse,
   setAuthTokens,
-  setGuestCartId,
 } from "@/lib/auth-storage";
 
 type RetryAxiosRequestConfig = InternalAxiosRequestConfig & {
@@ -46,17 +44,10 @@ http.interceptors.request.use((config) => {
   const token = getAuthToken();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
-    // Logged-in requests must not send a guest cart id.
-    if (config.headers["x-guest-cart-id"]) {
-      delete config.headers["x-guest-cart-id"];
-    }
   } else {
     delete config.headers.Authorization;
-    const guestCartId = getGuestCartId();
-    if (guestCartId) {
-      config.headers["x-guest-cart-id"] = guestCartId;
-    }
   }
+  // Guest cart id is sent automatically via sfpl_guest_cart_id cookie.
 
   return config;
 });
@@ -87,11 +78,7 @@ function clearAuthAndRedirect() {
 
 http.interceptors.response.use(
   (response) => {
-    const guestHeader = response.headers["x-guest-cart-id"];
-    if (typeof guestHeader === "string" && guestHeader) {
-      setGuestCartId(guestHeader);
-    }
-
+    // Keep cookie in sync when API returns a newly issued guest_cart_id in the body.
     persistGuestCartIdFromResponse(response.data);
 
     return response.data;
@@ -120,9 +107,6 @@ http.interceptors.response.use(
           .then((token) => {
             originalRequest.headers = originalRequest.headers ?? {};
             originalRequest.headers.Authorization = `Bearer ${token}`;
-            if (originalRequest.headers["x-guest-cart-id"]) {
-              delete originalRequest.headers["x-guest-cart-id"];
-            }
             return http(originalRequest);
           })
           .catch((err) => Promise.reject(err));
@@ -154,9 +138,6 @@ http.interceptors.response.use(
 
         originalRequest.headers = originalRequest.headers ?? {};
         originalRequest.headers.Authorization = `Bearer ${data.token}`;
-        if (originalRequest.headers["x-guest-cart-id"]) {
-          delete originalRequest.headers["x-guest-cart-id"];
-        }
 
         processQueue(null, data.token);
 

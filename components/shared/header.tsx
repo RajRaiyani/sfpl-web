@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Cookies } from "react-cookie";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,33 +28,20 @@ import {
   User,
 } from "lucide-react";
 import StoreCartButton from "@/components/store/StoreCartButton";
-import { clearAuthSession } from "@/lib/auth-storage";
-import { CUSTOMER_AUTH_COOKIES } from "@/lib/auth-cookies";
+import {
+  clearAuthSession,
+  getAuthToken,
+  getAuthUser,
+} from "@/lib/auth-storage";
 import env from "@/config/env";
 
 const CUSTOMER_PORTAL_LOGOUT_URL = `${env.serverProxyUrl}/customer-portal/auth/logout`;
 
-type RawUserRecord = {
-  email?: string;
-  name?: string;
-  full_name?: string;
-  user_name?: string;
-  avatar_url?: string;
-  avatar?: string;
-  profile_picture?: string;
-  profileImage?: string;
-  image?: string;
-  picture?: string;
-  photo_url?: string;
-  [key: string]: unknown;
-};
-
-type RawUser = string | RawUserRecord | null | undefined;
+type AuthUser = NonNullable<ReturnType<typeof getAuthUser>>;
 
 interface AccountDropdownContentProps {
   userName: string;
-  rawUser: RawUser;
-  profileHref: string;
+  user: AuthUser | null;
   dashboardHref: string;
   isLoggingOut: boolean;
   onLogout: () => void | Promise<void>;
@@ -63,8 +49,7 @@ interface AccountDropdownContentProps {
 
 function AccountDropdownContent({
   userName,
-  rawUser,
-  profileHref,
+  user,
   dashboardHref,
   isLoggingOut,
   onLogout,
@@ -75,10 +60,8 @@ function AccountDropdownContent({
         <p className="truncate text-sm font-medium text-foreground">
           {userName}
         </p>
-        {typeof rawUser === "object" && rawUser?.email ? (
-          <p className="truncate text-xs text-muted-foreground">
-            {rawUser.email}
-          </p>
+        {user?.email ? (
+          <p className="truncate text-xs text-muted-foreground">{user.email}</p>
         ) : null}
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
@@ -119,65 +102,23 @@ function AccountDropdownContent({
 export default function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const cookiesApi = useMemo(() => new Cookies(), []);
-  const [cookieState, setCookieState] = useState<{
-    token: string | undefined;
-    rawUser: RawUser;
-  }>({
-    token: undefined,
-    rawUser: undefined,
-  });
+  const [token, setToken] = useState<string | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [redirectUrl, setRedirectUrl] = useState("");
+
+  const syncAuthFromCookies = useCallback(() => {
+    setToken(getAuthToken());
+    setUser(getAuthUser());
+  }, []);
 
   useEffect(() => {
-    const getUserFingerprint = (user: RawUser) => {
-      if (user === undefined || user === null) return String(user);
-      if (typeof user === "string") return `str:${user}`;
-      try {
-        return `obj:${JSON.stringify(user)}`;
-      } catch {
-        return `obj:${String(user)}`;
-      }
-    };
+    syncAuthFromCookies();
+  }, [pathname, syncAuthFromCookies]);
 
-    const syncFromCookies = () => {
-      const nextToken = cookiesApi.get(CUSTOMER_AUTH_COOKIES.token) as
-        | string
-        | undefined;
-      const nextRawUser = cookiesApi.get(CUSTOMER_AUTH_COOKIES.user) as RawUser;
-
-      setCookieState((prev) => {
-        const prevUserFp = getUserFingerprint(prev.rawUser);
-        const nextUserFp = getUserFingerprint(nextRawUser);
-
-        if (prev.token === nextToken && prevUserFp === nextUserFp) {
-          return prev;
-        }
-
-        return { token: nextToken, rawUser: nextRawUser };
-      });
-    };
-
-    syncFromCookies();
-    const intervalId = window.setInterval(syncFromCookies, 1000);
-
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        syncFromCookies();
-      }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    window.addEventListener("focus", syncFromCookies);
-
-    return () => {
-      window.clearInterval(intervalId);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      window.removeEventListener("focus", syncFromCookies);
-    };
-  }, [cookiesApi]);
-
-  const token = cookieState.token;
-  const rawUser = cookieState.rawUser;
+  useEffect(() => {
+    setRedirectUrl(window.location.href);
+  }, [pathname]);
 
   const connectBaseUrl = process.env.NEXT_PUBLIC_CONNECT_SITE_URL;
   const buildConnectUrl = (path = "") => {
@@ -194,16 +135,11 @@ export default function Header() {
   };
 
   const dashboardHref = connectBaseUrl ? buildConnectUrl("") : "/connect";
-  const profileHref = connectBaseUrl ? buildConnectUrl("/profile") : "/connect";
   const connectSiteUrl = connectBaseUrl
     ? String(connectBaseUrl)
         .replace(/\/:(\d+)/, ":$1")
         .replace(/\/$/, "")
     : "";
-  const [redirectUrl, setRedirectUrl] = useState("");
-  useEffect(() => {
-    setRedirectUrl(window.location.href);
-  }, [pathname]);
 
   const loginHref =
     connectSiteUrl && redirectUrl
@@ -214,13 +150,6 @@ export default function Header() {
     connectSiteUrl && redirectUrl
       ? `${connectSiteUrl}/register?redirect_url=${encodeURIComponent(redirectUrl)}`
       : "/register";
-
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
-
-  const clearSessionCookies = useCallback(() => {
-    clearAuthSession();
-    setCookieState({ token: undefined, rawUser: undefined });
-  }, []);
 
   const handleLogout = useCallback(async () => {
     if (isLoggingOut) return;
@@ -240,32 +169,30 @@ export default function Header() {
     } catch {
       // Still clear local session if the server is unreachable.
     } finally {
-      clearSessionCookies();
+      clearAuthSession();
+      setToken(null);
+      setUser(null);
       setIsLoggingOut(false);
       window.location.assign("/");
     }
-  }, [clearSessionCookies, isLoggingOut, token]);
+  }, [isLoggingOut, token]);
 
   const userName =
-    typeof rawUser === "string"
-      ? rawUser
-      : rawUser?.name ||
-        rawUser?.full_name ||
-        rawUser?.user_name ||
-        rawUser?.email?.split("@")?.[0] ||
-        "User";
+    user?.name ||
+    user?.full_name ||
+    user?.user_name ||
+    user?.email?.split("@")?.[0] ||
+    "User";
 
   const avatarSrc =
-    typeof rawUser === "string"
-      ? undefined
-      : rawUser?.avatar_url ||
-        rawUser?.avatar ||
-        rawUser?.profile_picture ||
-        rawUser?.profileImage ||
-        rawUser?.image ||
-        rawUser?.picture ||
-        rawUser?.photo_url ||
-        undefined;
+    user?.avatar_url ||
+    user?.avatar ||
+    user?.profile_picture ||
+    user?.profileImage ||
+    user?.image ||
+    user?.picture ||
+    user?.photo_url ||
+    undefined;
 
   const avatarFallbackLetter = useMemo(() => {
     const s = String(userName || "").trim();
@@ -441,8 +368,7 @@ export default function Header() {
                   <DropdownMenuContent align="end" className="w-52">
                     <AccountDropdownContent
                       userName={userName}
-                      rawUser={rawUser}
-                      profileHref={profileHref}
+                      user={user}
                       dashboardHref={dashboardHref}
                       isLoggingOut={isLoggingOut}
                       onLogout={handleLogout}
@@ -481,8 +407,7 @@ export default function Header() {
               <DropdownMenuContent align="end" className="w-52">
                 <AccountDropdownContent
                   userName={userName}
-                  rawUser={rawUser}
-                  profileHref={profileHref}
+                  user={user}
                   dashboardHref={dashboardHref}
                   isLoggingOut={isLoggingOut}
                   onLogout={handleLogout}
