@@ -1,3 +1,4 @@
+import jsCookie from "js-cookie";
 import {
   CUSTOMER_AUTH_COOKIES,
   LEGACY_CUSTOMER_AUTH_COOKIES,
@@ -6,7 +7,9 @@ import {
 const GUEST_CART_KEY = "guest_cart_id";
 // Shared across store + connect portal so the portal can merge the guest cart at login.
 const GUEST_CART_COOKIE = "sfpl_guest_cart_id";
-const GUEST_CART_COOKIE_MAX_AGE = 30 * 24 * 60 * 60;
+const GUEST_CART_COOKIE_DAYS = 30;
+
+type CookieAttributes = NonNullable<Parameters<typeof jsCookie.set>[2]>;
 
 function getSharedCookieDomain(): string | undefined {
   if (typeof window === "undefined") return undefined;
@@ -22,45 +25,53 @@ function getSharedCookieDomain(): string | undefined {
   return undefined;
 }
 
-function getCookie(name: string) {
-  if (typeof document === "undefined") return null;
-  const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
-  return match ? decodeURIComponent(match[1]) : null;
+function getCustomerCookieOptions(): CookieAttributes {
+  const domain = getSharedCookieDomain();
+  return {
+    path: "/",
+    sameSite: "Lax",
+    ...(window.location.protocol === "https:" ? { secure: true } : {}),
+    ...(domain ? { domain } : {}),
+  };
 }
 
-function setCookie(name: string, value: string) {
-  if (typeof document === "undefined") return;
-  const secure = window.location.protocol === "https:" ? "; Secure" : "";
-  const domain = getSharedCookieDomain();
-  const domainPart = domain ? `; domain=${domain}` : "";
-  // Session cookie (no Max-Age) — matches connect client so an expired JWT
-  // stays readable long enough for the refresh interceptor to run.
-  document.cookie = `${name}=${encodeURIComponent(value)}; path=/${domainPart}; SameSite=Lax${secure}`;
-}
+function removeCookie(name: string) {
+  if (typeof window === "undefined") return;
 
-function clearCookie(name: string) {
-  if (typeof document === "undefined") return;
-  const secure = window.location.protocol === "https:" ? "; Secure" : "";
-  // Clear host-only and shared-domain variants.
-  document.cookie = `${name}=; Max-Age=0; path=/; SameSite=Lax${secure}`;
-  const domain = getSharedCookieDomain();
-  if (domain) {
-    document.cookie = `${name}=; Max-Age=0; path=/; domain=${domain}; SameSite=Lax${secure}`;
-  }
+  const options = getCustomerCookieOptions();
+  jsCookie.remove(name, options);
+  // Also clear a host-only cookie if one was set without domain.
+  jsCookie.remove(name, { path: "/" });
 }
 
 function clearLegacyCustomerAuthCookies() {
   LEGACY_CUSTOMER_AUTH_COOKIES.forEach((name) => {
-    clearCookie(name);
+    removeCookie(name);
   });
 }
 
 export function getAuthToken() {
-  return getCookie(CUSTOMER_AUTH_COOKIES.token);
+  if (typeof window === "undefined") return null;
+  return jsCookie.get(CUSTOMER_AUTH_COOKIES.token) ?? null;
 }
 
 export function getRefreshToken() {
-  return getCookie(CUSTOMER_AUTH_COOKIES.refreshToken);
+  if (typeof window === "undefined") return null;
+  return jsCookie.get(CUSTOMER_AUTH_COOKIES.refreshToken) ?? null;
+}
+
+export function getAuthUser(): { id?: string; name?: string; email?: string } | null {
+  if (typeof window === "undefined") return null;
+
+  const raw = jsCookie.get(CUSTOMER_AUTH_COOKIES.user);
+  if (!raw) return null;
+
+  try {
+    const user = JSON.parse(raw) as { id?: string; name?: string; email?: string };
+    return user && typeof user === "object" ? user : null;
+  } catch {
+    return null;
+  }
 }
 
 export function setAuthTokens(payload: {
@@ -68,15 +79,20 @@ export function setAuthTokens(payload: {
   refresh_token: string;
   user?: { id: string; name: string; email: string } | string;
 }) {
+  if (typeof window === "undefined") return;
+
+  const options = getCustomerCookieOptions();
   clearLegacyCustomerAuthCookies();
-  setCookie(CUSTOMER_AUTH_COOKIES.token, payload.token);
-  setCookie(CUSTOMER_AUTH_COOKIES.refreshToken, payload.refresh_token);
+
+  jsCookie.set(CUSTOMER_AUTH_COOKIES.token, payload.token, options);
+  jsCookie.set(CUSTOMER_AUTH_COOKIES.refreshToken, payload.refresh_token, options);
+
   if (payload.user) {
     const userValue =
       typeof payload.user === "string"
         ? payload.user
         : JSON.stringify(payload.user);
-    setCookie(CUSTOMER_AUTH_COOKIES.user, userValue);
+    jsCookie.set(CUSTOMER_AUTH_COOKIES.user, userValue, options);
   }
 }
 
@@ -86,7 +102,7 @@ export function hasUserSession() {
 
 export function clearAuthSession() {
   Object.values(CUSTOMER_AUTH_COOKIES).forEach((name) => {
-    clearCookie(name);
+    removeCookie(name);
   });
   clearLegacyCustomerAuthCookies();
 }
@@ -94,7 +110,7 @@ export function clearAuthSession() {
 export function getGuestCartId() {
   if (typeof window === "undefined") return null;
 
-  const fromCookie = getCookie(GUEST_CART_COOKIE);
+  const fromCookie = jsCookie.get(GUEST_CART_COOKIE);
   if (fromCookie) return fromCookie;
 
   // Migrate the legacy localStorage value into the shared cookie.
@@ -109,19 +125,18 @@ export function getGuestCartId() {
 }
 
 export function setGuestCartId(id: string) {
-  if (typeof document === "undefined") return;
-  const secure = window.location.protocol === "https:" ? "; Secure" : "";
-  const domain = getSharedCookieDomain();
-  const domainPart = domain ? `; domain=${domain}` : "";
-  document.cookie = `${GUEST_CART_COOKIE}=${encodeURIComponent(id)}; path=/; max-age=${GUEST_CART_COOKIE_MAX_AGE}${domainPart}; SameSite=Lax${secure}`;
+  if (typeof window === "undefined") return;
+
+  jsCookie.set(GUEST_CART_COOKIE, id, {
+    ...getCustomerCookieOptions(),
+    expires: GUEST_CART_COOKIE_DAYS,
+  });
 }
 
 export function clearGuestCartId() {
-  if (typeof document === "undefined") return;
-  const secure = window.location.protocol === "https:" ? "; Secure" : "";
-  const domain = getSharedCookieDomain();
-  const domainPart = domain ? `; domain=${domain}` : "";
-  document.cookie = `${GUEST_CART_COOKIE}=; Max-Age=0; path=/${domainPart}; SameSite=Lax${secure}`;
+  if (typeof window === "undefined") return;
+
+  removeCookie(GUEST_CART_COOKIE);
   window.localStorage.removeItem(GUEST_CART_KEY);
 }
 
@@ -138,7 +153,7 @@ export function persistGuestCartIdFromResponse(payload: unknown) {
 }
 
 export function buildConnectLoginUrl(redirectUrl = "/") {
-  const connectSiteUrl = process.env.NEXT_PUBLIC_CONNECT_SITE_URL
+  const connectSiteUrl = process.env.NEXT_PUBLIC_CONNECT_SITE_URL;
   if (!connectSiteUrl || typeof window === "undefined") return "/login";
 
   return `${connectSiteUrl}/login?redirect_url=${encodeURIComponent(redirectUrl)}`;

@@ -14,8 +14,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { buildConnectLoginUrl, hasUserSession } from "@/lib/auth-storage";
-import { CUSTOMER_AUTH_COOKIES } from "@/lib/auth-cookies";
+import {
+  buildConnectLoginUrl,
+  getAuthUser,
+  hasUserSession,
+} from "@/lib/auth-storage";
 import {
   validateStoreProfileFields,
   type StoreProfileFormErrors,
@@ -43,21 +46,8 @@ const EMPTY_ADDRESS: AddressForm = {
 };
 
 function getEmailFromCookie() {
-  if (typeof document === "undefined") return "";
-  const cookieName = CUSTOMER_AUTH_COOKIES.user.replace(
-    /[.*+?^${}()|[\]\\]/g,
-    "\\$&",
-  );
-  const match = document.cookie.match(
-    new RegExp(`(?:^|; )${cookieName}=([^;]*)`),
-  );
-  if (!match) return "";
-  try {
-    const user = JSON.parse(decodeURIComponent(match[1]));
-    return typeof user?.email === "string" ? user.email : "";
-  } catch {
-    return "";
-  }
+  const email = getAuthUser()?.email;
+  return typeof email === "string" ? email : "";
 }
 
 export default function StoreAccountSettingsClient() {
