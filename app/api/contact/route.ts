@@ -2,10 +2,36 @@ import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import env from "@/config/env";
 
+async function verifyTurnstileToken(token: string, ip?: string | null) {
+  if (!env.cloudflareSecretKey) {
+    console.error("CLOUDFLARE_SECRET_KEY is not configured");
+    return false;
+  }
+
+  const formData = new FormData();
+  formData.append("secret", env.cloudflareSecretKey);
+  formData.append("response", token);
+  if (ip) {
+    formData.append("remoteip", ip);
+  }
+
+  const response = await fetch(
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+    {
+      method: "POST",
+      body: formData,
+    }
+  );
+
+  const data = (await response.json()) as { success?: boolean };
+  return data.success === true;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone_number, message, form_type } = body;
+    const { name, email, phone_number, message, form_type, turnstileToken } =
+      body;
 
     const isEnquiry = form_type === "enquiry";
 
@@ -31,6 +57,29 @@ export async function POST(request: NextRequest) {
         { error: "Invalid email format" },
         { status: 400 }
       );
+    }
+
+    // Contact form requires a valid Turnstile token
+    if (!isEnquiry) {
+      if (!turnstileToken) {
+        return NextResponse.json(
+          { error: "CAPTCHA verification is required" },
+          { status: 400 }
+        );
+      }
+
+      const ip =
+        request.headers.get("cf-connecting-ip") ||
+        request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+        null;
+
+      const isValidCaptcha = await verifyTurnstileToken(turnstileToken, ip);
+      if (!isValidCaptcha) {
+        return NextResponse.json(
+          { error: "CAPTCHA verification failed. Please try again." },
+          { status: 400 }
+        );
+      }
     }
 
     // Create transporter

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
@@ -17,6 +17,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import z from "zod";
+import { Turnstile } from "@marsidev/react-turnstile";
+import type { TurnstileInstance } from "@marsidev/react-turnstile";
+import env from "@/config/env";
 
 const contactFormSchema = z.object({
   name: z
@@ -39,6 +42,9 @@ export default function ContactClient() {
   const [isFormDisabled, setIsFormDisabled] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState("");
   const [error, setError] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+
+  const turnstileRef = useRef<TurnstileInstance | null>(null);
 
   const form = useForm<z.infer<typeof contactFormSchema>>({
     resolver: zodResolver(contactFormSchema),
@@ -92,6 +98,12 @@ export default function ContactClient() {
   const onSubmit = async (data: z.infer<typeof contactFormSchema>) => {
     if (isFormDisabled) return;
 
+    const token = turnstileToken || turnstileRef.current?.getResponse();
+    if (!token) {
+      toast.error("Please solve the CAPTCHA");
+      return;
+    }
+
     setError("");
 
     try {
@@ -100,7 +112,7 @@ export default function ContactClient() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, turnstileToken: token }),
       });
 
       const responseData = await response.json();
@@ -113,11 +125,13 @@ export default function ContactClient() {
       const submissionTime = Date.now();
       localStorage.setItem(
         "contactFormLastSubmission",
-        submissionTime.toString()
+        submissionTime.toString(),
       );
 
       // Reset form
       form.reset();
+      setTurnstileToken("");
+      turnstileRef.current?.reset();
 
       // Disable form and start timer
       setIsFormDisabled(true);
@@ -142,6 +156,8 @@ export default function ContactClient() {
       const message = e?.message || "Failed to send message. Please try again.";
       setError(message);
       toast.error(message);
+      setTurnstileToken("");
+      turnstileRef.current?.reset();
     }
   };
 
@@ -268,6 +284,17 @@ export default function ContactClient() {
                   {error}
                 </div>
               )}
+
+              {env.cloudflareSiteKey ? (
+                <Turnstile
+                  ref={turnstileRef}
+                  siteKey={env.cloudflareSiteKey}
+                  onSuccess={setTurnstileToken}
+                  onExpire={() => setTurnstileToken("")}
+                  onError={() => setTurnstileToken("")}
+                  options={{ theme: "light", size: "flexible" }}
+                />
+              ) : null}
 
               <Button
                 type="submit"
@@ -402,4 +429,3 @@ export default function ContactClient() {
     </section>
   );
 }
-

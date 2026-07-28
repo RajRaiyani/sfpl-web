@@ -1,6 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
 
 export default {
+  cloudflareSiteKey: process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY || "",
+  cloudflareSecretKey: process.env.CLOUDFLARE_SECRET_KEY || "",
   gaId: process.env.NEXT_PUBLIC_GA_ID,
   env: process.env.NEXT_PUBLIC_ENV || "dev",
   primarySalesEmail: process.env.NEXT_PRIMARY_SALES_EMAIL || "sales@specificfire.com",
