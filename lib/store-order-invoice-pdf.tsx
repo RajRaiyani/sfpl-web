@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: LINE,
     minHeight: 24,
-    alignItems: "center",
+    alignItems: "stretch",
   },
   trowAlt: {
     backgroundColor: "#fafafa",
@@ -265,6 +265,14 @@ const styles = StyleSheet.create({
   },
   tdColLast: {
     borderRightWidth: 0,
+  },
+  serialDescription: {
+    fontSize: FONT.small,
+    color: MUTED,
+    lineHeight: 1.35,
+  },
+  serialValueCol: {
+    justifyContent: "flex-start",
   },
   tdColTextRight: {
     fontSize: FONT.body,
@@ -328,6 +336,8 @@ const styles = StyleSheet.create({
   },
   totalsSpacer: {
     width: COL_BEFORE_TOTALS,
+    paddingRight: 8,
+    justifyContent: "flex-end",
   },
   totalsTable: {
     width: COL_TOTALS_WIDTH,
@@ -354,9 +364,6 @@ const styles = StyleSheet.create({
   },
   totalsRowFirst: {
     borderTopWidth: 0,
-  },
-  bottomRow: {
-    marginBottom: 8,
   },
   wordsBox: {
     borderWidth: 1,
@@ -429,12 +436,19 @@ const COL = {
 
 function TotalsTable({
   lines,
+  words,
 }: {
   lines: { label: string; value: string; grand?: boolean }[];
+  words: string;
 }) {
   return (
     <View style={styles.totalsTableWrap}>
-      <View style={styles.totalsSpacer} />
+      <View style={styles.totalsSpacer}>
+        <View style={styles.wordsBox}>
+          <Text style={styles.wordsLabel}>Amount chargeable (in words)</Text>
+          <Text style={styles.wordsText}>{words}</Text>
+        </View>
+      </View>
       <View style={styles.totalsTable}>
         {lines.map((line, idx) => (
           <View
@@ -547,6 +561,7 @@ type Props = { invoice: StoreInvoice; logoSrc?: string };
 
 function InvoiceDoc({ invoice, logoSrc }: Props) {
   const items = invoice.items ?? [];
+  const assignedDevices = invoice.assigned_devices ?? [];
   const invNo = invoice.serial || "—";
   const invDate = formatInvoiceDate(invoice.issued_at);
   const bill = party(invoice, "billing");
@@ -554,20 +569,41 @@ function InvoiceDoc({ invoice, logoSrc }: Props) {
 
   const roundPaisa = (value: number) => Math.round(Number(value) || 0);
 
-  const rows = items.map((item, i) => {
-    const amt = roundPaisa(item.taxable_amount_in_paisa);
-    const qty = Math.max(0, Math.round(Number(item.quantity) || 0));
-    const rate = qty > 0 ? roundPaisa(amt / qty) : amt;
-    return {
-      id: `${item.plan_id}-${i}`,
-      sl: i + 1,
-      name: item.plan_name,
-      hsn: item.hsn_sac || "—",
-      qty,
-      rate,
-      amt,
-    };
-  });
+  const deviceSerials = assignedDevices
+    .map((device) => device.serial?.trim())
+    .filter((serial): serial is string => Boolean(serial));
+
+  const rows = [
+    ...items.map((item, i) => {
+      const amt = roundPaisa(item.taxable_amount_in_paisa);
+      const qty = Math.max(0, Math.round(Number(item.quantity) || 0));
+      const rate = qty > 0 ? roundPaisa(amt / qty) : amt;
+      return {
+        id: `${item.plan_id}-${i}`,
+        sl: String(i + 1),
+        name: item.plan_name,
+        hsn: item.hsn_sac || "—",
+        qty,
+        unit: "Nos",
+        rateLabel: formatInvoiceAmount(rate),
+        amtLabel: formatInvoiceAmount(amt),
+      };
+    }),
+    ...(deviceSerials.length > 0
+      ? [
+          {
+            id: "connect-serials",
+            sl: "",
+            name: deviceSerials.join("\n"),
+            hsn: "",
+            qty: "",
+            unit: "",
+            rateLabel: "",
+            amtLabel: "",
+          },
+        ]
+      : []),
+  ];
 
   const taxable = roundPaisa(invoice.taxable_amount_in_paisa);
   const grandTotal = roundPaisa(invoice.total_amount_in_paisa);
@@ -685,7 +721,17 @@ function InvoiceDoc({ invoice, logoSrc }: Props) {
                 <Text style={[styles.td, { width: COL.sl }, styles.center]}>
                   {r.sl}
                 </Text>
-                <Text style={[styles.td, { width: COL.desc }]}>{r.name}</Text>
+                <Text
+                  style={[
+                    styles.td,
+                    { width: COL.desc },
+                    r.id === "connect-serials"
+                      ? styles.serialDescription
+                      : {},
+                  ]}
+                >
+                  {r.name}
+                </Text>
                 <Text style={[styles.td, { width: COL.hsn }, styles.center]}>
                   {r.hsn}
                 </Text>
@@ -693,37 +739,38 @@ function InvoiceDoc({ invoice, logoSrc }: Props) {
                   {r.qty}
                 </Text>
                 <Text style={[styles.td, { width: COL.unit }, styles.center]}>
-                  Nos
+                  {r.unit}
                 </Text>
-                <View style={[styles.tdCol, { width: COL.rate }]}>
-                  <Text style={styles.tdColTextRight}>
-                    {formatInvoiceAmount(r.rate)}
-                  </Text>
+                <View
+                  style={[
+                    styles.tdCol,
+                    { width: COL.rate },
+                    r.id === "connect-serials" ? styles.serialValueCol : {},
+                  ]}
+                >
+                  <Text style={styles.tdColTextRight}>{r.rateLabel}</Text>
                 </View>
                 <View
-                  style={[styles.tdCol, styles.tdColLast, { width: COL.amt }]}
+                  style={[
+                    styles.tdCol,
+                    styles.tdColLast,
+                    { width: COL.amt },
+                    r.id === "connect-serials" ? styles.serialValueCol : {},
+                  ]}
                 >
-                  <Text style={styles.tdColTextRight}>
-                    {formatInvoiceAmount(r.amt)}
-                  </Text>
+                  <Text style={styles.tdColTextRight}>{r.amtLabel}</Text>
                 </View>
               </View>
             ))}
           </View>
 
-          <TotalsTable lines={totalLines} />
+          <TotalsTable
+            lines={totalLines}
+            words={amountInIndianWords(grandTotal)}
+          />
         </View>
 
-        <View style={styles.bottomRow}>
-          <View style={styles.wordsBox}>
-            <Text style={styles.wordsLabel}>Amount chargeable (in words)</Text>
-            <Text style={styles.wordsText}>
-              {amountInIndianWords(grandTotal)}
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.footerNoteRow}>
+        <View style={styles.footerNoteRow} fixed>
           <Text style={styles.footerDisclaimer}>
             {SFPL_INVOICE_SELLER.electronicInvoiceNote}
           </Text>
@@ -732,7 +779,7 @@ function InvoiceDoc({ invoice, logoSrc }: Props) {
           </Text>
         </View>
 
-        <Text style={styles.jurisdiction}>
+        <Text style={styles.jurisdiction} fixed>
           {SFPL_INVOICE_SELLER.jurisdiction}
         </Text>
       </Page>

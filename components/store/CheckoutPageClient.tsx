@@ -673,14 +673,20 @@ export default function CheckoutPageClient() {
           <div className="mt-4 space-y-2 text-sm">
             {items.map((item) => (
               <div key={item.device_id} className="flex justify-between gap-3">
-                <span className="text-gray-600">
-                  {item.device_name} × {item.quantity}
-                  {!item.in_stock ? (
-                    <span className="ml-1 text-xs font-semibold text-red-600">
-                      (Out of stock)
-                    </span>
-                  ) : null}
-                </span>
+                <div className="text-gray-600">
+                  <div>
+                    {item.device_name} × {item.quantity}
+                    {!item.in_stock ? (
+                      <span className="ml-1 text-xs font-semibold text-red-600">
+                        (Out of stock)
+                      </span>
+                    ) : null}
+                  </div>
+                  <div className="text-xs text-gray-400">
+                    {item.connect_count * item.quantity} Connect
+                    {item.connect_count * item.quantity === 1 ? "" : "s"}
+                  </div>
+                </div>
                 <span>{formatPaisa(item.price_in_paisa * item.quantity)}</span>
               </div>
             ))}

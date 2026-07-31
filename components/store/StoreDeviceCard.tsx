@@ -43,6 +43,9 @@ export function StoreDeviceCard({ device }: StoreDeviceCardProps) {
         {device.short_description ? (
           <p className="mt-2 line-clamp-2 text-sm text-gray-600">{device.short_description}</p>
         ) : null}
+        <p className="mt-3 text-sm font-semibold text-gray-700">
+          Includes {device.connect_count} Connect{device.connect_count === 1 ? "" : "s"}
+        </p>
         <div className="mt-auto flex flex-col gap-3 pt-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xl font-bold text-red-600">{formatPaisa(device.price_in_paisa)}</p>
           <div className="flex flex-wrap gap-2">

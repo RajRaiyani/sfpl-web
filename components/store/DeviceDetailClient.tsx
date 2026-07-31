@@ -101,6 +101,10 @@ export default function DeviceDetailClient({ slug }: DeviceDetailClientProps) {
           <p className="mt-2 text-sm text-gray-500">
             {outOfStock ? "Out of stock" : "In stock"}
           </p>
+          <p className="mt-2 text-sm font-semibold text-gray-700">
+            This plan includes {device.connect_count} Connect
+            {device.connect_count === 1 ? "" : "s"}.
+          </p>
 
           <div className="mt-8 flex items-center gap-3">
             <div className="flex items-center rounded-lg border border-gray-200">

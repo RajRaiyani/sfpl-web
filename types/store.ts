@@ -13,6 +13,7 @@ export type StoreDevice = {
   description_md?: string | null;
   price_in_paisa: number;
   price_in_rupee: number;
+  connect_count: number;
   in_stock: boolean;
   is_active: boolean;
   sort_order: number;
@@ -28,6 +29,7 @@ export type CartItem = {
   short_description?: string | null;
   price_in_paisa: number;
   price_in_rupee?: number;
+  connect_count: number;
   in_stock: boolean;
   image?: StoreDeviceImage | null;
 };
@@ -112,6 +114,14 @@ export type StoreInvoiceItem = {
   total_amount_in_paisa: number;
 };
 
+export type StoreInvoiceAssignedDevice = {
+  id: string;
+  serial?: string | null;
+  imei: string;
+  mac_address?: string | null;
+  batch_number?: string | null;
+};
+
 export type StoreInvoice = {
   id: string;
   order_id: string;
@@ -127,6 +137,7 @@ export type StoreInvoice = {
   is_inter_state: boolean;
   items: StoreInvoiceItem[];
   charges: InvoiceCharge[];
+  assigned_devices?: StoreInvoiceAssignedDevice[];
   taxable_amount_in_paisa: number;
   tax_amount_in_paisa: number;
   total_amount_in_paisa: number;

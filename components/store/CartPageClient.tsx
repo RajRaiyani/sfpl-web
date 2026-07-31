@@ -92,6 +92,12 @@ export default function CartPageClient() {
                   <p className="mt-1 text-sm font-bold text-red-600">
                     {formatPaisa(item.price_in_paisa)}
                   </p>
+                  <p className="mt-1 text-xs text-gray-500">
+                    {item.connect_count} Connect{item.connect_count === 1 ? "" : "s"} per plan
+                    {item.quantity > 1
+                      ? ` · ${item.connect_count * item.quantity} total`
+                      : ""}
+                  </p>
                   <div className="mt-auto flex items-center gap-3">
                     <div className="flex items-center rounded-lg border border-gray-200">
                       <button
