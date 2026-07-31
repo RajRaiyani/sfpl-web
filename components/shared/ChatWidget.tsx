@@ -2,7 +2,7 @@
 
 import ChatMessageContent from "@/components/shared/ChatMessageContent";
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { MessageCircle, Send, X } from "lucide-react";
+import { Bot, Send, X } from "lucide-react";
 
 type ChatRole = "user" | "assistant";
 type ChatMessage = { role: ChatRole; content: string };
@@ -68,11 +68,16 @@ export default function ChatWidget() {
       {open && (
         <div className="pointer-events-auto flex h-[min(32rem,70vh)] w-[min(22rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-xl">
           <div className="flex items-center justify-between bg-primary px-4 py-3 text-primary-foreground">
-            <div>
-              <p className="text-sm font-semibold">SFPL Assistant</p>
-              <p className="text-xs text-primary-foreground/80">
-                Answers from SFPL docs
-              </p>
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/15">
+                <Bot className="h-4 w-4" />
+              </span>
+              <div>
+                <p className="text-sm font-semibold">SFPL Assistant</p>
+                <p className="text-xs text-primary-foreground/80">
+                  Answers from SFPL docs
+                </p>
+              </div>
             </div>
             <button
               type="button"
@@ -140,11 +145,22 @@ export default function ChatWidget() {
 
       <button
         type="button"
-        aria-label={open ? "Close chat" : "Open chat"}
+        aria-label={open ? "Close chat" : "Open SFPL AI"}
         onClick={() => setOpen((value) => !value)}
-        className="pointer-events-auto inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition hover:scale-[1.03]"
+        className={`pointer-events-auto inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition hover:scale-[1.03] ${
+          open ? "h-14 w-14" : "h-12 gap-1.5 px-3.5"
+        }`}
       >
-        {open ? <X className="h-5 w-5" /> : <MessageCircle className="h-5 w-5" />}
+        {open ? (
+          <X className="h-5 w-5" />
+        ) : (
+          <>
+            <Bot className="h-5 w-5 shrink-0" />
+            <span className="text-[11px] font-semibold leading-none tracking-wide">
+              SFPL AI
+            </span>
+          </>
+        )}
       </button>
     </div>
   );
