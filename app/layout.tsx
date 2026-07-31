@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import CustomCursor from "@/components/shared/CustomCursor";
 import ProviderContext from "@/components/context/provider.context";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import ChatWidget from "@/components/shared/ChatWidget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -119,6 +120,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <ChatWidget />
 
           <Toaster
             position="top-center"

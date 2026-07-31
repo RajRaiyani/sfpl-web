@@ -118,7 +118,6 @@ export type StoreInvoiceAssignedDevice = {
   id: string;
   serial?: string | null;
   imei: string;
-  mac_address?: string | null;
   batch_number?: string | null;
 };
 

@@ -8,7 +8,7 @@ export const metadata = buildPageMetadata({
   title: "IoT device & monitoring portal — FAQ",
   description:
     "Frequently asked questions about the SFPL IoT field device and the monitoring portal: hardware, inputs, connectivity, sign-in, projects, devices and support.",
-  path: "/tech/iot-faq",
+  path: "/iot-faq",
   image: "/logo-full-black.svg",
 });
 

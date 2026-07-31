@@ -8,7 +8,7 @@ export const metadata = buildPageMetadata({
   title: "IoT device — technical specification",
   description:
     "Technical specification for the SFPL IoT monitoring device: enclosure, 17 input channels, connectivity and power backup.",
-  path: "/tech/iot-device-spec",
+  path: "/iot-device-spec",
   image: "/logo-full-black.svg",
 });
 

@@ -13,7 +13,7 @@ export const metadata = buildPageMetadata({
   title: "IoT device — user manual",
   description:
     "Simple wiring guide for the SFPL CONNECT device: 12 V to 24 V power, AC voltage, CT current and liquid level sensor.",
-  path: "/tech/iot-user-manual",
+  path: "/iot-user-manual",
   image: "/logo-full-black.svg",
 });
 

@@ -10,6 +10,7 @@ export default {
   serverProxyUrl:
     process.env.NEXT_PUBLIC_SERVER_PROXY_URL || "http://localhost:3007",
   razorpayKeyId: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "",
+  webChatSecret: process.env.WEB_CHAT_SECRET || "",
 
   smtp: {
     host: process.env.NEXT_SMTP_HOST,
