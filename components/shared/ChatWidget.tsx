@@ -1,7 +1,13 @@
 "use client";
 
 import ChatMessageContent from "@/components/shared/ChatMessageContent";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+  type KeyboardEvent,
+} from "react";
 import { Bot, Send, X } from "lucide-react";
 
 type ChatRole = "user" | "assistant";
@@ -24,6 +30,13 @@ export default function ChatWidget() {
     if (!open) return;
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight });
   }, [messages, open, loading]);
+
+  function onKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      event.currentTarget.form?.requestSubmit();
+    }
+  }
 
   async function onSubmit(event: FormEvent) {
     event.preventDefault();
@@ -126,6 +139,7 @@ export default function ChatWidget() {
             <textarea
               value={input}
               onChange={(event) => setInput(event.target.value)}
+              onKeyDown={onKeyDown}
               rows={2}
               maxLength={750}
               placeholder="Ask about SFPL CONNECT…"
