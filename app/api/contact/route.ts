@@ -109,7 +109,7 @@ export async function POST(request: NextRequest) {
       : "This email was sent from the SFPL website contact form.";
 
     const mailOptions = {
-      from: env.smtp.user,
+      from: env.smtp.from,
       to: env.env === "dev" ? env.developerEmail : env.primarySalesEmail,
       subject,
       html: `
