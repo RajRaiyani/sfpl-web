@@ -684,25 +684,32 @@ export default function Product() {
       {/* ── Cloud Platform ── */}
       <section className="py-15 bg-white relative overflow-hidden">
         {/* subtle background accents */}
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-gray-100 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-teal-50/50 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-24 -right-24 w-72 h-72 bg-gray-100/40 rounded-full blur-3xl pointer-events-none" />
 
         <div className="container mx-auto px-4">
           {/* Header */}
           <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center shadow-lg shadow-red-200">
-                  <Cloud className="w-5 h-5 text-white" />
+                <div className="relative h-10 w-10 overflow-hidden rounded-xl ring-1 ring-black/5">
+                  <Image
+                    src="/logos/connectio-icon.svg"
+                    alt="ConnectIO"
+                    width={40}
+                    height={40}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
-                <span className="text-xs font-bold tracking-widest text-red-600">
-                  Cloud Platform
+                <span className="text-xs font-bold tracking-widest text-teal-700">
+                  Cloud Platform · ConnectIO
                 </span>
               </div>
               <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-[1.1] tracking-tight">
                 Your data,{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10">live</span>
-                  <span className="absolute bottom-1 left-0 w-full h-3 bg-red-100 -z-0 rounded" />
+                  <span className="absolute bottom-1 left-0 w-full h-3 bg-teal-100 -z-0 rounded" />
                 </span>{" "}
                 on every screen
               </h2>
@@ -720,10 +727,10 @@ export default function Product() {
               return (
                 <div
                   key={i}
-                  className="rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-sm hover:shadow-md hover:border-red-100 transition-all duration-300 group"
+                  className="rounded-2xl border border-gray-100 bg-gray-50 p-5 shadow-sm hover:shadow-md hover:border-teal-100 transition-all duration-300 group"
                 >
-                  <div className="w-9 h-9 rounded-xl bg-red-50 flex items-center justify-center mb-4 group-hover:bg-red-100 transition-colors">
-                    <Icon className="w-4 h-4 text-red-600" />
+                  <div className="w-9 h-9 rounded-xl bg-teal-50 flex items-center justify-center mb-4 group-hover:bg-teal-100 transition-colors">
+                    <Icon className="w-4 h-4 text-teal-700" />
                   </div>
                   <p className="font-bold text-gray-900 text-sm mb-1">
                     {feature.title}

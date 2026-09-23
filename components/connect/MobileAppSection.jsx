@@ -1,27 +1,33 @@
 import Image from "next/image";
-import { Smartphone, Bell, ShieldCheck, Radio } from "lucide-react";
+import {
+  Smartphone,
+  Bell,
+  ShieldCheck,
+  Radio,
+  Download,
+  ExternalLink,
+  Share,
+} from "lucide-react";
 
-const PLAY_STORE_URL =
-  "https://play.google.com/store/apps/details?id=com.specificfire.sfpl&pcampaignid=web_share";
-const APP_STORE_URL =
-  "https://apps.apple.com/vn/app/specific-fire/id6761681939";
+const PORTAL_URL = "https://connectio.specificfire.com";
+const DOWNLOAD_URL = "https://connectio.specificfire.com/download";
 
 const APP_SCREENSHOTS = [
   {
     src: "/images/pages/connect/app/1.webp",
-    alt: "Specific Fire app — live sensor monitoring",
+    alt: "ConnectIO app — home overview",
   },
   {
     src: "/images/pages/connect/app/2.webp",
-    alt: "Specific Fire app — device status overview",
+    alt: "ConnectIO app — device monitoring",
   },
   {
     src: "/images/pages/connect/app/3.webp",
-    alt: "Specific Fire app — real-time alerts",
+    alt: "ConnectIO app — live dashboards",
   },
   {
     src: "/images/pages/connect/app/4.webp",
-    alt: "Specific Fire app — facility monitoring",
+    alt: "ConnectIO app — map and alerts",
   },
 ];
 
@@ -29,12 +35,12 @@ const APP_FEATURES = [
   {
     icon: ShieldCheck,
     title: "Secure login",
-    description: "Authorized persons only — no public registration.",
+    description: "Sign in with your ConnectIO account — same credentials as the web portal.",
   },
   {
     icon: Radio,
     title: "Live sensor data",
-    description: "Read-only status and readings from connected facilities.",
+    description: "Monitor device status and readings from connected facilities on the go.",
   },
   {
     icon: Bell,
@@ -43,79 +49,21 @@ const APP_FEATURES = [
   },
 ];
 
-function PlayStoreBadge({ href }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group inline-flex items-center gap-3 rounded-xl bg-gray-900 px-4 py-3 text-white shadow-lg shadow-gray-300/60 transition-all hover:-translate-y-0.5 hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2"
-      aria-label="Get Specific Fire on Google Play"
-    >
-      <svg
-        className="h-7 w-7 shrink-0"
-        viewBox="0 0 24 24"
-        aria-hidden
-        fill="currentColor"
-      >
-        <path d="M3.6 2.3c-.3.2-.5.6-.5 1.1v17.2c0 .5.2.9.5 1.1l.1.1 9.6-9.6v-.3L3.7 2.2l-.1.1zm12.2 7L12.5 12l3.3 2.7 3.9-2.2c1.1-.6 1.1-1.6 0-2.2l-3.9-2zM4.1 21.6l9.1-9.1 2.7 2.7-10.5 6c-.5.3-1 .2-1.3.4zm9.1-10.1L4.1 2.4c.3.1.8 0 1.3.3l10.5 6-2.7 2.8z" />
-      </svg>
-      <span className="text-left leading-tight">
-        <span className="block text-[10px] font-medium uppercase tracking-wide text-white/70">
-          Get it on
-        </span>
-        <span className="block text-sm font-bold tracking-tight">
-          Google Play
-        </span>
-      </span>
-    </a>
-  );
-}
-
-function AppStoreBadge({ href }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group inline-flex items-center gap-3 rounded-xl bg-gray-900 px-4 py-3 text-white shadow-lg shadow-gray-300/60 transition-all hover:-translate-y-0.5 hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2"
-      aria-label="Download Specific Fire on the App Store"
-    >
-      <svg
-        className="h-7 w-7 shrink-0"
-        viewBox="0 0 24 24"
-        aria-hidden
-        fill="currentColor"
-      >
-        <path d="M18.7 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.9-3.5.9-.7 0-1.9-.8-3.1-.8-1.6 0-3.1 1-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.1 1.7 2.4 3 2.3 1.2-.1 1.6-.7 3.1-.7s1.8.7 3.1.7c1.3 0 2.1-1.1 2.9-2.2.9-1.3 1.3-2.5 1.3-2.6-.1 0-2.5-1-2.7-3.3zm-2.5-7.4c.6-.8 1.1-1.9.9-3-.9 0-2 .6-2.6 1.4-.6.7-1.1 1.8-.9 2.9 1 .1 2-.5 2.6-1.3z" />
-      </svg>
-      <span className="text-left leading-tight">
-        <span className="block text-[10px] font-medium uppercase tracking-wide text-white/70">
-          Download on the
-        </span>
-        <span className="block text-sm font-bold tracking-tight">
-          App Store
-        </span>
-      </span>
-    </a>
-  );
-}
-
 export default function MobileAppSection() {
   return (
     <section className="py-24 bg-white relative overflow-hidden">
-      <div className="absolute -top-24 -left-24 w-96 h-96 bg-red-50 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-gray-100 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -top-24 -left-24 w-72 h-72 bg-teal-50/50 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-gray-100/40 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center shadow-lg shadow-red-200">
+              <div className="w-10 h-10 rounded-xl bg-teal-700 flex items-center justify-center shadow-lg shadow-teal-200">
                 <Smartphone className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xs font-bold tracking-widest text-red-600">
+              <span className="text-xs font-bold tracking-widest text-teal-700">
                 Mobile Application
               </span>
             </div>
@@ -123,7 +71,7 @@ export default function MobileAppSection() {
               Monitor on the{" "}
               <span className="relative inline-block">
                 <span className="relative z-10">go</span>
-                <span className="absolute bottom-1 left-0 w-full h-3 bg-red-100 -z-0 rounded" />
+                <span className="absolute bottom-1 left-0 w-full h-3 bg-teal-100 -z-0 rounded" />
               </span>
             </h2>
           </div>
@@ -137,21 +85,21 @@ export default function MobileAppSection() {
           {/* App info */}
           <div className="lg:col-span-5 space-y-8">
             <div className="flex items-start gap-4">
-              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl shadow-xl shadow-red-200/60 ring-1 ring-black/5">
+              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-[22%] ring-1 ring-black/5">
                 <Image
-                  src="/logos/app-logo.svg"
-                  alt="Specific Fire app icon"
+                  src="/logos/connectio-icon.svg"
+                  alt="ConnectIO app icon"
                   width={80}
                   height={80}
                   className="h-full w-full object-cover"
                 />
               </div>
               <div>
-                <p className="text-xs font-bold tracking-widest uppercase text-red-600 mb-1">
+                <p className="text-xs font-bold tracking-widest uppercase text-teal-700 mb-1">
                   Available now
                 </p>
                 <h3 className="text-2xl font-extrabold text-gray-900 tracking-tight">
-                  Specific Fire
+                  Connect<span className="text-teal-700">IO</span>
                 </h3>
                 <p className="mt-1 text-sm text-gray-500 leading-relaxed">
                   Official mobile companion for SFPL CONNECT monitoring.
@@ -160,8 +108,8 @@ export default function MobileAppSection() {
             </div>
 
             <p className="text-gray-600 text-base leading-relaxed">
-              Take SFPL CONNECT with you — live sensor readings and instant
-              alerts on your phone, so you can monitor fire safety systems from
+              Take ConnectIO with you — live sensor readings and instant alerts
+              on your phone, so you can monitor fire safety systems from
               anywhere, anytime.
             </p>
 
@@ -173,8 +121,8 @@ export default function MobileAppSection() {
                     key={feature.title}
                     className="flex items-start gap-3 rounded-2xl border border-gray-100 bg-gray-50 p-4"
                   >
-                    <div className="w-9 h-9 rounded-xl bg-red-50 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-4 h-4 text-red-600" />
+                    <div className="w-9 h-9 rounded-xl bg-teal-50 flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-4 h-4 text-teal-700" />
                     </div>
                     <div>
                       <p className="font-bold text-gray-900 text-sm">
@@ -189,16 +137,88 @@ export default function MobileAppSection() {
               })}
             </div>
 
-            <div className="flex flex-wrap gap-3">
-              <PlayStoreBadge href={PLAY_STORE_URL} />
-              <AppStoreBadge href={APP_STORE_URL} />
+            {/* Get started — download */}
+            <div className="rounded-3xl border border-teal-100 bg-gradient-to-br from-teal-50 to-white p-5 shadow-sm">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-8 h-8 rounded-xl bg-teal-700 flex items-center justify-center">
+                  <Download className="w-4 h-4 text-white" />
+                </div>
+                <p className="text-sm font-extrabold text-gray-900">
+                  Get started — install on phone
+                </p>
+              </div>
+              <ol className="space-y-2.5 text-sm text-gray-600 leading-relaxed">
+                <li className="flex gap-2.5">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-700 text-[10px] font-bold text-white">
+                    1
+                  </span>
+                  <span>
+                    On your phone, open{" "}
+                    <a
+                      href={DOWNLOAD_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-teal-700 hover:underline break-all"
+                    >
+                      connectio.specificfire.com/download
+                    </a>
+                  </span>
+                </li>
+                <li className="flex gap-2.5">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-700 text-[10px] font-bold text-white">
+                    2
+                  </span>
+                  <span className="flex flex-wrap items-center gap-x-1">
+                    <span className="inline-flex items-center gap-1">
+                      <strong className="font-semibold text-gray-800">iPhone:</strong>
+                      Share
+                      <Share className="inline h-3.5 w-3.5 text-teal-700" aria-hidden />
+                      → Add to Home Screen
+                    </span>
+                    <span className="text-gray-400">·</span>
+                    <span>
+                      <strong className="font-semibold text-gray-800">Android:</strong>{" "}
+                      Chrome menu → Install app
+                    </span>
+                  </span>
+                </li>
+                <li className="flex gap-2.5">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-700 text-[10px] font-bold text-white">
+                    3
+                  </span>
+                  <span>
+                    Open ConnectIO from your home screen and sign in
+                  </span>
+                </li>
+              </ol>
+
+              <div className="mt-4 flex flex-col sm:flex-row gap-3">
+                <a
+                  href={DOWNLOAD_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-teal-700 px-4 py-3 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-teal-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2"
+                >
+                  <Download className="h-4 w-4" aria-hidden />
+                  Download for mobile
+                </a>
+                <a
+                  href={PORTAL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-teal-200 bg-white px-4 py-3 text-sm font-bold text-teal-800 transition-all hover:-translate-y-0.5 hover:border-teal-300 hover:bg-teal-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2"
+                >
+                  Open web portal
+                  <ExternalLink className="h-4 w-4" aria-hidden />
+                </a>
+              </div>
             </div>
           </div>
 
           {/* Screenshots */}
           <div className="lg:col-span-7">
             <div className="relative">
-              <div className="absolute -inset-8 bg-gradient-to-r from-red-100/60 via-transparent to-gray-100/60 blur-2xl -z-10 pointer-events-none" />
+              <div className="absolute -inset-4 bg-gradient-to-r from-teal-100/25 via-transparent to-gray-100/25 blur-xl -z-10 pointer-events-none" />
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 items-end">
                 {APP_SCREENSHOTS.map((shot, idx) => (
