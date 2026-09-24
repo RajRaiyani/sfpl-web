@@ -30,7 +30,6 @@ import { FaqAccordion } from "@/app/iot-faq/faq-accordion";
 import HowItWorksSteps from "@/components/connect/HowItWorksSteps";
 import CloudPlatformShowcase from "@/components/connect/CloudPlatformShowcase";
 import MobileAppSection from "@/components/connect/MobileAppSection";
-import ConnectStoreCatalog from "@/components/store/ConnectStoreCatalog";
 import { deviceFaqs, portalFaqs } from "@/data/iot-faq-items";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -1088,8 +1087,6 @@ export default function Product() {
           </div>
         </div>
       </section>
-
-      <ConnectStoreCatalog />
 
       {/* FAQ — matches Cloud / hardware section rhythm */}
     </section>

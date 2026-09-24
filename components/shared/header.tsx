@@ -1,17 +1,9 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   Sheet,
   SheetContent,
@@ -19,185 +11,11 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
-import {
-  ChevronDown,
-  LayoutDashboard,
-  LogOut,
-  Menu,
-  Package,
-  User,
-} from "lucide-react";
-import StoreCartButton from "@/components/store/StoreCartButton";
-import {
-  clearAuthSession,
-  getAuthToken,
-  getAuthUser,
-} from "@/lib/auth-storage";
-import env from "@/config/env";
-
-const CUSTOMER_PORTAL_LOGOUT_URL = `${env.serverProxyUrl}/customer-portal/auth/logout`;
-
-type AuthUser = NonNullable<ReturnType<typeof getAuthUser>>;
-
-interface AccountDropdownContentProps {
-  userName: string;
-  user: AuthUser | null;
-  dashboardHref: string;
-  isLoggingOut: boolean;
-  onLogout: () => void | Promise<void>;
-}
-
-function AccountDropdownContent({
-  userName,
-  user,
-  dashboardHref,
-  isLoggingOut,
-  onLogout,
-}: AccountDropdownContentProps) {
-  return (
-    <>
-      <DropdownMenuLabel className="font-normal">
-        <p className="truncate text-sm font-medium text-foreground">
-          {userName}
-        </p>
-        {user?.email ? (
-          <p className="truncate text-xs text-muted-foreground">{user.email}</p>
-        ) : null}
-      </DropdownMenuLabel>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem asChild>
-        <Link href="/account">
-          <User />
-          Profile
-        </Link>
-      </DropdownMenuItem>
-      <DropdownMenuItem asChild>
-        <Link href="/orders">
-          <Package />
-          My orders
-        </Link>
-      </DropdownMenuItem>
-      <DropdownMenuItem asChild>
-        <a href={dashboardHref}>
-          <LayoutDashboard />
-          Connect dashboard
-        </a>
-      </DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem
-        variant="destructive"
-        disabled={isLoggingOut}
-        onSelect={(e) => {
-          e.preventDefault();
-          void onLogout();
-        }}
-      >
-        <LogOut />
-        {isLoggingOut ? "Signing out…" : "Log out"}
-      </DropdownMenuItem>
-    </>
-  );
-}
+import { Menu } from "lucide-react";
 
 export default function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
-  const [user, setUser] = useState<AuthUser | null>(null);
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const [redirectUrl, setRedirectUrl] = useState("");
-
-  const syncAuthFromCookies = useCallback(() => {
-    setToken(getAuthToken());
-    setUser(getAuthUser());
-  }, []);
-
-  useEffect(() => {
-    syncAuthFromCookies();
-  }, [pathname, syncAuthFromCookies]);
-
-  useEffect(() => {
-    setRedirectUrl(window.location.href);
-  }, [pathname]);
-
-  const connectBaseUrl = process.env.NEXT_PUBLIC_CONNECT_SITE_URL;
-  const buildConnectUrl = (path = "") => {
-    if (!connectBaseUrl) return "";
-
-    // Helps if someone configured `http://host/:5174` instead of `http://host:5174`
-    const base = String(connectBaseUrl)
-      .replace(/\/:(\d+)/, ":$1")
-      .replace(/\/$/, "");
-
-    const cleanedPath = path ? (path.startsWith("/") ? path : `/${path}`) : "";
-
-    return `${base}${cleanedPath}`;
-  };
-
-  const dashboardHref = connectBaseUrl ? buildConnectUrl("") : "/connect";
-  const connectSiteUrl = connectBaseUrl
-    ? String(connectBaseUrl)
-        .replace(/\/:(\d+)/, ":$1")
-        .replace(/\/$/, "")
-    : "";
-
-  const loginHref =
-    connectSiteUrl && redirectUrl
-      ? `${connectSiteUrl}/login?redirect_url=${encodeURIComponent(redirectUrl)}`
-      : "/login";
-
-  const registerHref =
-    connectSiteUrl && redirectUrl
-      ? `${connectSiteUrl}/register?redirect_url=${encodeURIComponent(redirectUrl)}`
-      : "/register";
-
-  const handleLogout = useCallback(async () => {
-    if (isLoggingOut) return;
-    setIsLoggingOut(true);
-    try {
-      const headers: Record<string, string> = {
-        "Content-Type": "application/json",
-      };
-      if (token) {
-        headers.Authorization = `Bearer ${token}`;
-      }
-      await fetch(CUSTOMER_PORTAL_LOGOUT_URL, {
-        method: "POST",
-        headers,
-        credentials: "include",
-      });
-    } catch {
-      // Still clear local session if the server is unreachable.
-    } finally {
-      clearAuthSession();
-      setToken(null);
-      setUser(null);
-      setIsLoggingOut(false);
-      window.location.assign("/");
-    }
-  }, [isLoggingOut, token]);
-
-  const userName =
-    user?.name ||
-    user?.full_name ||
-    user?.user_name ||
-    user?.email?.split("@")?.[0] ||
-    "User";
-
-  const avatarSrc =
-    user?.avatar_url ||
-    user?.avatar ||
-    user?.profile_picture ||
-    user?.profileImage ||
-    user?.image ||
-    user?.picture ||
-    user?.photo_url ||
-    undefined;
-
-  const avatarFallbackLetter = useMemo(() => {
-    const s = String(userName || "").trim();
-    return s ? s[0].toUpperCase() : "U";
-  }, [userName]);
 
   const isActive = (path: string) => {
     if (path === "/") {
@@ -270,24 +88,6 @@ export default function Header() {
                   </Link>
                 </SheetClose>
               ))}
-              {!token ? (
-                <div className="mt-2 flex gap-2">
-                  <SheetClose asChild>
-                    <a href={loginHref} className="w-1/2">
-                      <Button className="w-full" variant="outline" size="lg">
-                        Login
-                      </Button>
-                    </a>
-                  </SheetClose>
-                  <SheetClose asChild>
-                    <a href={registerHref} className="w-1/2">
-                      <Button className="w-full" size="lg">
-                        Register
-                      </Button>
-                    </a>
-                  </SheetClose>
-                </div>
-              ) : null}
             </nav>
           </SheetContent>
         </Sheet>
@@ -323,114 +123,14 @@ export default function Header() {
             </Link>
           ))}
         </nav>
-        {/* Desktop Actions */}
+        {/* Desktop Actions — ecommerce (login/cart) hidden for now */}
         <div className="hidden md:block">
-          <div className="flex items-center gap-3 sm:gap-4">
-            <StoreCartButton />
-            {!token ? (
-              <>
-                <Link href="/contact">
-                  <Button variant="default">Contact</Button>
-                </Link>
-                <a href={loginHref}>
-                  <Button variant="outline">Login / Register</Button>
-                </a>
-              </>
-            ) : (
-              <div className="flex items-center gap-3 sm:gap-4 pl-1">
-                <a
-                  href={dashboardHref}
-                  className="text-sm font-medium text-gray-700 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 rounded-md px-1 py-0.5"
-                >
-                  Dashboard
-                </a>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <button
-                      type="button"
-                      className="group flex items-center gap-2.5 rounded-full border border-gray-200/90 bg-white px-2.5 py-1.5 shadow-sm transition-colors hover:border-gray-300 hover:bg-gray-50/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
-                      aria-label={`Account menu for ${userName}`}
-                    >
-                      <div
-                        className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary text-sm font-semibold text-primary-foreground"
-                        aria-hidden="true"
-                      >
-                        {avatarSrc ? (
-                          // Using <img> to avoid Next Image domain config requirements.
-                          <img
-                            src={avatarSrc}
-                            alt=""
-                            className="h-full w-full object-cover"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <span>{avatarFallbackLetter}</span>
-                        )}
-                      </div>
-                      <span className="max-w-[140px] truncate text-sm font-medium text-gray-900 sm:max-w-[160px]">
-                        {userName}
-                      </span>
-                      <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-52">
-                    <AccountDropdownContent
-                      userName={userName}
-                      user={user}
-                      dashboardHref={dashboardHref}
-                      isLoggingOut={isLoggingOut}
-                      onLogout={handleLogout}
-                    />
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            )}
-          </div>
+          <Link href="/contact">
+            <Button variant="default">Contact</Button>
+          </Link>
         </div>
-        {/* Mobile: cart + profile / login (right) */}
-        <div className="relative z-10 flex h-10 min-w-10 shrink-0 items-center justify-end gap-1.5 md:hidden">
-          <StoreCartButton />
-          {token ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button
-                  type="button"
-                  className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gray-200/90 bg-white shadow-sm transition-colors hover:border-gray-300 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
-                  aria-label={`Account menu for ${userName}`}
-                >
-                  {avatarSrc ? (
-                    <img
-                      src={avatarSrc}
-                      alt=""
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <span className="text-sm font-semibold text-primary-foreground flex h-full w-full items-center justify-center bg-primary">
-                      {avatarFallbackLetter}
-                    </span>
-                  )}
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-52">
-                <AccountDropdownContent
-                  userName={userName}
-                  user={user}
-                  dashboardHref={dashboardHref}
-                  isLoggingOut={isLoggingOut}
-                  onLogout={handleLogout}
-                />
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <a
-              href={loginHref}
-              className="whitespace-nowrap pl-1 text-sm font-medium text-primary hover:underline"
-            >
-              Login
-            </a>
-          )}
-        </div>
+        {/* Mobile: spacer to balance the left menu button */}
+        <div className="relative z-10 h-10 w-10 shrink-0 md:hidden" aria-hidden />
       </div>
     </header>
   );
