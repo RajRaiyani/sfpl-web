@@ -28,78 +28,72 @@ const clients: Client[] = [
   { src: "/images/clients/zudio.webp", alt: "Zudio" },
 ];
 
+const midpoint = Math.ceil(clients.length / 2);
+const topRow = clients.slice(0, midpoint);
+const bottomRow = clients.slice(midpoint);
+
+function LogoRow({
+  items,
+  direction,
+}: {
+  items: Client[];
+  direction: "left" | "right";
+}) {
+  const animClass =
+    direction === "left"
+      ? "technology-ticker-section-left"
+      : "technology-ticker-section-right";
+
+  return (
+    <div className="flex items-center gap-7 overflow-hidden" aria-hidden="true">
+      {[0, 1].map((dup) => (
+        <div
+          key={dup}
+          className={`${animClass} flex h-fit shrink-0 flex-nowrap gap-7 whitespace-nowrap`}
+        >
+          {items.map((client) => (
+            <div key={`${dup}-${client.alt}`} className="mx-6 inline-block">
+              <Image
+                src={client.src}
+                alt=""
+                width={100}
+                height={60}
+                className="h-12 w-auto object-contain sm:h-14"
+                loading="lazy"
+                sizes="100px"
+              />
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function Clients() {
   return (
-    <section className="w-full bg-white py-16 md:py-24">
-      <div className="container mx-auto px-4 space-y-10">
-        <div className="text-center mb-4">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 relative inline-block">
-            <span className="text-gray-800 ml-2">Our</span>&nbsp;
-            <span className="text-red-600">Clients</span>
-            <span className="block h-1 w-16 bg-red-600 mt-2 rounded ms-auto"></span>
+    <section
+      aria-labelledby="clients-heading"
+      className="w-full bg-white py-14 sm:py-16 md:py-24"
+    >
+      <div className="container mx-auto space-y-8 px-4 sm:space-y-10">
+        <div className="text-center">
+          <h2
+            id="clients-heading"
+            className="mb-4 inline-block text-3xl font-extrabold text-gray-900 sm:text-4xl md:text-5xl"
+          >
+            <span className="text-gray-800">Our</span>&nbsp;
+            <span className="text-primary">Clients</span>
+            <span className="ms-auto mt-2 block h-1 w-16 rounded bg-primary" />
           </h2>
+          <p className="sr-only">
+            Trusted by organisations across India including Adani, Lifestyle,
+            Palladium, The Fern, Van Heusen, WTC, and more.
+          </p>
         </div>
 
-        <div className="flex items-center gap-7 overflow-hidden text-muted-foreground">
-          <div className="technology-ticker-section-left flex gap-7 flex-nowrap whitespace-nowrap shrink-0 h-fit">
-            {[...clients.slice(0, clients.length / 2)].map((client, idx) => (
-              <div key={"top-" + idx} className="mx-6 inline-block">
-                <Image
-                  src={client.src}
-                  alt={client.alt}
-                  width={100}
-                  height={60}
-                  className="object-contain h-14 w-auto"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
-          <div className="technology-ticker-section-left flex gap-7 flex-nowrap whitespace-nowrap shrink-0 h-fit">
-            {[...clients.slice(0, clients.length / 2)].map((client, idx) => (
-              <div key={"top-" + idx} className="mx-6 inline-block">
-                <Image
-                  src={client.src}
-                  alt={client.alt}
-                  width={100}
-                  height={60}
-                  className="object-contain h-14 w-auto"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="flex items-center gap-7 overflow-hidden text-muted-foreground">
-          <div className="technology-ticker-section-right flex gap-7 flex-nowrap whitespace-nowrap shrink-0 h-fit">
-            {[...clients.slice(clients.length / 2)].map((client, idx) => (
-              <div key={"top-" + idx} className="mx-6 inline-block">
-                <Image
-                  src={client.src}
-                  alt={client.alt}
-                  width={100}
-                  height={60}
-                  className="object-contain h-14 w-auto"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
-          <div className="technology-ticker-section-right flex gap-7 flex-nowrap whitespace-nowrap shrink-0 h-fit">
-            {[...clients.slice(clients.length / 2)].map((client, idx) => (
-              <div key={"top-" + idx} className="mx-6 inline-block">
-                <Image
-                  src={client.src}
-                  alt={client.alt}
-                  width={100}
-                  height={60}
-                  className="object-contain h-14 w-auto"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+        <LogoRow items={topRow} direction="left" />
+        <LogoRow items={bottomRow} direction="right" />
       </div>
     </section>
   );

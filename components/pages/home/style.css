@@ -1,9 +1,9 @@
 .technology-ticker-section-left {
-  animation: technologyTickerScrollLeft 30s linear infinite;
+  animation: technologyTickerScrollLeft 40s linear infinite;
 }
 
 .technology-ticker-section-right {
-  animation: technologyTickerScrollRight 30s linear infinite;
+  animation: technologyTickerScrollRight 40s linear infinite;
 }
 
 @keyframes technologyTickerScrollLeft {
@@ -26,6 +26,12 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .technology-ticker-section-left,
+  .technology-ticker-section-right {
+    animation: none;
+  }
+}
 
 .bg-grid-pattern {
   background-image:

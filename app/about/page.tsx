@@ -47,37 +47,38 @@ const timeline = [
 export default function About() {
   return (
     <>
-      <section className="relative w-full min-h-[520px] flex items-center justify-center overflow-hidden">
+      <section className="relative flex min-h-[360px] w-full items-center justify-center overflow-hidden sm:min-h-[440px] md:min-h-[520px]">
         <Image
           src="/images/pages/about/about-hero.png"
           alt="Specific Fire Protection Limited fire safety systems"
           fill
-          className="object-cover object-center z-0"
+          className="z-0 object-cover object-center"
           priority
+          sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40 z-10" />
-        <div className="relative z-20 container mx-auto px-4 py-20 flex flex-col items-center justify-center gap-5 text-center text-white">
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
+        <div className="relative z-20 container mx-auto flex flex-col items-center justify-center gap-4 px-4 py-14 text-center text-white sm:gap-5 sm:py-20">
           <div className="inline-flex items-center gap-3 rounded-full border border-white/30 bg-white/10 px-4 py-2 backdrop-blur-sm">
-            <Shield className="h-5 w-5 text-red-400" />
-            <span className="text-sm md:text-base font-medium tracking-wide">
+            <Shield className="h-5 w-5 text-red-400" aria-hidden />
+            <span className="text-sm font-medium tracking-wide md:text-base">
               Specific Fire Protection Limited
             </span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow">
+          <h1 className="text-3xl leading-tight font-extrabold drop-shadow sm:text-4xl md:text-6xl">
             Engineering Fire Safety
             <span className="block text-red-400">For a Safer India</span>
           </h1>
-          <p className="text-lg md:text-2xl text-white/90 max-w-4xl drop-shadow">
+          <p className="max-w-4xl text-base text-white/90 drop-shadow sm:text-lg md:text-2xl">
             End-to-end fire protection solutions powered by technical expertise,
             innovation and national compliance.
           </p>
         </div>
       </section>
 
-      <section className="w-full bg-white py-20">
+      <section className="w-full bg-white py-14 sm:py-16 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-14">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-5">
+          <div className="mx-auto mb-10 max-w-4xl text-center sm:mb-14">
+            <h2 className="mb-5 text-3xl font-bold text-gray-900 sm:text-4xl md:text-5xl">
               About Us
             </h2>
             <div className="w-24 h-1 bg-red-600 mx-auto rounded-full mb-6" />

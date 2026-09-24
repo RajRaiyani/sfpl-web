@@ -131,16 +131,15 @@ export default function Services() {
   ];
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-16">
+    <section className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-10 sm:py-14 md:py-16">
       <div className="container mx-auto px-4">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 relative inline-block">
+        <div className="mb-10 text-center sm:mb-14 md:mb-16">
+          <h1 className="relative mb-4 inline-block text-3xl font-extrabold text-gray-900 sm:text-4xl md:text-5xl">
             <span className="text-gray-800">Our</span>&nbsp;
-            <span className="text-red-600">Services</span>
-            <span className="block h-1 w-16 bg-red-600 mt-2 rounded mx-auto"></span>
+            <span className="text-primary">Services</span>
+            <span className="mx-auto mt-2 block h-1 w-16 rounded bg-primary" />
           </h1>
-          <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+          <p className="mx-auto max-w-3xl text-base text-gray-700 sm:text-lg">
             Comprehensive fire protection solutions designed to keep you safe.
             From compliance and design to installation and maintenance, we
             provide end-to-end fire safety services.

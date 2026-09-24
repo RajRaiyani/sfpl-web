@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,350 +10,222 @@ import {
   Phone,
   MapPin,
 } from "lucide-react";
-import { usePathname } from "next/navigation";
+
+const QUICK_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/connect", label: "SFPL CONNECT" },
+  { href: "/services", label: "Services" },
+  { href: "/tech", label: "Tech" },
+  { href: "/about", label: "About Us" },
+  { href: "/jobs", label: "Careers" },
+  { href: "/contact", label: "Contact Us" },
+] as const;
+
+const CONNECT_LINKS = [
+  { href: "/iot-device-spec", label: "IoT device docs" },
+  { href: "/iot-user-manual", label: "IoT user manual" },
+  { href: "/iot-faq", label: "IoT & portal FAQ" },
+  { href: "/privacy-policy", label: "Privacy Policy" },
+  { href: "/terms-conditions", label: "Terms & Conditions" },
+  { href: "/returns-refunds", label: "Returns & Refunds" },
+  { href: "/connect-o1-warranty", label: "Connect O1 Warranty" },
+] as const;
+
+const SOCIAL_LINKS = [
+  {
+    href: "https://www.linkedin.com/in/specific-fire/",
+    label: "LinkedIn",
+    Icon: Linkedin,
+  },
+  {
+    href: "https://www.instagram.com/specificfire",
+    label: "Instagram",
+    Icon: Instagram,
+  },
+  {
+    href: "https://www.facebook.com/specific.fire",
+    label: "Facebook",
+    Icon: Facebook,
+  },
+  {
+    href: "https://www.youtube.com/@SPECIFIC_FIRE",
+    label: "YouTube",
+    Icon: Youtube,
+  },
+] as const;
+
+const linkClass =
+  "block text-xs sm:text-sm text-gray-600 transition-colors hover:text-primary";
 
 export default function Footer() {
-  const pathname = usePathname();
-
-  const isActive = (path: string) => {
-    return pathname === path;
-  };
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-white border-t border-gray-100 py-8 sm:py-12">
+    <footer className="w-full border-t border-gray-100 bg-white py-8 sm:py-12">
       <div className="container mx-auto px-4 sm:px-6">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 mb-6 sm:mb-8">
-          {/* Company Info */}
-          <div className="space-y-3 sm:space-y-4 sm:col-span-2 lg:col-span-2">
-            <div className="flex items-center space-x-2">
+        <div className="mb-6 grid grid-cols-1 gap-6 sm:mb-8 sm:grid-cols-2 sm:gap-8 lg:grid-cols-5">
+          <div className="space-y-3 sm:col-span-2 sm:space-y-4 lg:col-span-2">
+            <Link href="/" className="inline-block">
               <Image
                 src="/logo-full-black.svg"
-                alt="SFPL"
+                alt="Specific Fire Protection Limited"
                 width={200}
-                height={200}
-                className="w-36 sm:w-36 md:w-44 h-auto"
+                height={50}
+                className="h-auto w-36 sm:w-40 md:w-44"
               />
-            </div>
-            <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+            </Link>
+            <p className="text-xs leading-relaxed text-gray-600 sm:text-sm">
               Specific Fire Protection Limited
               <br className="hidden sm:block" />
-              <span className="text-red-600 font-bold">
-                Let's make fire safe India.
+              <span className="font-bold text-primary">
+                Let&apos;s make fire safe India.
               </span>
             </p>
             <div className="flex flex-wrap gap-2 sm:gap-3">
-              <Link
-                href="https://www.linkedin.com/in/specific-fire/"
-                target="_blank"
-                aria-label="LinkedIn"
-                className="p-2 bg-gray-100 hover:bg-primary hover:text-white text-gray-600 rounded-lg transition-all duration-200"
-              >
-                <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
-              </Link>
-              <Link
-                href="https://www.instagram.com/specificfire"
-                target="_blank"
-                aria-label="Instagram"
-                className="p-2 bg-gray-100 hover:bg-primary hover:text-white text-gray-600 rounded-lg transition-all duration-200"
-              >
-                <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
-              </Link>
-              <Link
-                href="https://www.facebook.com/specific.fire"
-                target="_blank"
-                aria-label="Facebook"
-                className="p-2 bg-gray-100 hover:bg-primary hover:text-white text-gray-600 rounded-lg transition-all duration-200"
-              >
-                <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
-              </Link>
-              <Link
-                href="https://www.youtube.com/@SPECIFIC_FIRE"
-                target="_blank"
-                aria-label="YouTube"
-                className="p-2 bg-gray-100 hover:bg-primary hover:text-white text-gray-600 rounded-lg transition-all duration-200"
-              >
-                <Youtube className="w-4 h-4 sm:w-5 sm:h-5" />
-              </Link>
+              {SOCIAL_LINKS.map(({ href, label, Icon }) => (
+                <a
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${label} (opens in a new tab)`}
+                  className="rounded-lg bg-gray-100 p-2 text-gray-600 transition-all duration-200 hover:bg-primary hover:text-white"
+                >
+                  <Icon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="space-y-3 sm:space-y-4">
-            <h3 className="font-semibold text-sm sm:text-base text-gray-900">
+          <nav aria-label="Quick links" className="space-y-3 sm:space-y-4">
+            <h2 className="text-sm font-semibold text-gray-900 sm:text-base">
               Quick links
-            </h3>
-            <div className="space-y-2">
-              <Link
-                href="/"
-                className={`block text-xs sm:text-sm transition-colors ${
-                  isActive("/")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                Home
-              </Link>
-              <Link
-                href="/connect"
-                className={`block text-xs sm:text-sm transition-colors ${
-                  isActive("/connect")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                SFPL CONNECT
-              </Link>
-              <Link
-                href="/services"
-                className={`block text-xs sm:text-sm transition-colors ${
-                  isActive("/services")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                Services
-              </Link>
-              <Link
-                href="/tech"
-                className={`block text-xs sm:text-sm transition-colors ${
-                  isActive("/tech")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                Tech
-              </Link>
-              <Link
-                href="/about"
-                className={`block text-xs sm:text-sm transition-colors ${
-                  isActive("/about")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                About Us
-              </Link>
-              <Link
-                href="/jobs"
-                className={`block text-xs sm:text-sm transition-colors ${
-                  isActive("/jobs")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                Careers
-              </Link>
-              <Link
-                href="/contact"
-                className={`block text-xs sm:text-sm transition-colors ${
-                  isActive("/contact")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                Contact Us
-              </Link>
-            </div>
-          </div>
+            </h2>
+            <ul className="space-y-2">
+              {QUICK_LINKS.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className={linkClass}>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-          {/* SFPL CONNECT Links */}
-          <div className="space-y-3 sm:space-y-4">
-            <h3 className="font-semibold text-sm sm:text-base text-gray-900">
+          <nav aria-label="SFPL CONNECT" className="space-y-3 sm:space-y-4">
+            <h2 className="text-sm font-semibold text-gray-900 sm:text-base">
               SFPL CONNECT
-            </h3>
-            <div className="space-y-2">
-              <Link
-                href="/iot-device-spec"
-                className={`block text-xs sm:text-sm transition-colors ${
-                  isActive("/iot-device-spec")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                IoT device docs
-              </Link>
-              <Link
-                href="/iot-user-manual"
-                className={`block text-xs sm:text-sm transition-colors ${
-                  isActive("/iot-user-manual")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                IoT user manual
-              </Link>
-              <Link
-                href="/iot-faq"
-                className={`block text-xs sm:text-sm transition-colors ${
-                  isActive("/iot-faq")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                IoT & portal FAQ
-              </Link>
-              <Link
-                href="/privacy-policy"
-                className={`block text-xs sm:text-sm transition-colors ${
-                  isActive("/privacy-policy")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms-conditions"
-                className={`block text-xs sm:text-sm transition-colors ${
-                  isActive("/terms-conditions")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                Terms &amp; Conditions
-              </Link>
-              <Link
-                href="/returns-refunds"
-                className={`block text-xs sm:text-sm transition-colors ${
-                  isActive("/returns-refunds")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                Returns &amp; Refunds
-              </Link>
-              <Link
-                href="/connect-o1-warranty"
-                className={`block text-xs sm:text-sm transition-colors ${
-                  isActive("/connect-o1-warranty")
-                    ? "text-primary font-semibold"
-                    : "text-gray-600 hover:text-red-600"
-                }`}
-              >
-                Connect O1 Warranty
-              </Link>
-            </div>
-          </div>
+            </h2>
+            <ul className="space-y-2">
+              {CONNECT_LINKS.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className={linkClass}>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
           <div className="space-y-3 sm:space-y-4">
-            {/* Contact Information */}
-            <div className="space-y-3 sm:space-y-4">
-              <h3 className="font-semibold text-sm sm:text-base text-gray-900">
-                Contact Us
-              </h3>
-              <div className="space-y-2 sm:space-y-3">
-                <div className="flex items-center space-x-2 sm:space-x-3">
-                  <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 flex-shrink-0" />
-                  <a
-                    href="tel:+919033050415"
-                    className="text-xs sm:text-sm text-gray-600 hover:text-red-600 transition-colors break-words"
-                  >
-                    +91 9033050415
-                  </a>
-                </div>
-                <div className="flex items-center space-x-2 sm:space-x-3">
-                  <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 flex-shrink-0" />
-                  <a
-                    href="mailto:contact@specificfire.com"
-                    className="text-xs sm:text-sm text-gray-600 hover:text-red-600 transition-colors break-all"
-                  >
-                    contact@specificfire.com
-                  </a>
-                </div>
-                <div className="flex items-start space-x-2 sm:space-x-3">
-                  <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 mt-0.5 flex-shrink-0" />
-                  <a
-                    href="https://maps.app.goo.gl/rFC89FrPRnd9196g9"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs sm:text-sm text-gray-600 hover:text-red-600 transition-colors break-words"
-                  >
-                    Office No. 2, Tower - 4, Shreeji Apartment, Mahatma Gandhi
-                    Road, Kandivali West, Mumbai 400067 (HQ)
-                  </a>
-                </div>
-                <div className="flex items-start space-x-2 sm:space-x-3">
-                  <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 mt-0.5 flex-shrink-0" />
-                  <a
-                    href="https://maps.app.goo.gl/2RYxPfe4o69tCfy69"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs sm:text-sm text-gray-600 hover:text-red-600 transition-colors break-words"
-                  >
-                    105, IIT Gandhinagar Research park, Gandhinagar, Gujarat
-                  </a>
-                </div>
-              </div>
-            </div>
+            <h2 className="text-sm font-semibold text-gray-900 sm:text-base">
+              Contact Us
+            </h2>
+            <ul className="space-y-2 sm:space-y-3">
+              <li className="flex items-center space-x-2 sm:space-x-3">
+                <Phone
+                  className="h-4 w-4 shrink-0 text-primary sm:h-5 sm:w-5"
+                  aria-hidden
+                />
+                <a
+                  href="tel:+919033050415"
+                  className="break-words text-xs text-gray-600 transition-colors hover:text-primary sm:text-sm"
+                >
+                  +91 9033050415
+                </a>
+              </li>
+              <li className="flex items-center space-x-2 sm:space-x-3">
+                <Mail
+                  className="h-4 w-4 shrink-0 text-primary sm:h-5 sm:w-5"
+                  aria-hidden
+                />
+                <a
+                  href="mailto:contact@specificfire.com"
+                  className="break-all text-xs text-gray-600 transition-colors hover:text-primary sm:text-sm"
+                >
+                  contact@specificfire.com
+                </a>
+              </li>
+              <li className="flex items-start space-x-2 sm:space-x-3">
+                <MapPin
+                  className="mt-0.5 h-4 w-4 shrink-0 text-primary sm:h-5 sm:w-5"
+                  aria-hidden
+                />
+                <a
+                  href="https://maps.app.goo.gl/rFC89FrPRnd9196g9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="break-words text-xs text-gray-600 transition-colors hover:text-primary sm:text-sm"
+                >
+                  Office No. 2, Tower - 4, Shreeji Apartment, Mahatma Gandhi
+                  Road, Kandivali West, Mumbai 400067 (HQ)
+                </a>
+              </li>
+              <li className="flex items-start space-x-2 sm:space-x-3">
+                <MapPin
+                  className="mt-0.5 h-4 w-4 shrink-0 text-primary sm:h-5 sm:w-5"
+                  aria-hidden
+                />
+                <a
+                  href="https://maps.app.goo.gl/2RYxPfe4o69tCfy69"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="break-words text-xs text-gray-600 transition-colors hover:text-primary sm:text-sm"
+                >
+                  105, IIT Gandhinagar Research Park, Gandhinagar, Gujarat
+                </a>
+              </li>
+            </ul>
           </div>
-
-          {/* Contact & Both Offices */}
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-4 sm:pt-6 border-t border-gray-100">
-          <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-2 sm:gap-4 space-y-2 sm:space-y-0 flex-wrap">
+        <div className="border-t border-gray-100 pt-4 sm:pt-6">
+          <div className="flex flex-col flex-wrap items-center justify-center gap-2 sm:flex-row sm:justify-between sm:gap-4">
             <Link
               href="/copyright-policy"
-              className={`text-xs sm:text-sm text-center sm:text-left order-2 sm:order-1 transition-colors ${
-                isActive("/copyright-policy")
-                  ? "text-primary font-semibold"
-                  : "text-gray-500 hover:text-red-600"
-              }`}
+              className="order-2 text-center text-xs text-gray-500 transition-colors hover:text-primary sm:order-1 sm:text-left sm:text-sm"
             >
-              © 2023 Specific Fire Protection Limited. All rights reserved.
+              © {year} Specific Fire Protection Limited. All rights reserved.
             </Link>
-            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs sm:text-sm order-1 sm:order-2">
+            <nav
+              aria-label="Legal"
+              className="order-1 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs sm:order-2 sm:text-sm"
+            >
               <Link
                 href="/privacy-policy"
-                className={`transition-colors ${
-                  isActive("/privacy-policy")
-                    ? "text-primary font-semibold"
-                    : "text-gray-500 hover:text-red-600"
-                }`}
+                className="text-gray-500 transition-colors hover:text-primary"
               >
                 Privacy Policy
               </Link>
               <Link
                 href="/terms-conditions"
-                className={`transition-colors ${
-                  isActive("/terms-conditions")
-                    ? "text-primary font-semibold"
-                    : "text-gray-500 hover:text-red-600"
-                }`}
+                className="text-gray-500 transition-colors hover:text-primary"
               >
                 Terms &amp; Conditions
               </Link>
               <Link
                 href="/returns-refunds"
-                className={`transition-colors ${
-                  isActive("/returns-refunds")
-                    ? "text-primary font-semibold"
-                    : "text-gray-500 hover:text-red-600"
-                }`}
+                className="text-gray-500 transition-colors hover:text-primary"
               >
                 Returns &amp; Refunds
               </Link>
               <Link
                 href="/connect-o1-warranty"
-                className={`transition-colors ${
-                  isActive("/connect-o1-warranty")
-                    ? "text-primary font-semibold"
-                    : "text-gray-500 hover:text-red-600"
-                }`}
+                className="text-gray-500 transition-colors hover:text-primary"
               >
                 Connect O1 Warranty
               </Link>
-              <a
-                href="https://rajraiyani.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-red-600 transition-colors text-center sm:text-right"
-              >
-                Design &amp; Develop by Raj Raiyani
-              </a>
-            </div>
+            </nav>
           </div>
         </div>
       </div>

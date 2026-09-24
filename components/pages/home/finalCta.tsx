@@ -3,28 +3,32 @@ import { ArrowRight, Phone, Mail } from "lucide-react";
 
 export default function FinalCta() {
   return (
-    <section className="bg-white pb-16 md:pb-24">
+    <section
+      aria-labelledby="cta-heading"
+      className="bg-white pb-14 sm:pb-16 md:pb-24"
+    >
       <div className="container mx-auto px-4">
-        <div className="rounded-2xl shadow-xl overflow-hidden">
+        <div className="overflow-hidden rounded-2xl shadow-xl">
           <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="bg-primary p-8 md:p-12 text-white">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+            <div className="bg-primary p-6 text-white sm:p-8 md:p-12">
+              <h2
+                id="cta-heading"
+                className="mb-4 text-2xl font-bold sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl"
+              >
                 Start a Project
               </h2>
-              <p className="text-md md:text-lg opacity-90 leading-relaxed">
+              <p className="text-sm leading-relaxed opacity-90 sm:text-base md:text-lg">
                 Every successful project begins with a clear understanding of
-                our clients' needs. If you'd like to learn more about our work
-                and the approach behind our fire safety solutions, we'd be happy
-                to discuss your project. With no obligation on your part, it's
-                the perfect opportunity to explore how we can help and decide
-                whether you'd like to take the next step with us.
+                our clients&apos; needs. If you&apos;d like to learn more about
+                our work and the approach behind our fire safety solutions,
+                we&apos;d be happy to discuss your project — with no obligation.
               </p>
             </div>
 
-            <div className="bg-gray-900 p-8 md:p-12 text-white relative">
-              <div className="absolute inset-0 opacity-5">
+            <div className="relative bg-gray-900 p-6 text-white sm:p-8 md:p-12">
+              <div className="absolute inset-0 opacity-5" aria-hidden>
                 <div
-                  className="w-full h-full"
+                  className="h-full w-full"
                   style={{
                     backgroundImage:
                       "radial-gradient(circle, #ef4444 1px, transparent 1px)",
@@ -34,49 +38,55 @@ export default function FinalCta() {
               </div>
 
               <div className="relative z-10 space-y-6">
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center">
+                <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
                   <a
                     href="tel:+919033050415"
-                    className="inline-flex items-center gap-2 text-base sm:text-lg md:text-xl hover:text-red-500 transition-colors text-center sm:text-left"
+                    className="inline-flex items-center gap-2 text-center text-base transition-colors hover:text-red-400 sm:text-left sm:text-lg md:text-xl"
                   >
                     <Phone
-                      className="w-4 h-4 sm:w-5 sm:h-5 shrink-0"
+                      className="h-4 w-4 shrink-0 sm:h-5 sm:w-5"
                       aria-hidden
                     />
-                    +91 9033050415
+                    <span>+91 9033050415</span>
                   </a>
-                  <span className="hidden sm:inline text-lg md:text-xl opacity-70">
+                  <span
+                    className="hidden text-lg opacity-70 sm:inline md:text-xl"
+                    aria-hidden
+                  >
                     |
                   </span>
                   <a
                     href="mailto:contact@specificfire.com"
-                    className="inline-flex items-center gap-2 text-base sm:text-lg md:text-xl hover:text-red-500 transition-colors text-center sm:text-left break-all"
+                    className="inline-flex items-center gap-2 break-all text-center text-base transition-colors hover:text-red-400 sm:text-left sm:text-lg md:text-xl"
                   >
                     <Mail
-                      className="w-4 h-4 sm:w-5 sm:h-5 shrink-0"
+                      className="h-4 w-4 shrink-0 sm:h-5 sm:w-5"
                       aria-hidden
                     />
-                    contact@specificfire.com
+                    <span>contact@specificfire.com</span>
                   </a>
                 </div>
 
-                <div className="flex gap-2 items-center justify-center py-2">
-                  <span className="bg-gradient-to-r from-gray-900 to-white w-full h-0.5"></span>
-                  <span className="text-sm opacity-70">(or)</span>
-                  <span className="bg-gradient-to-l from-gray-900 to-white w-full h-0.5"></span>
+                <div
+                  className="flex items-center justify-center gap-2 py-2"
+                  aria-hidden
+                >
+                  <span className="h-0.5 w-full bg-gradient-to-r from-gray-900 to-white" />
+                  <span className="shrink-0 text-sm opacity-70">(or)</span>
+                  <span className="h-0.5 w-full bg-gradient-to-l from-gray-900 to-white" />
                 </div>
 
                 <div className="flex items-center justify-center">
                   <Link
                     href="/contact"
-                    className="inline-flex items-center justify-between w-fit gap-4 bg-white text-gray-900 font-bold py-4 px-6 rounded-full hover:bg-gray-100 transition-all duration-200 border border-gray-200 group"
+                    className="group inline-flex w-fit items-center justify-between gap-4 rounded-full border border-gray-200 bg-white px-6 py-4 font-bold text-gray-900 transition-all duration-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
                   >
-                    <span className="uppercase tracking-wide">
+                    <span className="tracking-wide uppercase">
                       Arrange a Call
                     </span>
-                    <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center group-hover:bg-primary/90 transition-colors">
-                      <ArrowRight className="w-4 h-4 text-white" />
-                    </div>
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary transition-colors group-hover:bg-primary/90">
+                      <ArrowRight className="h-4 w-4 text-white" aria-hidden />
+                    </span>
                   </Link>
                 </div>
               </div>

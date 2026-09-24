@@ -215,30 +215,37 @@ export default function Header() {
     { href: "/jobs", label: "Careers" },
   ];
 
+  const mobileNavItems = [
+    ...navigationItems,
+    { href: "/contact", label: "Contact" },
+  ];
+
   return (
-    <header className="w-full border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
-      <div className="container relative mx-auto flex h-20 items-center justify-between px-4">
+    <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+      <div className="container relative mx-auto flex h-16 items-center justify-between px-4 sm:h-20">
         {/* Mobile: menu (left) */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild className="md:hidden">
             <button
               type="button"
-              className="relative z-10 p-2 rounded-md text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors"
-              aria-label="Toggle menu"
+              className="relative z-10 rounded-md p-2 text-gray-700 transition-colors hover:bg-primary/10 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+              aria-label="Open menu"
+              aria-expanded={isOpen}
+              aria-controls="mobile-nav"
             >
-              <Menu className="h-6 w-6" />
+              <Menu className="h-6 w-6" aria-hidden />
             </button>
           </SheetTrigger>
           <SheetContent
             side="left"
-            className="w-[320px] sm:w-[400px] p-0 flex flex-col"
+            id="mobile-nav"
+            className="flex w-[min(320px,85vw)] flex-col p-0 sm:w-[400px]"
           >
-            {/* Sheet Header with Logo */}
-            <div className="px-6 pt-8 pb-6 border-b border-gray-100">
+            <div className="border-b border-gray-100 px-6 pt-8 pb-6">
               <Link href="/" onClick={() => setIsOpen(false)}>
                 <Image
                   src="/logo-full-black.svg"
-                  alt="SFPL Logo"
+                  alt="Specific Fire Protection Limited"
                   width={170}
                   height={42}
                   priority
@@ -247,19 +254,19 @@ export default function Header() {
               </Link>
             </div>
 
-            {/* Navigation */}
-            <nav className="flex-1 px-6 py-6 flex flex-col gap-1">
-              {navigationItems.map((item) => (
+            <nav aria-label="Mobile" className="flex flex-1 flex-col gap-1 px-6 py-6">
+              {mobileNavItems.map((item) => (
                 <SheetClose asChild key={item.href}>
                   <Link
                     href={item.href}
-                    className={`px-4 py-3.5 rounded-lg text-base font-medium transition-all duration-200 flex items-center ${
+                    className={`flex items-center rounded-lg px-4 py-3.5 text-base font-medium transition-all duration-200 ${
                       isActive(item.href)
-                        ? "text-primary bg-primary/10 shadow-sm"
+                        ? "bg-primary/10 text-primary shadow-sm"
                         : "text-gray-700 hover:bg-gray-50 hover:text-primary active:bg-gray-100"
                     }`}
+                    aria-current={isActive(item.href) ? "page" : undefined}
                   >
-                    <span>{item.label}</span>
+                    {item.label}
                   </Link>
                 </SheetClose>
               ))}
@@ -288,11 +295,11 @@ export default function Header() {
         {/* Logo — centered on mobile, normal position on desktop */}
         <Link
           href="/"
-          className="absolute left-1/2 top-1/2 z-0 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 md:static md:left-auto md:top-auto md:z-auto md:translate-x-0 md:translate-y-0"
+          className="absolute top-1/2 left-1/2 z-0 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 md:static md:left-auto md:top-auto md:z-auto md:translate-x-0 md:translate-y-0"
         >
           <Image
             src="/logo-full-black.svg"
-            alt="SFPL Logo"
+            alt="Specific Fire Protection Limited"
             width={170}
             height={42}
             priority
@@ -300,16 +307,17 @@ export default function Header() {
           />
         </Link>
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-2 lg:gap-4 xl:gap-6">
+        <nav aria-label="Primary" className="hidden gap-1 md:flex lg:gap-2 xl:gap-4">
           {navigationItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`rounded-md px-2.5 py-2 text-sm font-medium transition-colors lg:px-3 ${
                 isActive(item.href)
-                  ? " text-primary font-semibold"
+                  ? "font-semibold text-primary"
                   : "text-gray-700 hover:bg-primary/10 hover:text-primary"
               }`}
+              aria-current={isActive(item.href) ? "page" : undefined}
             >
               {item.label}
             </Link>
@@ -379,9 +387,9 @@ export default function Header() {
             )}
           </div>
         </div>
-        {/* Mobile: profile / login (right) — min width matches menu button for balance */}
-        <div className="relative z-10 flex h-10 min-w-10 shrink-0 items-center justify-end gap-2 md:hidden">
-          {/* <StoreCartButton /> */}
+        {/* Mobile: cart + profile / login (right) */}
+        <div className="relative z-10 flex h-10 min-w-10 shrink-0 items-center justify-end gap-1.5 md:hidden">
+          <StoreCartButton />
           {token ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

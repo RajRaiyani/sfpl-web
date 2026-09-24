@@ -79,7 +79,12 @@ export default function ChatWidget() {
   return (
     <div className="pointer-events-none fixed bottom-5 right-5 z-[60] flex flex-col items-end gap-3">
       {open && (
-        <div className="pointer-events-auto flex h-[min(32rem,70vh)] w-[min(22rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-xl">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="SFPL Assistant"
+          className="pointer-events-auto flex h-[min(32rem,70vh)] w-[min(22rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-xl"
+        >
           <div className="flex items-center justify-between bg-primary px-4 py-3 text-primary-foreground">
             <div className="flex items-center gap-2.5">
               <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/15">
@@ -143,6 +148,7 @@ export default function ChatWidget() {
               rows={2}
               maxLength={750}
               placeholder="Ask about SFPL CONNECT…"
+              aria-label="Message to SFPL Assistant"
               className="max-h-24 min-h-[2.75rem] flex-1 resize-none rounded-xl border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/30"
             />
             <button
